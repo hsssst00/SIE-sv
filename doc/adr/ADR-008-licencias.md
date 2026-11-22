@@ -316,7 +316,7 @@ en el manifiesto es trabajo de la fase correspondiente. Queda abierto solo CEPAL
 ## Enmienda — condiciones de la fuente CBO (2026-10-17)
 
 **Contexto.** Fase 6 usa las proyecciones económicas de la Oficina de Presupuesto del Congreso de EE. UU. (CBO) para
-el empleo de EE. UU. en el escenario base (F6-05 y F6-05-a de `doc/metodologia/decisiones_fase6.md`). ADR-002 ya la
+el empleo de EE. UU. en el escenario base (F6-05 y F6-05-a de `doc/historico/metodologia/decisiones_fase6.md`). ADR-002 ya la
 nombraba como fuente («Fed / BEA / CBO»), pero este ADR no tenía su tramo.
 
 **Hallazgo (relevamiento del agente vía web, 2026-10-17, pendiente de verificación directa de Harold).** La página de
@@ -335,7 +335,7 @@ declaración de dominio público equivalente para la Junta. Si un uso futuro la 
 capturar nada.
 
 **Alcance.** Como la del 2026-10-14, esta enmienda fija la condición, no la implementación: ningún archivo se captura
-ni se compromete con ella. La captura es el ítem C2 de `doc/checklist_fase6.md`.
+ni se compromete con ella. La captura es el ítem C2 de `doc/historico/checklist_fase6.md`.
 
 **Nota (2026-10-19), canal de captura.** `www.cbo.gov` bloquea el acceso automatizado (desafío de DataDome), y por la
 regla 9 no se evade. La captura usa el repositorio público de la propia CBO en GitHub, `US-CBO/cbo-data`, cuyo
@@ -345,7 +345,7 @@ crudo se maneja por ahora como el resto de L0 (almacén privado y manifiesto), a
 comprometerlo.
 
 **Nota (2026-10-19), sin uso en Fase 6.** La ficha F6-15 eligió el PIB de EE. UU. del WEO para la satélite de
-remesas, así que el empleo de la CBO no se usa y F6-05-a queda sin efecto (`doc/metodologia/decisiones_fase6.md`).
+remesas, así que el empleo de la CBO no se usa y F6-05-a queda sin efecto (`doc/historico/metodologia/decisiones_fase6.md`).
 El tramo sigue vigente para el archivo ya capturado (`CBO.PROYECCIONES_ECONOMICAS.v2026-02`) y para cualquier uso
 futuro; no cambia nada de lo decidido.
 
@@ -371,7 +371,7 @@ ADR sigue «Parcial» solo por la condición sobre obras derivadas; si se cierra
 
 **Hecho.** La enmienda de FRED del 2026-08-12 dejó el aviso de no-aval para cuando un *script* de
 `src/adquisicion/` consumiera la API. `src/adquisicion/fred.R` la consume desde Fase 2, pero el aviso no se había
-puesto. Lo detectó la redacción de `doc/metodologia/supuestos_escenarios.md` (F1 de Fase 6).
+puesto. Lo detectó la redacción de `doc/historico/metodologia/supuestos_escenarios.md` (F1 de Fase 6).
 
 **Aplicado.** El `README.md` lleva, en «Licencia», el texto exacto que exigen los Términos de Uso de la API de FRED,
 consultados el 2026-10-23 en `https://fred.stlouisfed.org/docs/api/terms_of_use.html` (la página no declara fecha de

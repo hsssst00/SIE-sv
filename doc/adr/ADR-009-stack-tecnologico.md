@@ -219,7 +219,7 @@ cualquier restricción de acceso que se encuentre.
 ## Nota de seguimiento — pruebas formales de estacionariedad (2026-09-17)
 
 **Contexto.** La actividad "análisis exploratorio y de estacionariedad" de la senda §4 (Fase 3)
-llegó a la mitad "estacionariedad" (`doc/checklist_fase3.md`). Harold decidió, vía
+llegó a la mitad "estacionariedad" (`doc/historico/checklist_fase3.md`). Harold decidió, vía
 `AskUserQuestion`, la estrategia (ADF + KPSS confirmatorio), el criterio de selección de rezagos
 (BIC/SIC) y el alcance (nivel, log-nivel, diferencia y diferencia del log, para las 16 series de
 `data/L3_master/`). Ninguno de los trece paquetes originales de este ADR implementa pruebas de

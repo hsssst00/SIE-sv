@@ -1,6 +1,6 @@
 # captura_d3.R
 #
-# Captura fuera de ventana asistida (ADR-007 D3; ficha F7-13 de doc/metodologia/decisiones_fase7.md).
+# Captura fuera de ventana asistida (ADR-007 D3; ficha F7-13 de doc/historico/metodologia/decisiones_fase7.md).
 # Dos llamadas, sin preguntas interactivas: funcionan en la consola, con Ctrl+Enter, en un chunk o con
 # Rscript. Desde la raiz del repo:
 #

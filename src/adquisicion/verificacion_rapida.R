@@ -28,7 +28,7 @@ CALENDARIO_BCR_ANIO <- 2026L
 # esta aqui queda SIN_CALENDARIO y se sondea siempre. PIB_T NSA y NOMINAL, que el calendario no
 # nombra, se leen con la fila del PIB desestacionalizado: el BCR publica las tres juntas (mismo
 # mes de publicacion en todos sus vintages de 08_vintages.csv); decision de Harold, 2026-11-21
-# (F7-13 de doc/metodologia/decisiones_fase7.md). SPNF_VIGENTE usa la fila heredada "Serie 1994-2025": correccion de mapeo
+# (F7-13 de doc/historico/metodologia/decisiones_fase7.md). SPNF_VIGENTE usa la fila heredada "Serie 1994-2025": correccion de mapeo
 # de Harold, 2026-08-26 (doc/calendario_divulgacion_bcr.md).
 CALENDARIO_BCR_VARIABLE <- c(
   "BCR.BALANZA_COMERCIAL"            = "Balanza Comercial de Mercancías. Valores",

@@ -1,6 +1,6 @@
 # src/transformacion/fin_lectura_lib.R
 #
-# Fin de lectura por vintage (F6-19 de doc/metodologia/decisiones_fase6.md, decision de Harold del
+# Fin de lectura por vintage (F6-19 de doc/historico/metodologia/decisiones_fase6.md, decision de Harold del
 # 2026-10-20). Los extractores L0 -> L1 de libros .xlsx del BCR y de la ONEC ubican cada serie con
 # los campos estructurados de 03_series.csv (hoja, fila_dato, col_inicio, fila_anios,
 # fila_trimestres). La columna FINAL ya no sale de `col_fin` de 03, que es la del vintage en que se

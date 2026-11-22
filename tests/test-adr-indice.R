@@ -71,83 +71,78 @@ test_that("la celda Estado del índice coincide con la línea **Estado:** de cad
   }
 })
 
-# Guard hermano: ataca la reincidencia (tercera vez) del mismo modo de falla, pero
-# en CLAUDE.md y el README.md raíz — los dos archivos que un tercero (y los tres
-# agentes) leen primero, y que el test de arriba no cubre porque no son un ADR.
-# Ver auditoría independiente de Fase 2 (hallazgo C1, 2026-09-15): CLAUDE.md seguía
-# diciendo "Fase 1 … en curso" y el README omitía Fase 2, dos cierres después de
-# que doc/adr/README.md ya los certificaba.
-test_that("CLAUDE.md y README.md declaran cerrada la última fase que doc/adr/README.md certifica", {
-  ruta_indice <- here::here("doc", "adr", "README.md")
-  lineas_indice <- .leer_utf8(ruta_indice)
+# Guard hermano: ataca la reincidencia del modo de falla en CLAUDE.md y el README.md raíz -- los dos archivos que un
+# tercero lee primero, y que el test de arriba no cubre porque no son un ADR (auditoría independiente de Fase 2 de
+# SIE-el-salvador, hallazgo C1, 2026-09-15).
+#
+# SIE-sv (2026-11-22, ADR-011): se cuentan solo los cierres «## Cierre de Fase N de SIE-sv (AAAA-MM-DD)». Los cierres
+# heredados de SIE-el-salvador están en doc/historico/cierres_SIE-el-salvador.md y no entran. Mientras no haya ningún
+# cierre de SIE-sv, la Fase 0 de SIE-sv tiene que figurar como abierta en los dos archivos.
+.PATRON_CIERRE_SV <- "^## Cierre de Fase (\\d+) de SIE-sv"
 
-  encabezados_cierre <- grep("^## Cierre de Fase (\\d+)", lineas_indice, value = TRUE)
-  expect_gt(length(encabezados_cierre), 0L)
+.cierres_sv <- function() {
+  indice <- .leer_utf8(here::here("doc", "adr", "README.md"))
+  ini <- grep(.PATRON_CIERRE_SV, indice)
+  list(indice = indice, ini = ini,
+       fases = as.integer(sub(paste0(.PATRON_CIERRE_SV, ".*$"), "\\1", indice[ini])))
+}
 
-  numeros_fase <- as.integer(sub("^## Cierre de Fase (\\d+).*$", "\\1", encabezados_cierre))
-  fase_max <- max(numeros_fase)
+test_that("CLAUDE.md y README.md declaran el estado de la última fase de SIE-sv que certifica el índice", {
+  c <- .cierres_sv()
+  texto_claude <- paste(.leer_utf8(here::here("CLAUDE.md")), collapse = " ")
+  texto_readme <- paste(.leer_utf8(here::here("README.md")), collapse = " ")
 
-  ruta_claude  <- here::here("CLAUDE.md")
-  ruta_readme  <- here::here("README.md")
-  texto_claude <- paste(.leer_utf8(ruta_claude), collapse = " ")
-  texto_readme <- paste(.leer_utf8(ruta_readme), collapse = " ")
+  if (length(c$ini) == 0L) {
+    for (txt in list(claude = texto_claude, readme = texto_readme)) {
+      expect_true(grepl("Fase 0 de SIE-sv abierta", txt, fixed = TRUE),
+                  info = "sin cierres de SIE-sv, CLAUDE.md y README.md deben decir «Fase 0 de SIE-sv abierta»")
+    }
+    return(invisible())
+  }
 
-  # La fase más reciente cerrada en el índice de ADR debe aparecer como cerrada
-  # (no "en curso") en ambos archivos de primera lectura.
-  patron_cerrada <- sprintf("Fase %d[^.]*?cerrada", fase_max)
-  expect_true(
-    grepl(patron_cerrada, texto_claude, ignore.case = TRUE, perl = TRUE),
-    info = sprintf(
-      "CLAUDE.md no declara cerrada la Fase %d, pese a que doc/adr/README.md ya la certifica.",
-      fase_max
-    )
-  )
-  expect_true(
-    grepl(patron_cerrada, texto_readme, ignore.case = TRUE, perl = TRUE),
-    info = sprintf(
-      "README.md no declara cerrada la Fase %d, pese a que doc/adr/README.md ya la certifica.",
-      fase_max
-    )
-  )
-
-  # Ninguna fase ya cerrada en el índice puede seguir descrita como "en curso"
-  # en ninguno de los dos archivos (el modo exacto de la reincidencia C1).
-  for (n in numeros_fase) {
-    patron_en_curso <- sprintf("Fase %d[^.]*?en curso", n)
-    expect_false(
-      grepl(patron_en_curso, texto_claude, ignore.case = TRUE, perl = TRUE),
-      info = sprintf("CLAUDE.md describe la Fase %d como \"en curso\", pero ya está cerrada.", n)
-    )
-    expect_false(
-      grepl(patron_en_curso, texto_readme, ignore.case = TRUE, perl = TRUE),
-      info = sprintf("README.md describe la Fase %d como \"en curso\", pero ya está cerrada.", n)
-    )
+  fase_max <- max(c$fases)
+  patron_cerrada <- sprintf("Fase %d de SIE-sv[^.]*?cerrada", fase_max)
+  expect_true(grepl(patron_cerrada, texto_claude, ignore.case = TRUE, perl = TRUE),
+              info = sprintf("CLAUDE.md no declara cerrada la Fase %d de SIE-sv.", fase_max))
+  expect_true(grepl(patron_cerrada, texto_readme, ignore.case = TRUE, perl = TRUE),
+              info = sprintf("README.md no declara cerrada la Fase %d de SIE-sv.", fase_max))
+  for (n in c$fases) {
+    patron_en_curso <- sprintf("Fase %d de SIE-sv[^.]*?en curso", n)
+    expect_false(grepl(patron_en_curso, texto_claude, ignore.case = TRUE, perl = TRUE),
+                 info = sprintf("CLAUDE.md describe la Fase %d de SIE-sv como \"en curso\".", n))
+    expect_false(grepl(patron_en_curso, texto_readme, ignore.case = TRUE, perl = TRUE),
+                 info = sprintf("README.md describe la Fase %d de SIE-sv como \"en curso\".", n))
   }
 })
 
-# Guard hermano (hallazgo M1 de la auditoría independiente de Fase 4; tercera aparición de la
-# familia: M4 de Fase 0, M1 de la independiente de Fase 2). CITATION.cff debe declarar la versión
-# del tag y la fecha del último "## Cierre de Fase N" del índice de ADR. No usa `git tag`:
-# actions/checkout no trae tags.
-test_that("CITATION.cff declara la versión y la fecha del último cierre de fase certificado", {
-  indice <- .leer_utf8(here::here("doc", "adr", "README.md"))
-  ini <- grep("^## Cierre de Fase \\d+", indice)
-  expect_gt(length(ini), 0L)
-  fases <- as.integer(sub("^## Cierre de Fase (\\d+).*$", "\\1", indice[ini]))
-  k <- ini[which.max(fases)]
-  fecha_cierre <- sub("^## Cierre de Fase \\d+ \\((\\d{4}-\\d{2}-\\d{2})\\).*$", "\\1", indice[k])
-  expect_match(fecha_cierre, "^\\d{4}-\\d{2}-\\d{2}$")
-  sig <- grep("^## ", indice)
-  fin <- min(c(sig[sig > k], length(indice) + 1L)) - 1L
-  seccion <- paste(indice[k:fin], collapse = " ")
-  tag <- regmatches(seccion, regexpr(sprintf("v\\d+\\.\\d+\\.\\d+-fase%d", max(fases)), seccion, perl = TRUE))
-  expect_length(tag, 1L)
-  version_tag <- sub("^v(\\d+\\.\\d+\\.\\d+)-.*$", "\\1", tag)
+# Guard hermano (hallazgo M1 de la auditoría independiente de Fase 4 de SIE-el-salvador). CITATION.cff declara la
+# versión del tag y la fecha del último cierre de SIE-sv. Antes del primer cierre, la versión es 0.0.x. No usa
+# `git tag`: actions/checkout no trae tags. El tag acepta vX.Y.Z-faseN o vX.Y.Z-sv-faseN (el nombre se decide al
+# cerrar la Fase 0 de SIE-sv).
+test_that("CITATION.cff declara la versión y la fecha del último cierre de SIE-sv", {
+  c <- .cierres_sv()
   cff <- .leer_utf8(here::here("CITATION.cff"))
   version_cff <- trimws(sub("^version:\\s*", "", grep("^version:", cff, value = TRUE)))
   fecha_cff   <- trimws(sub("^date-released:\\s*", "", grep("^date-released:", cff, value = TRUE)))
+  expect_length(version_cff, 1L)
+
+  if (length(c$ini) == 0L) {
+    expect_match(version_cff, "^0\\.0\\.\\d+$",
+                 info = "sin cierres de SIE-sv, CITATION.cff lleva una versión 0.0.x")
+    return(invisible())
+  }
+
+  k <- c$ini[which.max(c$fases)]
+  fecha_cierre <- sub("^.*\\((\\d{4}-\\d{2}-\\d{2})\\).*$", "\\1", c$indice[k])
+  expect_match(fecha_cierre, "^\\d{4}-\\d{2}-\\d{2}$")
+  sig <- grep("^## ", c$indice)
+  fin <- min(c(sig[sig > k], length(c$indice) + 1L)) - 1L
+  seccion <- paste(c$indice[k:fin], collapse = " ")
+  tag <- regmatches(seccion, regexpr(sprintf("v\\d+\\.\\d+\\.\\d+-(sv-)?fase%d", max(c$fases)), seccion, perl = TRUE))
+  expect_length(tag, 1L)
+  version_tag <- sub("^v(\\d+\\.\\d+\\.\\d+)-.*$", "\\1", tag)
   expect_identical(version_cff, version_tag,
-    info = sprintf("CITATION.cff dice version %s; el último cierre (Fase %d) certifica %s", version_cff, max(fases), tag))
+    info = sprintf("CITATION.cff dice version %s; el último cierre de SIE-sv certifica %s", version_cff, tag))
   expect_identical(fecha_cff, fecha_cierre,
     info = sprintf("CITATION.cff dice date-released %s; el último cierre es del %s", fecha_cff, fecha_cierre))
 })

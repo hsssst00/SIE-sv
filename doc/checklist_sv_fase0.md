@@ -34,10 +34,21 @@ B1 (código de modelos, PR #2) y B2 (escenarios y fuentes externas, PR #3).
   `catalogos/README.md` y del conteo de `auditoria_mecanica.R`.
 
 ## C. Historia heredada
-- [ ] Llevar a `doc/historico/` lo de las fases 0–7 de `SIE-el-salvador` (decisiones, checklists, evidencias,
-  auditorías, senda). Las auditorías de las fases 0–3 cubren la capa de datos y conviene dejarlas citadas.
-- [ ] Adaptar `tests/test-adr-indice.R` para que cuente los cierres «de SIE-sv» y no los heredados.
-- [ ] Reescribir `README.md`, `CLAUDE.md`, `CITATION.cff` y `CONTRIBUTING.md` para SIE-sv.
+- [x] Pasan a `doc/historico/` 90 documentos de `SIE-el-salvador`, como renombres al 100 % y sin editar: senda,
+  checklists 3–7, evidencias, auditorías, y decisiones, protocolos, preregistros, cortes y reportes de las Fases 3–7.
+  Los cierres de las Fases 0–6 salen del índice de ADR a `doc/historico/cierres_SIE-el-salvador.md`. El README y el
+  CLAUDE.md viejos se guardan completos. Las referencias en código, catálogos, ADR y manual apuntan a las rutas
+  nuevas; las bitácoras y el backlog conservan las rutas de cada entrada, porque son registros fechados. Quedan en su
+  lugar: `doc/adr/`, `doc/auditorias/` (para las de SIE-sv), bitácoras, calendarios, `entorno_windows.md`,
+  `captura_bcr_livewire_hallazgo.md`, `manual_actualizacion.md` y `metodologia/empalme_cuentas_nacionales.md`.
+  Delegada al agente; se puede reabrir.
+- [x] `tests/test-adr-indice.R` cuenta solo «## Cierre de Fase N de SIE-sv». Sin cierres, exige «Fase 0 de SIE-sv
+  abierta» en README y CLAUDE.md y una versión 0.0.x en `CITATION.cff`. El tag de cierre acepta `vX.Y.Z-faseN` o
+  `vX.Y.Z-sv-faseN`.
+- [x] Se reescriben `README.md`, `CLAUDE.md` (reglas 1–9 intactas, más la excepción B2 en la regla 1 y la delegación
+  vigente en la regla 4), `CITATION.cff` (título y resumen nuevos, versión 0.0.0, repositorio SIE-sv) y
+  `CONTRIBUTING.md`.
+- [ ] Reescribir `doc/manual_actualizacion.md` para SIE-sv (hoy es el borrador heredado de la Fase 7).
 
 ## D. Verificación
 - [ ] `make master` en SIE-sv sobre la misma L0: los sha256 de los CSV de las familias de la v1 coinciden con los de

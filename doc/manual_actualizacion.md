@@ -1,8 +1,8 @@
 # Manual de actualización del SIE
 
-**Estado:** borrador para el ensayo con el 2026-T2 (`doc/checklist_fase7.md`, C1 y C2). **No está congelado:** el
+**Estado:** borrador para el ensayo con el 2026-T2 (`doc/historico/checklist_fase7.md`, C1 y C2). **No está congelado:** el
 manual que juzga el criterio de cierre de Fase 7 es el que lleve el tag `manual-v1` (F7-02 de
-`doc/metodologia/decisiones_fase7.md`). Las secciones que dependen de una ficha abierta lo dicen.
+`doc/historico/metodologia/decisiones_fase7.md`). Las secciones que dependen de una ficha abierta lo dicen.
 
 ## 0. Para quién es y qué cubre
 
@@ -13,7 +13,7 @@ solo **usa** las series tiene `doc/manual_usuario.md` (en preparación).
 trazabilidad certificada, y un PR contra `main` tiene el CI en verde (F7-03).
 
 **Qué no se actualiza.** Los ejercicios de Fase 5 y Fase 6 están congelados sobre cortes declarados
-(`doc/metodologia/corte_fase5.csv`, `doc/metodologia/corte_fase6.csv`) y con preregistro. **No corras `make fase5`,
+(`doc/historico/metodologia/corte_fase5.csv`, `doc/historico/metodologia/corte_fase6.csv`) y con preregistro. **No corras `make fase5`,
 `make fase6`, `make eval` ni `make proyeccion`** como parte de una actualización: tardan horas y reescriben resultados
 versionados.
 
@@ -197,7 +197,7 @@ El `robots.txt` de ut.com.sv prohíbe la captura automática, así que se baja a
    y consistencia de L0). Se fusiona solo con el CI en verde (`CONTRIBUTING.md`).
 3. Actualiza «Última ventana cumplida» en `doc/calendario_make_raw.md` y la línea «Próxima ventana» del `README.md`.
 4. Opcional, solo si existe el tag `prospectiva-v1`: el origen nuevo de la prospectiva AP-2
-   (`doc/metodologia/protocolo_prospectiva_ap2.md`). No forma parte de la actualización.
+   (`doc/historico/metodologia/protocolo_prospectiva_ap2.md`). No forma parte de la actualización.
 
 ## 10. Cuando algo falla
 

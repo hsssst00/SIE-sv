@@ -1,81 +1,61 @@
 # SIE-sv — Servicio de estadísticas macroeconómicas de El Salvador
 
-> **Este repositorio es SIE-sv**, creado el 2026-11-22 a partir de `hsssst00/SIE-el-salvador` (ADR-011). Captura,
-> cura y valida las estadísticas macroeconómicas de El Salvador y las sirve a un cliente: el paquete de R `siesv`, que
-> reconstruye las series en la máquina del usuario. No hace pronósticos. Fase 0 de SIE-sv abierta el 2026-11-22: senda en
-> `doc/senda_sie_sv.md`, decisiones en `doc/metodologia/decisiones_sv_fase0.md`, tablero en `doc/checklist_sv_fase0.md`.
-> Lo que sigue debajo es el README heredado de `SIE-el-salvador`. Se reescribe en la Fase 0 de SIE-sv.
+SIE-sv captura, cura y valida estadísticas macroeconómicas de El Salvador, y las sirve a un cliente: el paquete de R
+`siesv`. El cliente **reconstruye las series en la máquina del usuario** desde las fuentes originales, con la misma
+curación y validación que este repositorio. Por eso no se redistribuyen los archivos de las fuentes ni las series
+derivadas (ADR-008, ADR-011). SIE-sv no hace pronósticos.
 
-## README heredado
-
-Sistema de información estadística macroeconómica documentado, trazable, versionado, reproducible y con registro de versiones de publicación (*vintages*) para El Salvador. La comparación de modelos econométricos y de aprendizaje automático para pronóstico del PIB trimestral es la demostración de uso del sistema, no el objetivo central — ver `doc/senda_metodologica.md`.
+Se separó el 2026-11-22 de [`hsssst00/SIE-el-salvador`](https://github.com/hsssst00/SIE-el-salvador), que sigue como
+sistema de proyección del PIB trimestral y conserva sus modelos, su DOI y sus tags.
 
 ## Estado
 
-Los conteos de esta sección (series, archivos de L0, publicaciones) son los del **cierre de cada
-fase**, no el estado presente del catálogo — que crece en fases posteriores (ej. Fase 3 admite
-series predictoras nuevas). Para el conteo actual, correr `make audit`
-(`scripts/auditoria_mecanica.R`), que es la fuente que calcula estos números en cada corrida en
-vez de que se transcriban a mano aquí (hallazgo M5 de la revisión independiente 2026-09-17).
+**Fase 0 de SIE-sv abierta el 2026-11-22** (separación). Senda en [`doc/senda_sie_sv.md`](doc/senda_sie_sv.md),
+decisiones en [`doc/metodologia/decisiones_sv_fase0.md`](doc/metodologia/decisiones_sv_fase0.md) y tablero en
+[`doc/checklist_sv_fase0.md`](doc/checklist_sv_fase0.md). El paquete `siesv` todavía no existe: se construye en la
+Fase 1 (núcleo) y la Fase 2 (cliente).
 
-**Fase 0 — cerrada.** Nueve ADR registrados (ADR-001 a ADR-009); ocho cerrados, ADR-008 parcial (los cortes del BCR y de CEPAL vencieron sin pronunciamiento y la política de L0 es por fuente desde el 2026-10-14; queda abierta la condición de CEPAL sobre obras derivadas — el estado por fuente está en ADR-008; gestión vía ADR-008 con cortes fechados, no atada al cierre de fase). Cierre verificado y revalidado en CI — ver [`doc/adr/README.md`](doc/adr/README.md) para el detalle de cada decisión y el registro de cierre.
+## Qué contiene
 
-**Fase 1 — cerrada.** Inventario del ecosistema estadístico. El criterio de cierre (senda §4) se satisface sobre las variables *admitidas*: las 98 series de `catalogos/03_series.csv` (las cuatro publicaciones de PIB del BCR) con cobertura verificada y trazabilidad `fuente_celda` 98 PASS, y la variable objetivo con N=145 observaciones documentado (D3 / empalme). Se cierra bajo la interpretación de "ingresa al proyecto" = variable admitida, no inventario completo — ver la nota de §4 de la senda y el registro de cierre en [`doc/adr/README.md`](doc/adr/README.md). Quedan abiertas, sin bloquear el cierre, la cobertura de las publicaciones inventariadas sin serie admitida (compuerta *just-in-time* de Fase 3) y las condiciones de uso (vía ADR-008). Tag `v0.4.0-fase1`.
+| Capa | Qué es | Dónde |
+|---|---|---|
+| L0 | Archivos tal como los publicó la fuente, con sha256 y *vintage* (ADR-007) | `data/L0_raw/`. Solo se versiona `manifiesto.csv`; los archivos viven en un almacén privado. |
+| L1 | Series normalizadas en formato largo | `data/L1_staging/` (generada, no versionada) |
+| L2 | Validación que falla, no advierte | `src/validacion/` |
+| L3 | Series maestras | `data/L3_master/` (generada, no versionada) |
 
-**Fase 2 — cerrada.** Adquisición. El criterio de cierre (senda §4) se satisface por la vía "`make raw` verifica la integridad de L0" (una de las dos ramas del criterio, fijada en la nota de cierre de Fase 2 de la senda, v0.5): 54 archivos de L0 con integridad cruzada 54/54 offline (`scripts/check_l0_integrity.R`, en CI) y física (`scripts/verificar_l0_fisico.R`, local); 30 publicaciones, 25 de ellas UT de captura manual por `robots.txt` (regla 9 de este archivo). Ver el registro "Cierre de Fase 2" en [`doc/adr/README.md`](doc/adr/README.md). Tag `v0.5.0-fase2`.
+Los catálogos (`catalogos/`, esquema Frictionless en `datapackage.json`) describen instituciones, publicaciones,
+series, transformaciones, series maestras, *vintages* y rupturas.
 
-**Fase 3 — cerrada.** Normalización, validación y series maestras. El criterio de cierre (senda §4) se satisface: trazabilidad valor→celda certificada (`make trace`, 106 PASS / 0 FAIL sobre las 106 filas de `03_series.csv`, incluidos los 25 CSV anuales de UT desde el 2026-09-23) y la cadena L0→L1→L2→L3 ejecutable como código (`make master`). La matriz de predictores cierra con 8 familias: las 7 del BCR (`IVAE`, `REMESAS` nominal y real, `IPP`, `EXPORT_FOB`, `ITCER`, `IPM`) más la demanda total de electricidad de UT (`UT.DEMANDA_ELEC`), admitida el 2026-09-23 al enmendar el alcance E1/D3 — 18 series en `data/L3_master/` contando la variable objetivo. La base maestra es bitemporal por columna `vintage_id` en cada archivo de `data/L3_master/`, resuelta contra `catalogos/08_vintages.csv` (constante por archivo salvo en `PIB_SA_PROPIO_Q`, por el empalme, y en las dos series de UT, que se resuelven por año contra sus 25 vintages anuales). Ver el registro "Cierre de Fase 3" en [`doc/adr/README.md`](doc/adr/README.md) para el detalle completo, incluida la deuda declarada que Fase 4 hereda. Tag `v0.6.0-fase3`.
+**Fuentes.** Portal de estadísticas del BCR (incluido el IPC de la ONEC, que se sirve desde ahí) y demanda eléctrica de
+la Unidad de Transacciones (UT, captura manual).
 
-**Fase 4 — cerrada.** Protocolo de evaluación. El criterio de cierre (senda §4) se satisface con las dos lecturas que fija la nota de cierre de Fase 4 de la senda (v0.7). La primera es que el motor está probado: los once bloques V1-V11 de la verificación sintética en verde en CI, más `make eval` sobre el commit de cierre, con árbol limpio y código de salida 0 (`doc/evidencia_cierre_fase4.txt`). La segunda es que los seis modelos de referencia de §6.1 están implementados: declarados en `catalogos/06_modelos/` antes de la primera corrida y corridos en los grupos G1-G3 con la batería de robustez R1-R6. Son 13 experimentos, registrados en `catalogos/07_experimentos.csv` (78 filas), y la tabla de resultados es `doc/metodologia/reportes_fase4/tabla_resultados_fase4.csv`, reproducible byte a byte en dos máquinas. El protocolo está en `doc/metodologia/protocolo_evaluacion.md` y las decisiones F4-01 a F4-31 en `doc/metodologia/decisiones_fase4.md`. Ver el registro "Cierre de Fase 4" en [`doc/adr/README.md`](doc/adr/README.md), incluida la deuda que Fase 5 hereda. Tag `v0.7.0-fase4`.
+**Series maestras de la v1 (SV0-02).** PIB trimestral (oficial SA y SA propio), IVAE, remesas nominales y reales,
+exportaciones FOB, índice de precios de importación (IPM), índice de precios al productor (IPP), tipo de cambio real
+(ITCER) y demanda eléctrica de la UT, en versión mensual y trimestral.
 
-**Fase 5 — cerrada.** Estimación y comparación (Ejercicio A). El criterio de cierre (senda §4) se satisface con las lecturas que fija la nota de cierre de Fase 5 de la senda (v0.9). Los 32 modelos de Fase 5, las 12 combinaciones y los 6 benchmarks se declararon en `catalogos/06_modelos/` antes de la corrida única sobre L3 (preregistro `f8fe345`). Esa corrida registra 28 experimentos en `catalogos/07_experimentos.csv` y la tabla `doc/metodologia/reportes_fase5/tabla_resultados_fase5.csv`, y sus resultados se regeneran byte a byte en la máquina de Harold. En la corrida principal, el MCS al 10 % conserva todos los modelos en todos los grupos y horizontes, así que no hay ganador. La lectura con la robustez R1-R7 está en `doc/metodologia/reportes_fase5/lectura_resultados_fase5.md`. Ver el registro "Cierre de Fase 5" en [`doc/adr/README.md`](doc/adr/README.md). Tag `v0.8.0-fase5`; revisión independiente en `doc/auditorias/`.
+## Uso (hasta que exista `siesv`)
 
-**Fase 6 — cerrada.** Proyección condicional (Ejercicio B). El criterio de cierre (senda §4) se satisface con las lecturas que fija la nota de cierre de Fase 6 de la senda (v0.12). Cada supuesto exógeno (PIB real e IPC de EE. UU. y petróleo, en la base del WEO de octubre de 2026 y en los escenarios A y C de su recuadro 1.2, más la sensibilidad de ±1 desviación estándar) tiene en `doc/metodologia/supuestos_escenarios.md` su publicación, vintage y sha256 en L0. La corrida única sobre el preregistro `doc/metodologia/preregistro_fase6_2026-11-11.yaml` proyecta el PIB trimestral de 2026-T3 a 2031-T2 en los grupos G1 a G3, y sus 28 archivos de salida se reproducen bit a bit en una segunda PC. El informe `doc/metodologia/reportes_fase6/informe_proyeccion_fase6.md` declara condicionales todas sus cifras: en la base, la combinación crece en promedio 2,3 % (G1), 3,0 % (G2) y 3,1 % (G3) en 2026-2030, y los escenarios mueven ese promedio 0,17 pp o menos. Las decisiones F6-01 a F6-19 están en `doc/metodologia/decisiones_fase6.md` y el método en `doc/metodologia/protocolo_proyeccion.md`. Ver el registro "Cierre de Fase 6" en [`doc/adr/README.md`](doc/adr/README.md). Tag `v0.9.0-fase6`; revisión independiente en `doc/auditorias/`.
-
-**Fase 7 — abierta el 2026-11-20.** Documentación, publicación y sostenibilidad. Criterio de cierre (senda §4): un investigador externo actualiza el sistema con la publicación del trimestre siguiente siguiendo únicamente el manual. Decisiones en `doc/metodologia/decisiones_fase7.md` y tablero en `doc/checklist_fase7.md`.
-
-## Estructura
-
-```
-doc/adr/                               decisiones de arquitectura registradas (ADR-001 … ADR-010)
-doc/metodologia/                       notas metodológicas específicas (empalme, shock 2020, protocolo, supuestos)
-doc/auditorias/                        revisiones independientes del repositorio (sin autoridad decisoria)
-doc/bitacora_verificaciones.md         registro de corridas del verificador de fuente_celda
-doc/bitacora_fuentes_fragiles.md       fragilidad de cada fuente y procedimiento de recuperación
-doc/captura_bcr_livewire_hallazgo.md   hallazgo técnico de captura headless del portal del BCR (2026-08-24)
-catalogos/                             las 9 tablas de metadatos del sistema, esquema en datapackage.json
-data/L0_raw … L4/                      capas de datos unidireccionales — ver CLAUDE.md antes de tocar cualquiera
-src/                                   código del pipeline, organizado por capa
-src/adquisicion/README.md              diseño de los scripts de captura de L0
-tests/                                 pruebas del pipeline
-scripts/                               utilidades de configuración (bootstrap de entorno, etc.)
-```
-
-## Empezar
-
-`renv.lock` ya existe y está fijado (189 paquetes). El bloque `Imports:` de `DESCRIPTION` es la lista de imports declarados y la fuente de su conteo — no se transcribe acá, mismo criterio que los conteos de catálogo de la sección Estado; ver también la nota de conteo en `CLAUDE.md`. Primer paso en una máquina con R:
+En la consola de R, con el proyecto abierto:
 
 ```r
-renv::restore()
+renv::restore()                     # paquetes fijados en renv.lock
+system("make materializar-l0")      # L0 desde el almacén privado (requiere SIE_L0_STORE en .Renviron)
+system("make master")               # L0 -> L1 -> L2 -> L3
+testthat::test_dir("tests")         # pruebas
 ```
 
-Eso reproduce el entorno exacto en cualquier máquina limpia — confirmado en CI sobre `ubuntu-24.04`. `scripts/bootstrap_renv.R` documenta cómo se generó el lockfile (`renv::snapshot()` a partir de `DESCRIPTION`) por si hace falta regenerarlo tras cambiar el stack de ADR-009.
+`.Renviron.example` es la plantilla de configuración. Sin acceso al almacén privado de L0 no se puede reconstruir L3:
+justamente eso es lo que va a resolver el cliente `siesv`, que descarga de las fuentes.
 
-## Calendario de captura
+## Documentación
 
-`make raw` completo se corre a mano, en local, los días 1 a 3 de cada mes (una sola pasada por ventana, regla 9); en enero, abril, julio y octubre se suma la captura trimestral de UT. Próximas ventanas y última cumplida: [`doc/calendario_make_raw.md`](doc/calendario_make_raw.md). Procedimiento: [`doc/backlog_captura_vintages.md`](doc/backlog_captura_vintages.md).
+- [`doc/adr/`](doc/adr/): decisiones de arquitectura. [ADR-011](doc/adr/ADR-011-origen-y-alcance-sie-sv.md) dice cuáles de las heredadas siguen vigentes.
+- [`doc/manual_actualizacion.md`](doc/manual_actualizacion.md): actualización de L0 a L3. Es un borrador heredado de la Fase 7 de `SIE-el-salvador`.
+- [`doc/historico/`](doc/historico/): historia de `SIE-el-salvador`, con decisiones, auditorías, evidencias y la senda original.
+- `CLAUDE.md`: reglas no negociables del pipeline. `CONTRIBUTING.md`: flujo de trabajo.
 
-`make raw-rapido` es un precheck barato del portal del BCR (calendario + sondeo del último período); no reemplaza a `make raw`, porque no ve revisiones de valores viejos.
+## Licencias
 
-Próxima ventana: **1–3 de diciembre de 2026**.
-
-## Licencia
-
-Código bajo MIT (`LICENSE`). Documentación bajo CC-BY-4.0 (`LICENSE-docs`). Ver ADR-008 para la política de datos no redistribuibles.
-
-### Aviso de FRED
-
-This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.
-
-Términos de uso de la API de FRED: <https://fred.stlouisfed.org/docs/api/terms_of_use.html>. Quien reproduzca la
-captura de L0 necesita su propia clave de la API (ADR-008).
+Código bajo MIT (`LICENSE`). Documentación bajo CC-BY-4.0 (`LICENSE-docs`). Los archivos de las fuentes no se
+redistribuyen: se publican su script de captura y su checksum (ADR-008).

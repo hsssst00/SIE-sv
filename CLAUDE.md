@@ -1,67 +1,42 @@
 # Contexto del proyecto para Claude Code
 
-> **SIE-sv (2026-11-22).** Este repositorio es SIE-sv, el servicio de datos sin pronósticos, con el cliente `siesv`.
-> Se creó a partir de `SIE-el-salvador` (ADR-011). Fase 0 de SIE-sv abierta el 2026-11-22 (`doc/senda_sie_sv.md`,
-> `doc/metodologia/decisiones_sv_fase0.md`, `doc/checklist_sv_fase0.md`). Donde el texto de abajo diga que los
-> modelos son la demostración de uso, ya no rige: aquí no hay modelos. Las demás reglas siguen, en particular la
-> regla 4. El archivo se reescribe en la Fase 0 de SIE-sv.
-
 ## Qué es esto
 
-Sistema de Información Estadística (SIE) para variables macroeconómicas de El Salvador, con un ejercicio de comparación de modelos de proyección del PIB trimestral como demostración de uso.
-
-**El SIE es el producto principal. Los modelos de proyección son la prueba de uso, no el objetivo central.** No inviertas esfuerzo desproporcionado en la sofisticación de modelos a costa de la trazabilidad, validación o documentación del sistema de datos. Si en algún momento el trabajo empieza a inclinarse hacia "mejorar el modelo" a costa de "fortalecer el sistema", señálalo — no lo asumas y sigas.
+SIE-sv: servicio de estadísticas macroeconómicas de El Salvador. Captura las publicaciones de las fuentes (L0), las
+normaliza (L1), las valida (L2) y construye series maestras (L3), con *vintages*, manifiesto con sha256, catálogos y
+trazabilidad de cada valor hasta la celda de origen. El cliente es el paquete de R `siesv`, que **reconstruye las series
+en la máquina del usuario**: no se redistribuye ni L0 ni L3 (ADR-008, ADR-011). **Aquí no hay pronósticos.** Los
+modelos y las proyecciones quedaron en `hsssst00/SIE-el-salvador`, del que este repositorio se separó el 2026-11-22
+(ADR-011).
 
 ## Estado del proyecto
 
-Fase 0 cerrada (tag `v0.2.1-fase0-enmendado`); Fase 1 cerrada (tag `v0.4.0-fase1`); Fase 2 —adquisición— cerrada (tag `v0.5.0-fase2`); Fase 3 —normalización/validación— cerrada (tag `v0.6.0-fase3`); Fase 4 —protocolo de evaluación— cerrada el 2026-09-29 (tag `v0.7.0-fase4` sobre el commit de cierre). Fase 5 —estimación y comparación— cerrada el 2026-10-13 (tag `v0.8.0-fase5`; revisión independiente en `doc/auditorias/`). Fase 6 —proyección condicional— cerrada el 2026-11-19 (tag `v0.9.0-fase6`; revisión independiente en `doc/auditorias/`; decisiones en `doc/metodologia/decisiones_fase6.md`, tablero en `doc/checklist_fase6.md`). Fase 7 —documentación, publicación y sostenibilidad— abierta el 2026-11-20 (decisiones en `doc/metodologia/decisiones_fase7.md`, tablero en `doc/checklist_fase7.md`). Ver `doc/adr/README.md` para el estado exacto de cada decisión. A la fecha de este archivo: nueve de diez ADR cerrados; ADR-008 sigue parcial: el corte de CEPAL venció el 2026-10-16 sin pronunciamiento y queda abierta solo la condición sobre obras derivadas — el estado por fuente vive en ADR-008, no acá.
+Fase 0 de SIE-sv abierta el 2026-11-22 (separación): senda en `doc/senda_sie_sv.md`, decisiones en
+`doc/metodologia/decisiones_sv_fase0.md` y tablero en `doc/checklist_sv_fase0.md`. Las Fases 0 a 7 de
+`SIE-el-salvador` son historia heredada (`doc/historico/`, con sus cierres en
+`doc/historico/cierres_SIE-el-salvador.md`). Ver `doc/adr/README.md` para el estado de cada ADR y ADR-011 para cuáles de
+los heredados siguen vigentes.
 
-**Antes de escribir cualquier código de estimación o transformación, lee los ADR relevantes en `doc/adr/`.** Son la especificación. No hay decisión metodológica de las diez que debas tomar tú — ya están tomadas y documentadas.
+**Antes de escribir código de captura o transformación, lee los ADR vigentes en `doc/adr/`.** Son la especificación.
 
 ## Reglas no negociables
 
-1. **Nunca edites manualmente `data/L0_raw/`.** Es inmutable. Todo archivo ahí llega vía script de descarga, con entrada correspondiente en `data/L0_raw/manifiesto.csv` (checksum SHA-256, URL, fecha, código HTTP). Excepción explícita, no una violación de la regla: la captura prospectiva de vintages inició de forma manual, antes de que existiera automatización de Fase 2 — así lo previó ADR-007 ("hasta entonces, la captura es manual"). Mientras eso dure, el requisito no negociable es el mismo manifiesto con procedencia trazable, no que el archivo haya llegado por script.
+1. **Nunca edites manualmente `data/L0_raw/`.** Es inmutable. Todo archivo ahí llega vía script de descarga, con entrada correspondiente en `data/L0_raw/manifiesto.csv` (checksum SHA-256, URL, fecha, código HTTP). Excepción explícita, no una violación de la regla: la captura prospectiva de vintages inició de forma manual, antes de que existiera automatización de Fase 2 — así lo previó ADR-007 ("hasta entonces, la captura es manual"). Mientras eso dure, el requisito no negociable es el mismo manifiesto con procedencia trazable, no que el archivo haya llegado por script. Segunda excepción explícita (2026-11-22, ADR-011, bloque B2): por decisión de Harold se borraron del registro las 18 filas de FRED, FMI, BM y CBO; los archivos siguen en el almacén privado.
 2. **Nunca edites los catálogos en `catalogos/` a mano fuera de lo declarado en su esquema.** Cualquier cambio de esquema pasa primero por `catalogos/datapackage.json`.
-3. **Ninguna capa de datos (`L1`–`L4`) se edita directamente.** Cada una se genera por código a partir de la anterior. Si necesitas cambiar un valor derivado, cambias el código que lo genera, no el archivo.
+3. **Ninguna capa de datos (`L1`–`L3`) se edita directamente.** Cada una se genera por código a partir de la anterior. Si necesitas cambiar un valor derivado, cambias el código que lo genera, no el archivo.
 4. **Ante una decisión metodológica no cubierta por un ADR existente, detente y pregunta.** No la resuelvas por inferencia ni la dejes implícita en el código. Esto incluye: definiciones de variables nuevas, tratamiento de datos faltantes no contemplado, elección de hiperparámetros no especificada, cualquier cosa que debería ser su propio ADR.
 
-   **Delegación al agente en Fase 5 (2026-10-14, auditoría independiente de Fase 5, hallazgo I2).** Entre el
-   2026-10-08 y el 2026-10-13, Harold autorizó que el agente avanzara sin supervisión en Fase 5 y fijara detalles de
-   implementación, rotulados «delegada al agente» en `doc/metodologia/decisiones_fase5.md`. Esa autorización terminó
-   con el cierre de Fase 5. Desde el 2026-10-14 esta regla rige sin excepciones.
-
-   **Delegación al agente en Fase 6 (2026-10-17).** Harold autorizó en el chat que el agente empezara Fase 6 por su
-   cuenta y aplicara las decisiones recomendadas de las fichas F6-01 a F6-13. Cada decisión se registra en
-   `doc/metodologia/decisiones_fase6.md` como tomada en la opción recomendada por esa autorización, y los detalles
-   que una ficha no fijaba se rotulan «delegada al agente; se puede reabrir». La autorización no incluía fusionar PR
-   (véase la ampliación siguiente). Rige hasta que Harold la retire o hasta el cierre de Fase 6; un hecho que
-   contradiga lo que supone una ficha vuelve a preguntarse.
-   Terminó con el cierre de Fase 6 (2026-11-19, `doc/adr/README.md`, «Cierre de Fase 6»), junto con su ampliación;
-   desde entonces esta regla rige sin excepciones.
-
-   **Ampliación (2026-10-19): fusión de PR.** Harold autorizó en el chat que el agente abra sus PR y los fusione él
-   mismo a `main`. El agente fusiona solo con el CI en verde sobre la cabeza del PR y sin apilar. Por criterio propio
-   (no por condición de Harold), los PR de congelamiento (E1) y de corrida única (E3) se le consultan antes de
-   fusionarlos. Rige igual que la delegación del 2026-10-17.
-
-   **Delegaciones futuras (2026-11-19, auditoría independiente de Fase 6, hallazgo I2).** Si Harold vuelve a delegar,
-   la autorización se registra aquí antes de usarse y nombra por código las fichas que cubre. Nunca cubre: las
-   lecturas de un criterio de cierre, los cambios posteriores a un congelamiento de preregistro, los desvíos de un
-   ADR cerrado ni las fichas que Harold no haya visto redactadas. Esas decisiones se preguntan siempre.
-
-   **Delegación al agente en Fase 7 (2026-11-20, ficha F7-12 de `doc/metodologia/decisiones_fase7.md`).** Harold
-   delega al agente los detalles de implementación de F7-05, F7-06, F7-07, F7-08 y F7-09: redacción de los dos
-   manuales, del diccionario de datos y de la puerta de entrada técnica; configuración de Quarto, del *workflow* de
-   GitHub Pages y de las *vignettes*; y los campos de `CITATION.cff` y `DESCRIPTION`. Los detalles que fije el agente
-   se rotulan «delegada al agente; se puede reabrir». Incluye fusionar a `main` los PR que solo implementan esas
-   fichas, con el CI en verde sobre la cabeza del PR y sin apilar. No cubre: las lecturas del criterio de cierre
-   (F7-01 a F7-04), ninguna lectura o enmienda de ADR-008, la versión de Quarto que fija la nota de ADR-009 (se
-   pregunta), el congelamiento del manual (`manual-v1`), el cierre de la fase ni la prospectiva AP-2. Tampoco cubre
-   los actos que solo puede hacer Harold: conectar Zenodo, dar acceso a L0 y correr lo que exige L0 en su PC. Rige
-   hasta que Harold la retire o hasta el cierre de Fase 7.
+   **Delegaciones.** Si Harold delega, la autorización se registra aquí antes de usarse y nombra por código las fichas
+   que cubre. Nunca cubre las lecturas de un criterio de cierre, los cambios posteriores a un congelamiento, los
+   desvíos de un ADR cerrado ni las fichas que Harold no haya visto redactadas: esas decisiones se preguntan siempre.
+   Las delegaciones de las Fases 5 a 7 de `SIE-el-salvador` terminaron y están en
+   `doc/historico/CLAUDE_SIE-el-salvador.md`. **Delegación vigente en la Fase 0 de SIE-sv (2026-11-22):** Harold pidió
+   en el chat que el agente ejecute la separación (bloques B y C de `doc/checklist_sv_fase0.md`). Los detalles que fija
+   el agente se rotulan «delegada al agente; se puede reabrir». No cubre la fusión de PR, que hace Harold, ni el
+   cierre de la fase.
 5. **El stack es R, cerrado (ADR-009).** No introduzcas Python u otro lenguaje salvo que exista un ADR posterior que lo autorice explícitamente.
 6. **Todo script de descarga (`src/adquisicion/`) debe fallar de forma visible, no silenciosa**, ante cambios de estructura de la fuente — conforme al principio de inmutabilidad de L0.
-7. **La validación falla, no advierte** (§3.5 de la senda metodológica). Un catálogo que no cumple su esquema detiene el pipeline.
+7. **La validación falla, no advierte** (§3.5 de la senda metodológica heredada, `doc/historico/senda_metodologica.md`). Un catálogo que no cumple su esquema detiene el pipeline.
 8. **Toda corrida de `src/validacion/verificar_fuente_celda.R` se asienta en
    `doc/bitacora_verificaciones.md`**, en el mismo commit en que se usa su resultado. El
    verificador no corre en CI (los `.xlsx` están en `.gitignore`, ver ADR-008): esa bitácora es
@@ -79,9 +54,9 @@ Fase 0 cerrada (tag `v0.2.1-fase0-enmendado`); Fase 1 cerrada (tag `v0.4.0-fase1
 
 - **Ministerio de Hacienda (MH): sin repositorio sistemático.** A diferencia del BCR (URLs `/serie/` individuales por publicación, mismo patrón estructural), el Portal de Transparencia Fiscal (PTF) expone múltiples tablas estáticas como widgets independientes dentro de una misma página HTML (ej. `PTF2-Ingresos.html`), cada una con su propia fecha de "Actualizado" y sin API ni endpoint por serie. Confirmado empíricamente (2026-08-11): 4 tablas en esa página con fechas de actualización entre sep-2019 y jun-2026. Trata cada tabla de Hacienda como un artefacto aislado que requiere verificación individual — la vigencia de una tabla en esa página NO implica la vigencia de otra. Consecuencia de diseño ya aplicada: BCR es la fuente primaria sobre Hacienda para series con equivalente (ver notas cruzadas en `01_publicaciones` y en `00_instituciones.csv`, entrada MH).
 
-## Convenciones (senda metodológica §3.4)
+## Convenciones (senda metodológica heredada §3.4)
 
-- Identificadores legibles y estables: `{fuente}.{concepto}.{unidad}.{ajuste}.{frecuencia}` — ej. `BCR.PIB.VOL.SA.Q`. Sufijo adicional opcional tras `{frecuencia}` para distinguir un tramo de captura distinta de la misma serie conceptual — ej. `BCR.PIB.VOL.NSA.Q.RETRO` (tramo retropolado) — ver senda metodológica §3.4.
+- Identificadores legibles y estables: `{fuente}.{concepto}.{unidad}.{ajuste}.{frecuencia}` — ej. `BCR.PIB.VOL.SA.Q`. Sufijo adicional opcional tras `{frecuencia}` para distinguir un tramo de captura distinta de la misma serie conceptual — ej. `BCR.PIB.VOL.NSA.Q.RETRO` (tramo retropolado) — ver `doc/historico/senda_metodologica.md` §3.4.
 - Períodos en ISO 8601: `2024-Q3`, `2024-07`.
 - UTF-8, separador decimal punto, sin separador de miles, ausentes como celda vacía (nunca `0`, `-`, `n.d.`).
 - `snake_case` en nombres de campo, sin acentos ni espacios.
@@ -89,43 +64,35 @@ Fase 0 cerrada (tag `v0.2.1-fase0-enmendado`); Fase 1 cerrada (tag `v0.4.0-fase1
 
 ## Comandos
 
-Ver `Makefile`. Objetivos previstos: `make raw | clean | master | eval | report`. Muchos aún no tienen script detrás — no lo inventes de una vez; impleméntalo cuando la fase correspondiente lo requiera, conforme al orden de fases de la senda metodológica (§4).
+Ver `Makefile`. Objetivos: `setup`, `raw`, `raw-rapido`, `raw-calendario`, `raw-fisico`, `raw-plan`,
+`materializar-l0`, `sincronizar-l0`, `master`, `validate`, `trace`, `test`, `audit` y `clean`.
 
-`make raw-rapido` — precheck barato del portal del BCR (`scripts/verificar_l0_rapido.R`):
-nivel 1 por calendario, nivel 2 por sondeo del último período, sin renderizar tablas;
-`make raw-calendario` es solo el nivel 1 (sin red). No ve revisiones de valores viejos:
-no reemplaza a `make raw`. Una pasada por ventana (regla 9).
-
-`make audit` — factsheet de orientación pre-auditoría (`scripts/auditoria_mecanica.R`):
-conteos de catálogo, integridad referencial cuantitativa, L0/vintages, ADR,
-auditorías, claves canónicas YAML y snapshot de licencias. No es validación — no
-detiene nada. Correr antes de una auditoría o tras cambios sustanciales en
-catálogos.
-
-`make materializar-l0` — repuebla `data/L0_raw/` en una máquina nueva copiando los
-archivos que falten desde un almacén canónico local (`scripts/materializar_l0.R`;
-requiere `SIE_L0_STORE` apuntando a una copia de trabajo del repo **privado** de
-L0), y encadena `verificar_l0_fisico.R`. No descarga de ninguna fuente ni toca el
-manifiesto. Un repo privado no redistribuye: no toca ADR-008.
+- `make raw-rapido`: precheck barato del portal del BCR (nivel 1 por calendario, nivel 2 por sondeo del último
+  período). `make raw-calendario` es solo el nivel 1, sin red. No reemplaza a `make raw`. Una pasada por ventana
+  (regla 9).
+- `make materializar-l0`: repuebla `data/L0_raw/` desde el almacén privado de L0 (`SIE_L0_STORE`) y verifica la
+  integridad. `make sincronizar-l0` sincroniza en las dos direcciones después de capturar. El almacén se comparte con
+  `SIE-el-salvador`, así que los dos avisan (no fallan) de 18 archivos sin fila en el manifiesto de SIE-sv: es lo
+  esperado desde el bloque B2.
+- `make master`: L0 → L1 → L2 → L3. Con `CONJUNTO=<csv> SALIDA=<dir>` construye desde un conjunto declarado de
+  *vintages*, sin tocar las capas vigentes.
+- `make audit`: resumen de orientación (conteos, integridad referencial, L0 y *vintages*, ADR, auditorías y
+  licencias). No es validación y no detiene nada.
 
 ## Stack (ADR-009)
 
-R vía `renv`. `renv.lock` está fijado (189 paquetes) y verificado en CI sobre `ubuntu-24.04`; `renv::restore()` reproduce el entorno en una máquina limpia. `scripts/bootstrap_renv.R` documenta cómo se generó el lockfile a partir de `DESCRIPTION`, por si hace falta regenerarlo. Paquetes (27 imports declarados en `DESCRIPTION`): `pointblank`, `duckdb`, `seasonal`, `tempdisagg`, `fable`, `tsibble`, `vars`, `tsDyn`, `BVAR`, `midasr`, `glmnet`, `ranger`, `lightgbm`, `xml2`, `httr2`, `chromote`, `jsonlite`, `digest`, `polite`, `readxl`, `urca`, `here`, `testthat`, `dplyr`, `stringr`, `yaml`, `fabletools`. **`DESCRIPTION` es la fuente del conteo, no esta lista** — corregido 2026-09-18: este archivo decía 21 y el `README.md` 24, ambos desfasados respecto de las 25 entradas reales del bloque `Imports:`; si la lista de arriba y `DESCRIPTION` discrepan, gana `DESCRIPTION`.
-
-**Nota sobre el conteo (2026-08-30, remediación del hallazgo M1 de la auditoría de Fase 2).** Este archivo declaraba 155 paquetes y el lockfile ya tenía 161 antes de esta sesión: el número se había quedado atrás. `digest`, `polite` y `readxl` se usaban en código commiteado sin estar declarados, y los dos últimos tampoco estaban en `renv.lock`, de modo que `verificar_robots_ut.R` y `calendario_bcr_extraer.R` no arrancaban en una máquina limpia. Se agregaron los tres a `DESCRIPTION` y a `scripts/bootstrap_renv.R`, y se cerró su árbol de dependencias en el lockfile con `renv::record()` — 161 → 187, sin perder ninguna entrada. Se usó `record()` y no `snapshot()` a propósito: la biblioteca local estaba parcialmente desincronizada y un snapshot podía *borrar* entradas de paquetes no instalados.
-
-**`urca` (2026-09-17, ADR-009 nota de seguimiento "pruebas formales de estacionariedad").** Import #21 — ya estaba en `renv.lock` como transitiva de `vars`/`tsDyn`, así que el conteo de 187 no cambió, solo el de imports declarados (20 → 21). Registrado con `renv::record()`, mismo motivo que arriba.
+R vía `renv`. `renv.lock` está fijado y verificado en CI sobre `ubuntu-24.04`. `DESCRIPTION` es la fuente de los
+paquetes declarados; no se transcriben aquí. Los paquetes de modelos salieron en la Fase 0 de SIE-sv (notas en ADR-009).
+`scripts/bootstrap_renv.R` documenta cómo se genera el lockfile.
 
 ## Orden de fases (no te lo saltes)
 
-Fase 0 → 1 (inventario) → 2 (adquisición) → 3 (normalización/validación) → 4 (protocolo de evaluación, probado con datos sintéticos **antes** de estimar nada) → 5 (estimación) → 6 (proyección condicional) → 7 (publicación). El criterio de cierre de cada fase está en la senda metodológica §4. No implementes estimación de modelos (Fase 5) antes de que el motor de evaluación de Fase 4 esté probado — es la regla más importante del documento.
+Fase 0 de SIE-sv (separación) → 1 (núcleo `siesv`) → 2 (cliente) → 3 (referencia publicada) → 4 (prueba externa y
+v1.0.0). El criterio de cierre de cada una está en `doc/senda_sie_sv.md`.
 
 ## Guards de CI activos
 
-`tests/test-adr-indice.R` — celda Estado del índice de ADR debe ser copia literal
-de la línea `**Estado:**` del ADR correspondiente. Falla ante cualquier enmienda
-que no se propague al índice.
-
-`tests/test-integridad-referencial.R` — 7 aristas FK entre catálogos. Adelanto
-de la validación pointblank de Fase 3 (decisión de Harold, 2026-09-03); cuando
-Fase 3 implemente esa validación, este test puede subsumirse sin deuda.
+- `tests/test-adr-indice.R`: la celda Estado del índice de ADR es copia literal de la línea `**Estado:**` de cada ADR.
+  CLAUDE.md y README.md declaran el estado de la última fase de SIE-sv que certifica el índice, y `CITATION.cff` lleva
+  la versión y la fecha de ese cierre (0.0.x antes del primero).
+- `tests/test-integridad-referencial.R`: aristas de clave foránea entre catálogos.
