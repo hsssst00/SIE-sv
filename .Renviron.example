@@ -21,10 +21,10 @@
 # 1. Para L0: make materializar-l0 (maquina nueva) y make sincronizar-l0 (despues de capturar)
 # ---------------------------------------------------------------------------------------
 # SIE-sv ya no lee FRED_API_KEY: FRED salio con el bloque B2 (ADR-011).
-# Ruta a tu copia de trabajo del almacen privado de L0: la carpeta que contiene los
+# Ruta a tu copia de trabajo del almacen privado de L0 de SIE-sv (hsssst00/SIE-sv-L0, ADR-012): la carpeta que contiene los
 # .xlsx, .json y .csv con los nombres del manifiesto. Sin acceso al almacen, dejala
 # comentada (manual de actualizacion, seccion 3).
-# SIE_L0_STORE=C:/ruta/a/SIE-el-salvador-L0
+# SIE_L0_STORE=C:/ruta/a/SIE-sv-L0
 
 # ---------------------------------------------------------------------------------------
 # 2. NUNCA aqui

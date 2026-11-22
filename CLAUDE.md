@@ -5,7 +5,8 @@
 SIE-sv: servicio de estadísticas macroeconómicas de El Salvador. Captura las publicaciones de las fuentes (L0), las
 normaliza (L1), las valida (L2) y construye series maestras (L3), con *vintages*, manifiesto con sha256, catálogos y
 trazabilidad de cada valor hasta la celda de origen. El cliente es el paquete de R `siesv`, que **reconstruye las series
-en la máquina del usuario**: no se redistribuye ni L0 ni L3 (ADR-008, ADR-011). **Aquí no hay pronósticos.** Los
+en la máquina del usuario**: no se redistribuye ni L0 ni L3 (ADR-008, ADR-011). Solo se sirve lo que no se
+consigue por una API (ADR-012). **Aquí no hay pronósticos.** Los
 modelos y las proyecciones quedaron en `hsssst00/SIE-el-salvador`, del que este repositorio se separó el 2026-11-22
 (ADR-011).
 
@@ -70,10 +71,10 @@ Ver `Makefile`. Objetivos: `setup`, `raw`, `raw-rapido`, `raw-calendario`, `raw-
 - `make raw-rapido`: precheck barato del portal del BCR (nivel 1 por calendario, nivel 2 por sondeo del último
   período). `make raw-calendario` es solo el nivel 1, sin red. No reemplaza a `make raw`. Una pasada por ventana
   (regla 9).
-- `make materializar-l0`: repuebla `data/L0_raw/` desde el almacén privado de L0 (`SIE_L0_STORE`) y verifica la
-  integridad. `make sincronizar-l0` sincroniza en las dos direcciones después de capturar. El almacén se comparte con
-  `SIE-el-salvador`, así que los dos avisan (no fallan) de 18 archivos sin fila en el manifiesto de SIE-sv: es lo
-  esperado desde el bloque B2.
+- `make materializar-l0`: repuebla `data/L0_raw/` desde el almacén privado de SIE-sv (`hsssst00/SIE-sv-L0`,
+  `SIE_L0_STORE`; ADR-012) y verifica la integridad. `make sincronizar-l0` sincroniza en las dos direcciones después
+  de capturar. Mientras `SIE-el-salvador` no cierre su Fase 7, la captura se hace allá y se importa con
+  `scripts/importar_registro_l0.R` (manual, sección 7.3).
 - `make master`: L0 → L1 → L2 → L3. Con `CONJUNTO=<csv> SALIDA=<dir>` construye desde un conjunto declarado de
   *vintages*, sin tocar las capas vigentes.
 - `make audit`: resumen de orientación (conteos, integridad referencial, L0 y *vintages*, ADR, auditorías y

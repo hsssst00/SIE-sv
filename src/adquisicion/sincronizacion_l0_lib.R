@@ -1,6 +1,6 @@
 # sincronizacion_l0_lib.R
 #
-# Sincronizacion entre data/L0_raw/ y el almacen privado de L0 (repo SIE-el-salvador-L0), en las dos
+# Sincronizacion entre data/L0_raw/ y el almacen privado de L0 (repo SIE-sv-L0, ADR-012), en las dos
 # direcciones. Ficha F7-14 de doc/historico/metodologia/decisiones_fase7.md. La usa scripts/sincronizar_l0.R
 # (`make sincronizar-l0`); separada para que tests/test-sincronizacion-l0.R la ejerza.
 #
