@@ -48,7 +48,10 @@ B1 (código de modelos, PR #2) y B2 (escenarios y fuentes externas, PR #3).
 - [x] Se reescriben `README.md`, `CLAUDE.md` (reglas 1–9 intactas, más la excepción B2 en la regla 1 y la delegación
   vigente en la regla 4), `CITATION.cff` (título y resumen nuevos, versión 0.0.0, repositorio SIE-sv) y
   `CONTRIBUTING.md`.
-- [ ] Reescribir `doc/manual_actualizacion.md` para SIE-sv (hoy es el borrador heredado de la Fase 7).
+- [x] Se reescribe `doc/manual_actualizacion.md` para SIE-sv. Incorpora los defectos del ensayo 2026-T2 (consola o
+  terminal en cada comando, `SIE_L0_STORE`, captura D3 en dos llamadas, mensajes de `renv`) y la regla de transición:
+  mientras `SIE-el-salvador` no cierre su Fase 7, se captura allá y SIE-sv importa las filas que le sirven con
+  `scripts/importar_registro_l0.R` (decisión de Harold, 2026-11-22). Anexo E: qué publicaciones sirven a SIE-sv.
 
 ## D. Verificación
 - [ ] `make master` en SIE-sv sobre la misma L0: los sha256 de los CSV de las familias de la v1 coinciden con los de
