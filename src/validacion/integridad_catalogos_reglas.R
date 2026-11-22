@@ -5,7 +5,7 @@
 # validar_integridad_catalogos() definida acá.
 #
 # Origen: subsume la parte de tests/test-integridad-referencial.R que SÍ es tabular (columna de
-# un catálogo que debe resolver contra otro) -- diagnosticado 2026-09-17 en doc/checklist_fase3.md,
+# un catálogo que debe resolver contra otro) -- diagnosticado 2026-09-17 en doc/historico/checklist_fase3.md,
 # decisión #4. Migrado a pointblank porque cada arista de valor único es el caso de uso nativo de
 # `col_vals_in_set()` (a diferencia de L2, que necesitó `specially()` para huecos/identidad -- acá
 # solo las columnas MULTI-valor, series_insumo_ids y series_afectadas, lo necesitan, por la misma

@@ -81,7 +81,7 @@ guardar el orden elegido convierte la especificación en un dato registrado.
 proyecto queda por verificar con `seasonal::checkX13()` antes de la primera corrida del motor
 sobre L3; el resultado se asienta en `doc/bitacora_verificaciones.md`. La vía no corre en CI:
 las corridas con ajuste por origen se certifican con evidencia textual
-(`doc/evidencia_cierre_fase4.txt`), no con un run de CI.
+(`doc/historico/evidencia_cierre_fase4.txt`), no con un run de CI.
 
 **Relación con el hallazgo M2 de la revisión independiente de Fase 3** (la especificación de
 X-13 está registrada en prosa y no fijada en el código). Esta nota lo resuelve para la

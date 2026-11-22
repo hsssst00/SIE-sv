@@ -10,7 +10,7 @@
 # Salida: data/L1_staging/BCR_IVAE_series_largo.csv, formato largo (serie_id, periodo, valor,
 # provisional). periodo en formato "YYYY-Mnn", mismo formato ya usado por
 # UT.DEMANDA_TOTAL_MENSUAL (src/transformacion/ut_demanda_serie.R) -- no "YYYY-nn": ver nota de
-# consistencia en doc/checklist_fase3.md sobre la convencion de periodos mensuales realmente en
+# consistencia en doc/historico/checklist_fase3.md sobre la convencion de periodos mensuales realmente en
 # uso en el proyecto.
 
 library(readxl)

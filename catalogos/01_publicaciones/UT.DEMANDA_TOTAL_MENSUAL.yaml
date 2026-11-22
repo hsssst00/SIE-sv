@@ -11,7 +11,7 @@ notas: |
   Mayorista de Electricidad de El Salvador. Candidata al predictor mensual
   "energía" que la senda §6.4 nombra explícitamente y que, hasta este
   hallazgo, se había dado por no disponible (ver
-  doc/relevamiento_predictores_energia_turismo.md).
+  doc/historico/relevamiento_predictores_energia_turismo.md).
 
   Mecanismo de captura: el formulario ("Formulario Reportes Estadisticos",
   selector de Año + selector de salida embebido/html/pdf/xls/csv + botón

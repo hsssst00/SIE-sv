@@ -325,7 +325,7 @@ la primera.
 ## Nota de seguimiento — `verificar_l0.R` en vivo es un monitor de deriva; los `CAMBIO` son la cola de captura prospectiva (2026-09-09)
 
 **Disparador.** Hallazgo A1 de la auditoría de Fase 2 y la lectura del criterio de cierre de esa
-fase fijada en `doc/senda_metodologica.md` §4 (nota del 2026-09-09). Esta nota registra, del
+fase fijada en `doc/historico/senda_metodologica.md` §4 (nota del 2026-09-09). Esta nota registra, del
 lado de este ADR, qué es `scripts/verificar_l0.R` y qué relación tiene con el compromiso de
 captura prospectiva de la sección Decisión.
 
@@ -550,7 +550,7 @@ siendo Cerrado. Procedimiento operativo: `doc/backlog_captura_vintages.md`.
 
 ## Nota de seguimiento — captura D3 asistida (2026-11-21)
 
-**Decisión de Harold (2026-11-21, ficha F7-13 de `doc/metodologia/decisiones_fase7.md`).** El procedimiento de D3 era
+**Decisión de Harold (2026-11-21, ficha F7-13 de `doc/historico/metodologia/decisiones_fase7.md`).** El procedimiento de D3 era
 confuso para un operador nuevo (hallazgo del ensayo de Fase 7). Se automatiza la **decisión**, no la captura:
 `captura_d3()` (`src/adquisicion/captura_d3.R`, lógica en `captura_d3_lib.R`) corre una sola pasada de `raw-rapido`,
 comprueba para cada `NUEVO_PERIODO` las condiciones 2 y 3 de D3 y muestra la función y la `fecha_publicacion` con que

@@ -23,7 +23,7 @@ FMI WEO exclusivo se consideró más simple de documentar y defender, pero se de
 
 ## Consecuencias
 
-- El documento de supuestos exógenos (Fase 6, entregable `doc/metodologia/supuestos_escenarios.md`) debe incluir una nota explícita reconociendo que no se garantiza consistencia interna perfecta entre las dos fuentes combinadas.
+- El documento de supuestos exógenos (Fase 6, entregable `doc/historico/metodologia/supuestos_escenarios.md`) debe incluir una nota explícita reconociendo que no se garantiza consistencia interna perfecta entre las dos fuentes combinadas.
 - **Enmienda registrada (2026-08-06):** ADR-003 confirmó N=145 y se fijó el corte de ventana en sesión de trabajo. Con esto, D2 queda completamente cerrado.
 
 ## Nota de aclaración — convención de indexación del origen (2026-09-24)
@@ -61,7 +61,7 @@ reestimaciones (52) y los cuatro conteos por horizonte se mantienen.
 
 **Por qué A y no B.** A conserva las dos cifras que el proyecto ya publicó como diseño —la
 lista de orígenes y los cuatro conteos, transcritos también en
-`doc/metodologia/protocolo_evaluacion.md`— y usa toda la muestra disponible. Es una aclaración
+`doc/historico/metodologia/protocolo_evaluacion.md`— y usa toda la muestra disponible. Es una aclaración
 de indexación, no un cambio de diseño: el balance entre estabilidad de la estimación inicial y
 potencia de las pruebas, que motivó el corte, es el mismo con 93 que con 92 observaciones.
 
@@ -76,7 +76,7 @@ proyecciones de la Reserva Federal, la BEA o la CBO para las variables de activi
 supuesto de remesas. En Fase 6, las proyecciones del PIB y del IPC de Estados Unidos vinieron del WEO de octubre de
 2026 (F6-05); de la BEA y el BLS solo salió la historia. La CBO se capturó (`CBO.PROYECCIONES_ECONOMICAS.v2026-02`) y
 quedó sin uso cuando F6-15 tomó el PIB de Estados Unidos, y no el empleo, como predictora de las remesas. Lo declara
-`doc/metodologia/supuestos_escenarios.md` (sección 6, punto 6, y sección 7). Este ADR no lo registraba (auditoría
+`doc/historico/metodologia/supuestos_escenarios.md` (sección 6, punto 6, y sección 7). Este ADR no lo registraba (auditoría
 independiente de Fase 6, hallazgo I3).
 
 **Decisión de Harold (2026-11-19).** Para el Ejercicio B, el WEO es también la fuente de las proyecciones de Estados

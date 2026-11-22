@@ -6,7 +6,7 @@
 # pointblank de Fase 3. Se adelantó aquí como test_that (decisión de Harold,
 # 2026-09-03: adelantar el alcance no cambia nada).
 #
-# ALCANCE REDUCIDO (2026-09-17, decisión #4 de doc/checklist_fase3.md): este
+# ALCANCE REDUCIDO (2026-09-17, decisión #4 de doc/historico/checklist_fase3.md): este
 # archivo cubría originalmente 7 aristas FK. Las 6 que son tabulares (columna de
 # un catálogo CSV que debe resolver contra otro) se migraron a
 # src/validacion/validar_integridad_catalogos.R (pointblank, corre en

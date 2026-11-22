@@ -9,7 +9,7 @@
 Fase 3 requiere construir la matriz de predictores en la frecuencia común del
 ejercicio (trimestral) a partir de series con distinta frecuencia nativa
 (mensual, anual), distinta unidad (nominal/real) y distinto comportamiento
-frente al shock de 2020. `doc/checklist_fase3.md` marcaba esto como decisión
+frente al shock de 2020. `doc/historico/checklist_fase3.md` marcaba esto como decisión
 metodológica pendiente ("qué paquete — `seasonal` vs. `tempdisagg` para
 desagregación temporal—, qué serie de referencia, qué tratamiento de
 outliers"), no cubierta por ningún ADR existente ni por
@@ -143,7 +143,7 @@ una pregunta que la enmienda anterior no resuelve: si las predictoras NSA entran
 estacional propio, ¿deberían las *pruebas de estacionariedad* de `src/analisis/estacionariedad.R`
 modelar ese componente al evaluarlas? Hasta esta nota, no lo hacían — ADF y KPSS corrían con la
 misma especificación determinística (constante/tendencia, sin dummies) sobre las 16 series,
-12 de ellas NSA. El reporte exploratorio (`doc/metodologia/reporte_exploratorio_fase3.md`, §3) ya
+12 de ellas NSA. El reporte exploratorio (`doc/historico/metodologia/reporte_exploratorio_fase3.md`, §3) ya
 declaraba esto como salvedad, ligado al patrón de autocorrelación residual (Ljung-Box) que
 aparece sobre todo en series mensuales.
 
@@ -210,7 +210,7 @@ usar para decidir la especificación de Fase 5.
 - No se corrió Canova-Hansen (H0 complementaria: estacionalidad determinística estable vs.
   evolutiva). Con HEGY rechazando de forma tan poco marginal, aporta poco a esta decisión.
 
-Registrado también como nota fechada en `doc/senda_metodologica.md`, Fase 3 (mismo criterio que
+Registrado también como nota fechada en `doc/historico/senda_metodologica.md`, Fase 3 (mismo criterio que
 las lecturas de "ingresa al proyecto" y "verifica su integridad" en Fases 1 y 2).
 
 ## Nota de seguimiento — unidad de modelación de las predictoras (2026-09-24)

@@ -1,7 +1,7 @@
 # captura_d3_lib.R
 #
 # Logica pura de la captura fuera de ventana asistida (ADR-007 D3; ficha F7-13 de
-# doc/metodologia/decisiones_fase7.md). Separada de src/adquisicion/captura_d3.R para que
+# doc/historico/metodologia/decisiones_fase7.md). Separada de src/adquisicion/captura_d3.R para que
 # tests/test-captura-d3.R la ejerza sin red ni navegador, igual que verificacion_rapida.R.
 #
 # Automatiza la DECISION de D3, no la captura: dice que publicaciones cumplen las tres
