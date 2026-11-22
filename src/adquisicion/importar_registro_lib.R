@@ -12,6 +12,11 @@
 #   - un archivo no tiene el mismo número de filas que de líneas (campo con salto de línea: no se puede copiar
 #     línea por línea sin cambiar el formato).
 # Copia las líneas tal como están en el origen, sin reescribir comillas ni formatos. Pura salvo leer/escribir archivos.
+#
+# Desde ADR-012 (2026-11-22) SIE-sv tiene su propio almacén de L0 (hsssst00/SIE-sv-L0). Por eso, si se da
+# `almacen_origen` (la copia de trabajo de hsssst00/SIE-el-salvador-L0), también copia a data/L0_raw/ los archivos
+# de las filas importadas, verificando cada sha256 contra el manifiesto. Después, `make sincronizar-l0` los sube al
+# almacén de SIE-sv.
 
 .leer_registro <- function(ruta) {
   lineas <- readLines(ruta, encoding = "UTF-8", warn = FALSE)
@@ -72,8 +77,34 @@ publicaciones_catalogo <- function(dir_catalogo) {
   writeLines(enc2utf8(c(actual, lineas)), con, sep = "\n", useBytes = TRUE)
 }
 
-#' Importa. `origen` y `destino` son raíces de repositorio. Con `escribir = FALSE` solo informa.
-importar_registro_l0 <- function(origen, destino = ".", escribir = TRUE) {
+#' Copia a `dir_l0` los archivos de `filas` (data.frame del manifiesto) desde `almacen`, verificando su sha256.
+#' Si el archivo ya está en `dir_l0` con el mismo sha256, no hace nada; con otro sha256, se detiene.
+copiar_archivos_l0 <- function(filas, almacen, dir_l0) {
+  sha <- function(p) digest::digest(file = p, algo = "sha256")
+  for (i in seq_len(nrow(filas))) {
+    a <- filas$archivo[i]; esperado <- filas$sha256[i]
+    destino <- file.path(dir_l0, a)
+    if (file.exists(destino)) {
+      if (!identical(sha(destino), esperado)) {
+        stop("FALLO VISIBLE [importar-registro]: ", a, " ya esta en data/L0_raw con otro sha256.", call. = FALSE)
+      }
+      next
+    }
+    origen <- file.path(almacen, a)
+    if (!file.exists(origen)) {
+      stop("FALLO VISIBLE [importar-registro]: el almacen de origen no tiene ", a, ". Haz git pull alli.", call. = FALSE)
+    }
+    if (!identical(sha(origen), esperado)) {
+      stop("FALLO VISIBLE [importar-registro]: ", a, " del almacen de origen no coincide con su sha256.", call. = FALSE)
+    }
+    if (!file.copy(origen, destino)) stop("FALLO VISIBLE [importar-registro]: no se pudo copiar ", a, call. = FALSE)
+  }
+  invisible(nrow(filas))
+}
+
+#' Importa. `origen` y `destino` son raíces de repositorio; `almacen_origen`, la copia de trabajo del almacén de
+#' SIE-el-salvador (opcional: sin él solo se importan las filas). Con `escribir = FALSE` solo informa.
+importar_registro_l0 <- function(origen, destino = ".", escribir = TRUE, almacen_origen = NULL) {
   rutas <- function(r) list(man = file.path(r, "data", "L0_raw", "manifiesto.csv"),
                             vin = file.path(r, "catalogos", "08_vintages.csv"))
   o <- rutas(origen); d <- rutas(destino)
@@ -88,6 +119,12 @@ importar_registro_l0 <- function(origen, destino = ".", escribir = TRUE) {
     for (v in plan$ignorados) message("   - ", v)
   }
   if (escribir) {
+    if (!is.null(almacen_origen) && length(plan$vintage_ids)) {
+      filas <- .leer_registro(o$man)$datos
+      copiar_archivos_l0(filas[filas$vintage_id %in% plan$vintage_ids, ], almacen_origen,
+                         file.path(destino, "data", "L0_raw"))
+      message("Archivos copiados a data/L0_raw: ", length(plan$vintage_ids), " (sha256 verificados)")
+    }
     .agregar_lineas(d$man, plan$lineas_manifiesto)
     .agregar_lineas(d$vin, plan$lineas_vintages)
   }

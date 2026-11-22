@@ -54,3 +54,17 @@ test_that("importar_registro_l0 agrega las lineas tal cual y una segunda corrida
   expect_length(p2$vintage_ids, 0L)
   expect_length(readLines(file.path(d, "catalogos", "08_vintages.csv")), 3L)
 })
+
+test_that("copiar_archivos_l0 copia con sha256 verificado y se detiene ante un sha256 distinto", {
+  alm <- tempfile(); l0 <- tempfile(); dir.create(alm); dir.create(l0)
+  writeLines("contenido", file.path(alm, "a.csv"))
+  sha <- digest::digest(file = file.path(alm, "a.csv"), algo = "sha256")
+  filas <- data.frame(archivo = "a.csv", sha256 = sha)
+  copiar_archivos_l0(filas, alm, l0)
+  expect_true(file.exists(file.path(l0, "a.csv")))
+  expect_silent(copiar_archivos_l0(filas, alm, l0))            # ya esta, mismo sha256: no hace nada
+  expect_error(copiar_archivos_l0(data.frame(archivo = "a.csv", sha256 = "otro"), alm, tempfile()), "no coincide")
+  expect_error(copiar_archivos_l0(data.frame(archivo = "b.csv", sha256 = sha), alm, l0), "no tiene b.csv")
+  writeLines("cambiado", file.path(l0, "a.csv"))
+  expect_error(copiar_archivos_l0(filas, alm, l0), "otro sha256")
+})

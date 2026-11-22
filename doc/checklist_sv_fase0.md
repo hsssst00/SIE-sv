@@ -53,6 +53,17 @@ B1 (código de modelos, PR #2) y B2 (escenarios y fuentes externas, PR #3).
   mientras `SIE-el-salvador` no cierre su Fase 7, se captura allá y SIE-sv importa las filas que le sirven con
   `scripts/importar_registro_l0.R` (decisión de Harold, 2026-11-22). Anexo E: qué publicaciones sirven a SIE-sv.
 
+## C2. Alcance y almacén propio (ADR-012, 2026-11-22)
+- [x] Criterio de alcance: SIE-sv sirve solo lo que no se consigue por una API.
+- [x] Catálogo recortado a las 20 publicaciones que se capturan: salen 45 fichas (a `doc/pendientes_fuentes.md`), 2
+  metodologías de deuda pública, 3 rupturas (R007, R012, R014) y 5 instituciones (MH, SECMCA, ISSS, CEPAL, BID). En 6
+  rupturas, `series_afectadas` conserva solo lo que se queda.
+- [x] Almacén privado propio `hsssst00/SIE-sv-L0`: 79 archivos copiados de `SIE-el-salvador-L0`, con sha256
+  verificados contra el manifiesto. `.Renviron.example`, el manual, README y CLAUDE.md apuntan a él.
+- [x] `importar_registro_l0()` también copia los archivos desde el almacén de origen (sha256 verificado); después,
+  `make sincronizar-l0` los sube al almacén de SIE-sv.
+- [ ] Harold clona `hsssst00/SIE-sv-L0` y cambia `SIE_L0_STORE` en su `.Renviron` de SIE-sv.
+
 ## D. Verificación
 - [ ] `make master` en SIE-sv sobre la misma L0: los sha256 de los CSV de las familias de la v1 coinciden con los de
   `SIE-el-salvador`.

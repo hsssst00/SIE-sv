@@ -3,7 +3,7 @@
 SIE-sv captura, cura y valida estadísticas macroeconómicas de El Salvador, y las sirve a un cliente: el paquete de R
 `siesv`. El cliente **reconstruye las series en la máquina del usuario** desde las fuentes originales, con la misma
 curación y validación que este repositorio. Por eso no se redistribuyen los archivos de las fuentes ni las series
-derivadas (ADR-008, ADR-011). SIE-sv no hace pronósticos.
+derivadas (ADR-008, ADR-011). SIE-sv no hace pronósticos, y sirve solo lo que no se consigue por una API (ADR-012).
 
 Se separó el 2026-11-22 de [`hsssst00/SIE-el-salvador`](https://github.com/hsssst00/SIE-el-salvador), que sigue como
 sistema de proyección del PIB trimestral y conserva sus modelos, su DOI y sus tags.
@@ -40,7 +40,7 @@ En la consola de R, con el proyecto abierto:
 
 ```r
 renv::restore()                     # paquetes fijados en renv.lock
-system("make materializar-l0")      # L0 desde el almacén privado (requiere SIE_L0_STORE en .Renviron)
+system("make materializar-l0")      # L0 desde el almacén privado hsssst00/SIE-sv-L0 (SIE_L0_STORE en .Renviron)
 system("make master")               # L0 -> L1 -> L2 -> L3
 testthat::test_dir("tests")         # pruebas
 ```

@@ -31,3 +31,8 @@ a este repositorio se renumeran SV0-01..SV0-09. El origen y el alcance están en
   se puede reabrir): una fila pasa si su `publicacion_id` tiene ficha en `catalogos/01_publicaciones/` de SIE-sv. Así
   entran también las 8 publicaciones registradas sin L3, para que su historial de *vintages* quede completo. El script
   es `scripts/importar_registro_l0.R`, con su lógica en `src/adquisicion/importar_registro_lib.R`.
+- **Alcance y almacén (Harold, 2026-11-22; ADR-012):** SIE-sv sirve solo lo que no se consigue por una API. El
+  catálogo queda en las 20 publicaciones que se capturan, y SIE-sv tiene su propio almacén privado,
+  `hsssst00/SIE-sv-L0`. Detalles fijados por el agente (delegada al agente; se puede reabrir): en `02_metodologias` se
+  conservan las predecesoras por `predecesor_id`, para no romper la cadena; en `09_rupturas` se recortan
+  `series_afectadas` en lugar de borrar las rupturas mixtas; el nombre del almacén es `SIE-sv-L0`.

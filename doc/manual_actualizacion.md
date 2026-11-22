@@ -41,7 +41,7 @@ y el manual no dice qué hacer, detente y anótalo en tu bitácora (anexo C). Es
 | Git y una cuenta de GitHub | Clonar y abrir el PR | `system("git --version")` |
 | Windows: Rtools (trae GNU Make) | Correr los objetivos del `Makefile` | `system("make --version")` |
 | Google Chrome o Chromium | `chromote` abre el portal del BCR, que arma las tablas en el navegador | Chrome abre normalmente |
-| Acceso al almacén privado de L0 (`hsssst00/SIE-el-salvador-L0`) | Reconstruir L3. Los archivos crudos no están en el repo (ADR-008) | Sección 3 |
+| Acceso al almacén privado de L0 de SIE-sv (`hsssst00/SIE-sv-L0`, ADR-012) | Reconstruir L3. Los archivos crudos no están en el repo (ADR-008) | Sección 3 |
 
 X-13ARIMA-SEATS no se instala aparte: lo trae el paquete `x13binary` de `renv.lock`. SIE-sv no necesita ninguna clave
 de API.
@@ -66,11 +66,11 @@ Windows no encuentra `Rscript`, usa la ruta completa:
 ## 3. Poner L0 en la máquina
 
 1. **Terminal**, en la carpeta donde quieras guardar el almacén:
-   `git clone https://github.com/hsssst00/SIE-el-salvador-L0.git`. Es un repositorio privado: necesitas que Harold te
-   dé acceso.
+   `git clone https://github.com/hsssst00/SIE-sv-L0.git`. Es un repositorio privado: necesitas que Harold te dé
+   acceso.
 2. **Consola de R:** `usethis::edit_r_environ("project")`. Abre (o crea) el archivo `.Renviron` en la raíz de SIE-sv.
    Copia ahí el contenido de `.Renviron.example`, quita el `#` de la línea `SIE_L0_STORE=` y pon la ruta del almacén
-   **con barras normales**, por ejemplo `SIE_L0_STORE=D:/harold/Documents/SIE-el-salvador-L0`. Guarda el archivo, que
+   **con barras normales**, por ejemplo `SIE_L0_STORE=D:/harold/Documents/SIE-sv-L0`. Guarda el archivo, que
    tiene que terminar con una línea en blanco.
 3. Reinicia R (en RStudio: *Session > Restart R*). R lee `.Renviron` solo al arrancar. `Sys.setenv()` no alcanza,
    porque `make` abre su propio proceso de R.
@@ -81,9 +81,8 @@ Windows no encuentra `Rscript`, usa la ruta completa:
    ```
 5. **Consola de R:** `system("make materializar-l0")`. Copia los archivos que falten y verifica la integridad. Qué
    esperar:
-   - Integridad **N/N**, donde N es el número de filas de `data/L0_raw/manifiesto.csv` (79 al 2026-11-22), y `[1] 0`.
-   - Un **AVISO** de unos 18 archivos del almacén sin fila en el manifiesto. Es lo esperado: el almacén se comparte
-     con `SIE-el-salvador`, que conserva FRED, FMI, BM y CBO (ADR-011, bloque B2). No es un error.
+   - Integridad **N/N**, donde N es el número de filas de `data/L0_raw/manifiesto.csv` (79 al 2026-11-22), y `[1] 0`,
+     sin avisos.
    - Si sale `FALTA_EN_ALMACEN`, el almacén no tiene un archivo del manifiesto. Haz `git pull` en el almacén y repite.
      Si sigue, avisa y no sigas.
    - Si sale `FALLO VISIBLE [materializar-l0]: la variable de entorno SIE_L0_STORE no esta definida`, vuelve al
@@ -112,10 +111,11 @@ La huella se guarda fuera del repo (`~` es tu carpeta de usuario) para que no en
 
 **Mientras `SIE-el-salvador` no cierre su Fase 7, la captura se hace allá, no aquí** (decisión de Harold,
 2026-11-22). Esa fase todavía necesita el PIB 2026-T3 para su prueba externa, y una publicación se captura una sola
-vez (regla 9). SIE-sv toma las filas que le sirven con la sección 7.3. Cuando la Fase 7 de `SIE-el-salvador` cierre,
+vez (regla 9). SIE-sv toma las filas y los archivos que le sirven con la sección 7.3. Cuando la Fase 7 de `SIE-el-salvador` cierre,
 SIE-sv pasa a ser el único lugar de captura y la sección 6 rige aquí.
 
-**Qué le sirve a SIE-sv** (anexo E): las 20 publicaciones con ficha en `catalogos/01_publicaciones/`. Doce alimentan la
+**Qué le sirve a SIE-sv** (ADR-012, anexo E): solo lo que no se consigue por una API. Son las 20 publicaciones con
+ficha en `catalogos/01_publicaciones/`. Doce alimentan la
 L3 de la v1. Ocho se registran sin L3 todavía y son candidatas para después de la v1 (SV0-02). FRED, FMI, BM y CBO no
 le sirven (SV0-05).
 
@@ -192,8 +192,7 @@ El `robots.txt` de ut.com.sv prohíbe la captura automática, así que se baja a
 ### 7.1 Subir los archivos al almacén
 
 **Consola de R:** `system("make sincronizar-l0")`. Compara `data/L0_raw/` con el almacén, sube lo nuevo con commit y
-push, y verifica sha256. Se detiene ante `FALTA` o `CONFLICTO`. El aviso de archivos del almacén sin fila en el
-manifiesto es esperado (sección 3).
+push, y verifica sha256. Se detiene ante `FALTA` o `CONFLICTO`.
 
 ### 7.2 Registrar en el repositorio
 
@@ -216,7 +215,7 @@ manifiesto es esperado (sección 3).
 
 Después de cada PR de captura fusionado en `SIE-el-salvador`:
 
-1. **Terminal:** `git pull` en tu copia de `SIE-el-salvador` y en tu copia de SIE-sv.
+1. **Terminal:** `git pull` en tu copia de `SIE-el-salvador`, en la del almacén `SIE-el-salvador-L0` y en la de SIE-sv.
 2. **Consola de R** (en SIE-sv): primero el plan, que no escribe nada.
    ```r
    source("src/adquisicion/importar_registro_lib.R")
@@ -225,10 +224,16 @@ Después de cada PR de captura fusionado en `SIE-el-salvador`:
    Lista las filas nuevas que sirven a SIE-sv (`+`) y las ignoradas (`-`, publicaciones sin ficha en SIE-sv: FRED,
    FMI, BM y CBO). Se detiene si un `vintage_id` ya existe en SIE-sv con otro sha256, o si en el origen el manifiesto y
    `08_vintages` no coinciden.
-3. Si el plan está bien: `importar_registro_l0("D:/harold/Documents/SIE-el-salvador", ".")`. Agrega las líneas tal
-   como están en el origen.
-4. **Consola de R:** `system("Rscript scripts/check_l0_integrity.R")` y `system("make materializar-l0")`. Los archivos
-   ya están en el almacén compartido. Integridad N/N.
+3. Si el plan está bien:
+   ```r
+   importar_registro_l0("D:/harold/Documents/SIE-el-salvador", ".",
+                        almacen_origen = "D:/harold/Documents/SIE-el-salvador-L0")
+   ```
+   Agrega las líneas tal como están en el origen y copia sus archivos a `data/L0_raw/`, con cada sha256 verificado
+   contra el manifiesto. Se detiene si el almacén de origen no tiene un archivo (haz `git pull` allí) o si un sha256
+   no coincide.
+4. **Consola de R:** `system("Rscript scripts/check_l0_integrity.R")` y después `system("make sincronizar-l0")`, que
+   sube los archivos nuevos al almacén de SIE-sv. Integridad N/N.
 5. Rama, commit de `manifiesto.csv` y `08_vintages.csv`, una nota en `doc/backlog_captura_vintages.md` que cite el PR
    de origen, y PR con el CI en verde.
 
@@ -273,7 +278,7 @@ Después de cada PR de captura fusionado en `SIE-el-salvador`:
 | Timeout de 240 s en `filtrar()` (portal del BCR) | El portal tardó en armar la tabla. Pasa a menudo con `GOBIERNO_CENTRAL_CONSOLIDADO` y `PANORAMA_SOCIEDADES_DEPOSITO` | Déjala para la ventana siguiente y anótala en la bitácora de fuentes frágiles |
 | `registrar_descarga()` se detiene porque el vintage ya existe | Ya estaba capturado | No lo fuerces; anótalo |
 | `FALLO VISIBLE [materializar-l0]: ... SIE_L0_STORE no esta definida` | Falta la variable o R no se reinició | Sección 3, pasos 2 a 4 |
-| `AVISO: N archivo(s) en el almacen sin fila en el manifiesto` | Archivos de `SIE-el-salvador` en el almacén compartido | Nada, si son los de FRED, FMI, BM o CBO |
+| `AVISO: N archivo(s) en el almacen sin fila en el manifiesto` | El almacén de SIE-sv tiene archivos que el manifiesto no registra | No borres nada; anótalo y pregunta |
 | `FALTA_EN_ALMACEN` | El almacén no tiene un archivo del manifiesto | `git pull` en el almacén; si sigue, avisa |
 | `FALLO VISIBLE [importar-registro]` | El registro de SIE-sv divergió del de origen | No edites nada; anótalo y pregunta |
 | La L3 de UT se detiene | Un año anterior al último no trae 12 meses | Sección 6.4, paso 2 |
@@ -295,7 +300,8 @@ Después de cada PR de captura fusionado en `SIE-el-salvador`:
   publicación.
 - **L0 … L3:** capas de datos. L0, archivos tal como se publicaron (inmutable); L1, formato largo; L2, validación (no
   guarda datos, solo el reporte); L3, series maestras.
-- **Almacén de L0:** repositorio privado con los archivos crudos, que comparten SIE-sv y `SIE-el-salvador`.
+- **Almacén de L0:** repositorio privado con los archivos crudos. SIE-sv tiene el suyo, `hsssst00/SIE-sv-L0`
+  (ADR-012); `SIE-el-salvador` usa `hsssst00/SIE-el-salvador-L0`.
 - **`PASS`, `CAMBIO`, `ERROR`, `MANUAL_PENDIENTE`:** resultados de `make raw` (sección 6.1). **`NUEVO_PERIODO`:**
   resultado de `make raw-rapido`.
 
