@@ -23,3 +23,6 @@ a este repositorio se renumeran SV0-01..SV0-09. El origen y el alcance están en
 - **Copia sin tags:** ver ADR-011, punto 1.
 - **Visibilidad:** pública, igual que `SIE-el-salvador`. El contenido copiado ya era público.
 - **Fases de la senda (`doc/senda_sie_sv.md`):** propuesta del agente.
+- **CI sin caché:** la primera corrida de SIE-sv falló en `renv::restore()` porque V8 no encuentra `libnode.so.109`.
+  Se agrega `libnode-dev` a las dependencias de sistema de `ci.yml`. El mismo defecto está latente en
+  `SIE-el-salvador`: aparecería allí si su caché de Actions vence.
