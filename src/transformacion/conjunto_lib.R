@@ -65,6 +65,7 @@ publicaciones_de_escenario <- function(catalogo_series, catalogo_master) {
                unique(catalogo_series$publicacion_id[!en_esc])))
 }
 
+#' (SIE-sv, B2: ya no hay series de escenario; se limpia en la Fase 1.)
 #' ¿Corre la etapa de escenario (extraer_escenarios.R y l3_escenarios.R) con este conjunto? Sin
 #' conjunto (pipeline vigente), si. Con un conjunto, si declara TODAS las publicaciones de
 #' escenario; no, si no declara ninguna (un corte anterior a Fase 6, como corte_fase5.csv, que se

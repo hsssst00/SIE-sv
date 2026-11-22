@@ -55,3 +55,13 @@ Los ADR históricos no se editan. Esta tabla es la lectura que rige en SIE-sv.
   llevan a SIE-sv por PR aparte.
 - Las pruebas de guarda que leen «## Cierre de Fase N» en `doc/adr/README.md` cuentan hoy las fases heredadas. Se
   adaptan en la Fase 0 de SIE-sv, junto con el traslado de la historia heredada.
+
+## Nota (2026-11-22): fuentes externas fuera del registro (bloque B2)
+
+**Decidido por Harold el 2026-11-22.** FRED, FMI, BM y CBO salen del registro de SIE-sv; no se marcan como históricas.
+Se borran 18 filas de `data/L0_raw/manifiesto.csv` y de `catalogos/08_vintages.csv`, 22 publicaciones de
+`01_publicaciones/`, 11 series de `03_series.csv`, 11 series maestras de `05_series_master.csv` (diez de rol `escenario` y
+la `referencia` del WEO), 9 transformaciones de `04_transformaciones.csv` y 4 instituciones de `00_instituciones.csv`.
+Es una excepción explícita a la inmutabilidad del registro de L0 de ADR-007. Ningún archivo crudo se pierde: siguen en el
+almacén privado de L0, que comparte con `SIE-el-salvador`, y en el historial de git. Como el almacén no cambia,
+`materializar-l0` y `sincronizar-l0` avisan (no fallan) de 18 archivos sin fila en el manifiesto. Ese aviso es esperado.

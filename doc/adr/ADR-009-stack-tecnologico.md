@@ -313,3 +313,7 @@ tsDyn, BVAR, midasr, glmnet, ranger, lightgbm, urca, MCS y scoringRules. Salen d
 `scripts/bootstrap_renv.R` y de `renv.lock`. Sus dependencias transitivas que quedaron sin uso siguen en `renv.lock`
 hasta el próximo `renv::snapshot()`, porque el lockfile no registra las dependencias de 66 de sus 189 paquetes y
 podarlo a mano no es seguro. El resto de este ADR no cambia.
+
+**Bloque B2 (2026-11-22).** También salen de `DESCRIPTION` y de `bootstrap_renv.R` `httr2` (solo lo usaban los clientes de
+FMI, FRED, BM y CBO) y `tempdisagg` (solo lo usaban los senderos de escenario). `tempdisagg` sale además de `renv.lock`. `httr2`
+se queda en `renv.lock`, porque `gh` (que llega por `polite` y `usethis`) lo importa.

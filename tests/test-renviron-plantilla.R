@@ -1,5 +1,5 @@
 # Guarda de la plantilla de .Renviron (Fase 7, F7-05; pedido de Harold durante el ensayo del
-# 2026-T2). Toda variable SIE_* o FRED_* que lea el codigo con Sys.getenv() tiene que estar
+# 2026-T2). Toda variable SIE_* (o FRED_*, si volviera) que lea el codigo con Sys.getenv() tiene que estar
 # documentada en .Renviron.example, como variable a completar o en el bloque «NUNCA aqui».
 # Ademas, la plantilla no puede asignar SIE_CONJUNTO ni SIE_SALIDA: definidas en .Renviron, harian
 # que make master construyera un corte congelado en vez de la L3 vigente.
@@ -17,7 +17,7 @@ test_that(".Renviron.example documenta toda variable SIE_* o FRED_* que lee el c
     m <- regmatches(.leer_texto(a), gregexpr(patron, .leer_texto(a), perl = TRUE))[[1]]
     sub(patron, "\\1", m, perl = TRUE)
   })))
-  expect_true(all(c("FRED_API_KEY", "SIE_L0_STORE") %in% usadas),
+  expect_true("SIE_L0_STORE" %in% usadas,
               info = "la busqueda de Sys.getenv() dejo de encontrar las variables conocidas")
 
   plantilla <- .leer_texto(here::here(".Renviron.example"))

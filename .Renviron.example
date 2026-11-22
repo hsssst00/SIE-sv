@@ -1,10 +1,10 @@
-# Plantilla de .Renviron del SIE. Copiala a .Renviron, en la raiz del repo, y completa los valores.
+# Plantilla de .Renviron de SIE-sv. Copiala a .Renviron, en la raiz del repo, y completa los valores.
 #
 # Como se usa
 #   1. En la consola de R, con el proyecto abierto: usethis::edit_r_environ("project")
 #      (abre o crea .Renviron en la raiz del repo). Pega este archivo y completa los valores.
 #   2. Guarda y REINICIA R (en RStudio: Session > Restart R). R lee .Renviron solo al arrancar.
-#   3. Comprueba cada variable en la consola: Sys.getenv("FRED_API_KEY") no debe salir "".
+#   3. Comprueba cada variable en la consola: Sys.getenv("SIE_L0_STORE") no debe salir "".
 #
 # Reglas de formato
 #   - Una variable por linea: NOMBRE=valor, sin espacios alrededor del "=" y sin comillas.
@@ -14,26 +14,20 @@
 #
 # .Renviron NO se versiona (esta en .gitignore): guarda credenciales y rutas personales.
 # Esta plantilla SI se versiona y no lleva valores reales. tests/test-renviron-plantilla.R
-# comprueba que documente toda variable SIE_* o FRED_* que lea el codigo.
+# comprueba que documente toda variable SIE_* que lea el codigo.
 # RENV_PATHS_LIBRARY no va aqui: la fija .Rprofile (versionado).
 
 # ---------------------------------------------------------------------------------------
-# 1. Obligatoria para capturar (make raw, src/adquisicion/fred.R)
+# 1. Para L0: make materializar-l0 (maquina nueva) y make sincronizar-l0 (despues de capturar)
 # ---------------------------------------------------------------------------------------
-# Clave de la API de FRED. Gratuita y personal: https://fredaccount.stlouisfed.org
-# Nunca se escribe en una URL que vaya a manifiesto.csv o a 08_vintages.csv (ADR-008).
-FRED_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-# ---------------------------------------------------------------------------------------
-# 2. Para L0: make materializar-l0 (maquina nueva) y make sincronizar-l0 (despues de capturar)
-# ---------------------------------------------------------------------------------------
+# SIE-sv ya no lee FRED_API_KEY: FRED salio con el bloque B2 (ADR-011).
 # Ruta a tu copia de trabajo del almacen privado de L0: la carpeta que contiene los
 # .xlsx, .json y .csv con los nombres del manifiesto. Sin acceso al almacen, dejala
 # comentada (manual de actualizacion, seccion 3).
 # SIE_L0_STORE=C:/ruta/a/SIE-el-salvador-L0
 
 # ---------------------------------------------------------------------------------------
-# 3. NUNCA aqui
+# 2. NUNCA aqui
 # ---------------------------------------------------------------------------------------
 # SIE_CONJUNTO y SIE_SALIDA las pone make al correr
 #   make master CONJUNTO=<corte.csv> SALIDA=<dir>

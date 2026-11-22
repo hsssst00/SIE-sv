@@ -17,12 +17,10 @@ paquetes <- c(
   "pointblank",   # validación de esquema (ADR-005)
   "duckdb",       # almacén consolidado derivado (ADR-005)
   "seasonal",     # ajuste estacional X-13ARIMA-SEATS (ADR-001, ADR-004)
-  "tempdisagg",   # empalme / desagregación temporal (D3 — no requerido tras ADR-003, se deja disponible)
   "jsonlite",     # lectura de datapackage.json
   "here",         # rutas relativas al proyecto
   "testthat",     # pruebas
   # --- Fase 2, agregados despues de ADR-009 conforme fueron haciendo falta -------------
-  "httr2",        # clientes de API (FMI/FRED/BM) — import #15, ADR-009 2026-08-18
   "xml2",         # lectura del XML interno de un .xlsx en verificar_fuente_celda.R
   "chromote",     # navegador headless para el portal del BCR — ADR-009 2026-08-20
   # Agregados el 2026-08-28 (hallazgo M1 de la auditoria de Fase 2): los tres se usan en

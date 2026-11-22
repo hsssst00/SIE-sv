@@ -46,7 +46,6 @@
 # deliberado del operador al ritmo de publicacion de la fuente, y NO lo es como algo que se
 # corre en bucle mientras se programa. Por eso el alcance es seleccionable:
 #     Rscript scripts/verificar_l0.R          # todo (lo que exige el criterio de cierre)
-#     Rscript scripts/verificar_l0.R api      # solo FMI/FRED/BM: barato, sin navegador
 #     Rscript scripts/verificar_l0.R bcr      # solo el portal del BCR
 #     Rscript scripts/verificar_l0.R plan     # no pide NADA: solo lista que se verificaria
 # El default es "todo" a proposito: el criterio de cierre se satisface con la corrida
@@ -59,8 +58,8 @@ source("src/adquisicion/manual_pendiente.R") # estado_manual_pendiente, formatea
 .ALCANCE <- local({
   a <- commandArgs(trailingOnly = TRUE)
   a <- if (length(a) == 0) "todo" else tolower(a[1])
-  if (!a %in% c("todo", "api", "bcr", "plan")) {
-    stop("FALLO VISIBLE: alcance '", a, "' no reconocido. Use: todo | api | bcr | plan")
+  if (!a %in% c("todo", "bcr", "plan")) {
+    stop("FALLO VISIBLE: alcance '", a, "' no reconocido. Use: todo | bcr | plan")
   }
   a
 })
@@ -83,9 +82,9 @@ source("src/adquisicion/manual_pendiente.R") # estado_manual_pendiente, formatea
 )
 
 # --- Como se vuelve a pedir cada fuente ------------------------------------------------
-# El re-pedido reusa la MISMA funcion que arma la peticion de captura (.fred_refetch,
-# .bm_refetch, .fmi_perform, .cbo_refetch) para que verificacion y captura no puedan divergir: si la
-# captura cambia de parametros, la verificacion cambia con ella.
+# En SIE-sv (2026-11-22, ADR-011, bloque B2) solo quedan publicaciones del portal del BCR (incluido
+# ONEC.IPC.BASE_2009, que se sirve desde ahi) y las excluidas de arriba. Las API de FMI, FRED, BM y
+# CBO salieron con sus filas del manifiesto, asi que ya no hay mecanismo `api`.
 
 .FORMULA_BASE <- "0"  # representacion base del componente vista-serie; uniforme en bcr.R
 
@@ -96,20 +95,9 @@ source("src/adquisicion/manual_pendiente.R") # estado_manual_pendiente, formatea
 }
 
 .refetch <- function(fuente, url) {
-  if (fuente == "FRED") {
-    .fred_refetch(url)
-  } else if (fuente == "BM") {
-    .bm_refetch(url)
-  } else if (fuente == "FMI" && startsWith(url, "https://www.imf.org/")) {
-    httr2::resp_body_raw(.weo_cap1_perform(url))  # libro del capitulo 1 del WEO (Fase 6)
-  } else if (fuente == "FMI") {
-    httr2::resp_body_raw(.fmi_perform(url))
-  } else if (fuente == "CBO") {
-    .cbo_refetch(url)  # repositorio US-CBO/cbo-data (Fase 6, 2026-10-19)
-  } else {
-    stop("FALLO VISIBLE: no hay mecanismo de re-pedido para la fuente '", fuente,
-         "'. Agregarlo aca antes de capturar publicaciones nuevas de esa fuente.")
-  }
+  stop("FALLO VISIBLE: no hay mecanismo de re-pedido para la fuente '", fuente, "' (", url,
+       "). En SIE-sv solo se verifica en vivo el portal del BCR. Agregarlo aca antes de capturar ",
+       "publicaciones nuevas de otra fuente.")
 }
 
 # --- Lista de trabajo, derivada del manifiesto -----------------------------------------
@@ -138,7 +126,7 @@ manuales_pendientes <- lapply(
 excluidas <- vigentes[vigentes$publicacion_id %in% names(.EXCLUIDAS), ]
 trabajo   <- vigentes[!vigentes$publicacion_id %in% names(.EXCLUIDAS), ]
 trabajo$mecanismo <- unname(mapply(.mecanismo, trabajo$fuente, trabajo$url))
-if (.ALCANCE %in% c("api", "bcr")) trabajo <- trabajo[trabajo$mecanismo == .ALCANCE, ]
+if (.ALCANCE == "bcr") trabajo <- trabajo[trabajo$mecanismo == .ALCANCE, ]
 trabajo <- trabajo[order(trabajo$mecanismo, trabajo$publicacion_id), ]
 
 if (nrow(trabajo) == 0) {
@@ -167,10 +155,6 @@ if (.SOLO_PLAN) {
 # bcr.R arrastra bcr_captura.R, que exige chromote, y no tiene por que estar instalado en una
 # maquina que solo quiere verificar las API o revisar la cobertura.
 if (any(trabajo$mecanismo == "bcr")) source("src/adquisicion/bcr.R")
-if (any(trabajo$fuente == "FRED")) source("src/adquisicion/fred.R")
-if (any(trabajo$fuente == "BM"))   source("src/adquisicion/bm.R")
-if (any(trabajo$fuente == "FMI"))  source("src/adquisicion/fmi.R")
-if (any(trabajo$fuente == "CBO"))  source("src/adquisicion/cbo.R")
 
 # --- Verificacion ----------------------------------------------------------------------
 resultados <- data.frame(publicacion_id = character(), fuente = character(),

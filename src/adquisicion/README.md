@@ -1,5 +1,9 @@
 # `src/adquisicion/` — diseño de los scripts de captura de L0
 
+> **SIE-sv (2026-11-22, ADR-011, bloque B2).** `fred.R`, `fmi.R`, `bm.R` y `cbo.R` salieron junto con sus filas del
+> manifiesto. Hoy solo se captura del portal del BCR y de la UT. Las menciones a FMI, FRED, BM, CBO y `httr2` que siguen
+> en este documento son históricas.
+
 **Qué es esto.** El patrón que comparten los scripts de adquisición, decidido una vez para no
 reinventarlo en cada uno. No introduce ninguna decisión metodológica nueva: traduce a forma
 ejecutable lo que ya está en la senda §3.1, en las reglas 1, 5, 6, 7 y 9 de `CLAUDE.md` y en
@@ -43,10 +47,6 @@ src/adquisicion/
 ├── bcr.R                      # una funcion por publicacion del BCR (16)
 ├── bcr_sondear_publicacion.R  # sondeo liviano para inventario (Fase 1), no captura
 ├── calendario_bcr_extraer.R   # calendario de divulgacion -> doc/, no L0
-├── fmi.R                      # FMI: dataflow completo (BOP, QNEA) + PCPS por indicador + WEO
-├── cbo.R                      # CBO: proyecciones economicas via US-CBO/cbo-data (Fase 6)
-├── fred.R                     # una funcion generica por serie de FRED
-├── bm.R                       # una funcion por indicador del Banco Mundial (WDI)
 ├── ut.R                       # registro de la captura manual de UT (sin fetch en vivo)
 └── verificar_robots_ut.R      # verificacion de robots.txt con polite (regla 9)
 ```
