@@ -18,20 +18,9 @@ paquetes <- c(
   "duckdb",       # almacén consolidado derivado (ADR-005)
   "seasonal",     # ajuste estacional X-13ARIMA-SEATS (ADR-001, ADR-004)
   "tempdisagg",   # empalme / desagregación temporal (D3 — no requerido tras ADR-003, se deja disponible)
-  "fable",        # ARIMA / ETS
-  "tsibble",      # estructura de series de tiempo (tidyverts)
-  "vars",         # VAR
-  "tsDyn",        # VECM
-  "BVAR",         # BVAR con priors jerárquicos (Giannone-Lenza-Primiceri)
-  "midasr",       # MIDAS / ecuaciones puente
-  "glmnet",       # regularización lineal (ridge/LASSO/elastic net)
-  "ranger",       # Random Forest
-  "lightgbm",     # boosting
   "jsonlite",     # lectura de datapackage.json
   "here",         # rutas relativas al proyecto
   "testthat",     # pruebas
-  "scoringRules", # Suggests, oraculo del CRPS en V13 (F4-33, decidida el 2026-09-29; remediacion de la auditoria de
-                  # Fase 4, I2a). Ningun paquete del lockfile lo requiere: sin esta linea se pierde.
   # --- Fase 2, agregados despues de ADR-009 conforme fueron haciendo falta -------------
   "httr2",        # clientes de API (FMI/FRED/BM) — import #15, ADR-009 2026-08-18
   "xml2",         # lectura del XML interno de un .xlsx en verificar_fuente_celda.R
@@ -45,10 +34,6 @@ paquetes <- c(
   "digest",       # sha256 en lib_adquisicion.R, verificar_fuente_celda.R, verificar_l0_fisico.R
   "polite",       # verificacion de robots.txt en verificar_robots_ut.R (regla 9)
   "readxl",       # lectura del calendario de divulgacion en calendario_bcr_extraer.R
-  # Agregado 2026-09-17 (ADR-009, nota de seguimiento "pruebas formales de estacionariedad"):
-  # ur.df()/ur.kpss() para el analisis exploratorio de Fase 3. Ya estaba en renv.lock como
-  # transitiva de vars/tsDyn -- no amplia la superficie real de instalacion.
-  "urca",         # ADF (selectlags="BIC") y KPSS en src/analisis/estacionariedad_reglas.R
   # Agregados el 2026-09-17 (hallazgo I3 de la revision independiente de Fase 3): mismo patron
   # que M1/el bloque anterior -- se usaban en codigo commiteado (validate_catalogs.R,
   # ut_demanda_serie.R, calendario_bcr_extraer.R) sin estar declarados aqui ni en DESCRIPTION,
@@ -57,13 +42,9 @@ paquetes <- c(
   "stringr",      # calendario_bcr_extraer.R
   # Agregados el 2026-09-29 (remediacion de la auditoria independiente de Fase 4). Mismo patron:
   # `paquetes` es la lista de la que sale el lockfile, no DESCRIPTION, y estos tres faltaban aqui.
-  "yaml",         # Import desde 0c1fd00 (F4-12, nota de ADR-009): motor_backtesting.R, test-catalogo-modelos.R.
+  # SIE-sv (2026-11-22, ADR-011): fabletools y MCS salieron con el codigo de pronosticos; queda yaml.
+  "yaml"          # Import desde 0c1fd00 (F4-12, nota de ADR-009): motor_backtesting.R, test-catalogo-modelos.R.
                   # Hoy sobrevive como transitiva de pointblank/knitr/rmarkdown; no se deja a esa suerte.
-  "fabletools",   # hallazgo M2: modelos_referencia.R llama fabletools::model() y ::forecast() (BENCH.ETS);
-                  # llegaba como transitiva de fable. renv.lock ya fija 0.8.0.
-  "MCS"           # hallazgo M6: Suggests desde 8c4dec7, oraculo de V11 en verificar_motor_sintetico.R.
-                  # Ningun paquete del lockfile lo requiere: sin esta linea, un lockfile regenerado lo
-                  # pierde y V11 pasa a SKIP (en CI, a stop()).
 )
 
 install.packages(paquetes)

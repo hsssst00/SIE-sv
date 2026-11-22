@@ -104,7 +104,7 @@ for (r in dp$resources) {
   reporte <- get_agent_report(agente, display_table = FALSE)
   extractos <- get_data_extracts(agente)
   fallo <- function(nombre) {
-    # Catálogo sin filas (solo cabecera, ej. 07_experimentos): pointblank devuelve f_pass = NA
+    # Catálogo sin filas (solo cabecera): pointblank devuelve f_pass = NA
     # porque no hay unidades de prueba; no hay nada que pueda violar el esquema.
     if (nrow(df) == 0) return(FALSE)
     fila <- reporte[reporte$i == idx_pasos[[nombre]], ]

@@ -97,27 +97,6 @@
       }
     },
     {
-      "name": "07_experimentos",
-      "path": "07_experimentos.csv",
-      "estado_esquema": "cerrado (senda metodológica §3.3)",
-      "schema": {
-        "fields": [
-          {"name": "exp_id", "type": "string", "constraints": {"required": true, "unique": true}},
-          {"name": "modelo_id", "type": "string", "constraints": {"required": true}},
-          {"name": "vintage_id", "type": "string"},
-          {"name": "muestra_inicio", "type": "string"},
-          {"name": "muestra_fin", "type": "string"},
-          {"name": "esquema_validacion", "type": "string"},
-          {"name": "horizontes", "type": "string"},
-          {"name": "semilla", "type": "integer"},
-          {"name": "commit_hash", "type": "string"},
-          {"name": "fecha_corrida", "type": "date"},
-          {"name": "entorno", "type": "string"},
-          {"name": "ruta_resultados", "type": "string"}
-        ]
-      }
-    },
-    {
       "name": "08_vintages",
       "path": "08_vintages.csv",
       "estado_esquema": "cerrado (senda metodológica §3.3, ver ADR-007)",

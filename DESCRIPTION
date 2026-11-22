@@ -8,15 +8,6 @@ Imports:
     duckdb,
     seasonal,
     tempdisagg,
-    fable,
-    tsibble,
-    vars,
-    tsDyn,
-    BVAR,
-    midasr,
-    glmnet,
-    ranger,
-    lightgbm,
     xml2,
     httr2,
     chromote,
@@ -24,13 +15,8 @@ Imports:
     digest,
     polite,
     readxl,
-    urca,
     here,
     testthat,
     dplyr,
     stringr,
-    yaml,
-    fabletools
-Suggests:
-    MCS,
-    scoringRules
+    yaml

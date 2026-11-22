@@ -305,3 +305,11 @@ CRPS (protocolo §3.4).
 entra en **`Suggests`**, está fijado en `renv.lock` y figura en la lista de `scripts/bootstrap_renv.R`.
 Sus dependencias (`Rcpp`, `RcppArmadillo`, `MASS`, `knitr`) ya estaban en el lockfile. En CI su
 ausencia detiene V13 con `stop()`, igual que la de `MCS` en V11 (hallazgo M6).
+
+## Nota de SIE-sv (2026-11-22, ADR-011)
+
+En SIE-sv salen del stack los paquetes que solo usaba el código de pronósticos: fable, fabletools, tsibble, vars,
+tsDyn, BVAR, midasr, glmnet, ranger, lightgbm, urca, MCS y scoringRules. Salen de `DESCRIPTION`, de
+`scripts/bootstrap_renv.R` y de `renv.lock`. Sus dependencias transitivas que quedaron sin uso siguen en `renv.lock`
+hasta el próximo `renv::snapshot()`, porque el lockfile no registra las dependencias de 66 de sus 189 paquetes y
+podarlo a mano no es seguro. El resto de este ADR no cambia.
