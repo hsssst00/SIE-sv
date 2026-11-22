@@ -1,5 +1,11 @@
 # Contexto del proyecto para Claude Code
 
+> **SIE-sv (2026-11-22).** Este repositorio es SIE-sv, el servicio de datos sin pronósticos, con el cliente `siesv`.
+> Se creó a partir de `SIE-el-salvador` (ADR-011). Fase 0 de SIE-sv abierta el 2026-11-22 (`doc/senda_sie_sv.md`,
+> `doc/metodologia/decisiones_sv_fase0.md`, `doc/checklist_sv_fase0.md`). Donde el texto de abajo diga que los
+> modelos son la demostración de uso, ya no rige: aquí no hay modelos. Las demás reglas siguen, en particular la
+> regla 4. El archivo se reescribe en la Fase 0 de SIE-sv.
+
 ## Qué es esto
 
 Sistema de Información Estadística (SIE) para variables macroeconómicas de El Salvador, con un ejercicio de comparación de modelos de proyección del PIB trimestral como demostración de uso.
