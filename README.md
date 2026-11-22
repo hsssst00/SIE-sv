@@ -1,4 +1,12 @@
-# Sistema de Información Estadística y modelos de proyección del PIB trimestral de El Salvador
+# SIE-sv — Servicio de estadísticas macroeconómicas de El Salvador
+
+> **Este repositorio es SIE-sv**, creado el 2026-11-22 a partir de `hsssst00/SIE-el-salvador` (ADR-011). Captura,
+> cura y valida las estadísticas macroeconómicas de El Salvador y las sirve a un cliente: el paquete de R `siesv`, que
+> reconstruye las series en la máquina del usuario. No hace pronósticos. Fase 0 de SIE-sv abierta el 2026-11-22: senda en
+> `doc/senda_sie_sv.md`, decisiones en `doc/metodologia/decisiones_sv_fase0.md`, tablero en `doc/checklist_sv_fase0.md`.
+> Lo que sigue debajo es el README heredado de `SIE-el-salvador`. Se reescribe en la Fase 0 de SIE-sv.
+
+## README heredado
 
 Sistema de información estadística macroeconómica documentado, trazable, versionado, reproducible y con registro de versiones de publicación (*vintages*) para El Salvador. La comparación de modelos econométricos y de aprendizaje automático para pronóstico del PIB trimestral es la demostración de uso del sistema, no el objetivo central — ver `doc/senda_metodologica.md`.
 
