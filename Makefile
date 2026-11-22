@@ -2,7 +2,7 @@
 # Muchos objetivos aún no tienen script real detrás — se implementan en la fase
 # correspondiente de la senda metodológica (§4), no antes.
 
-.PHONY: setup raw raw-rapido raw-calendario raw-api raw-plan raw-fisico materializar-l0 sincronizar-l0 clean master explore eval eval-sintetico tabla-fase4 report validate test audit trace fase5 proyeccion proyeccion-medicion fase6 fase6-medicion-bvar preregistro-fase6 preregistro-escribir tablas-fase6
+.PHONY: setup raw raw-rapido raw-calendario raw-api raw-plan raw-fisico materializar-l0 sincronizar-l0 clean master validate test audit trace
 
 setup:
 	Rscript scripts/bootstrap_renv.R
@@ -86,19 +86,6 @@ master: validate
 	Rscript src/transformacion/extraer_escenarios.R
 	Rscript src/transformacion/l3_escenarios.R
 
-# Fase 3 — análisis exploratorio de la base maestra (senda §4), en el orden en que se leen:
-# primero descriptivos y gráficos, después las pruebas formales de estacionariedad. Depende de
-# `master` porque los tres scripts leen data/L3_master/, que ese objetivo genera. Salidas:
-# reporte_exploratorio_resumen.csv, reporte_estacionariedad.csv y reporte_hegy.csv en
-# doc/metodologia/reportes_fase3/ -- VERSIONADOS, con columna `fecha_generacion`, porque los
-# citan documentos versionados (decisión de Harold, 2026-09-23) --, y exploracion/<serie>.png
-# en data/L3_master/ (capa generada, no versionada). hegy.R tarda varios minutos (5000
-# réplicas de simulación por serie).
-explore: master
-	Rscript src/analisis/exploracion_series.R
-	Rscript src/analisis/estacionariedad.R
-	Rscript src/analisis/hegy.R
-
 # Validación de esquema de catálogos (columnas/tipos) e integridad referencial entre ellos.
 validate:
 	Rscript src/validacion/validate_catalogs.R
@@ -116,94 +103,6 @@ validate:
 trace:
 	Rscript src/validacion/verificar_fuente_celda.R
 
-# Fase 4 — verificación del motor de evaluación sobre procesos generadores conocidos
-# (src/evaluacion/verificar_motor_sintetico.R). NO lee data/L3_master/, así que corre en CI: es la
-# evidencia del criterio de cierre de Fase 4 ("el motor funciona y está probado antes de estimar
-# cualquier modelo sofisticado", senda §4). Bloques vigentes: V1-V23. V12 (orquestación con X-13 por
-# origen sobre insumos sintéticos), V13 (densidad, F4-33) y el canario anual de V5 (F4-34) llegan con
-# la remediación de la auditoría independiente de Fase 4. V21b (Fase 6, D1) compara la huella de Fase 5 con
-# src/evaluacion/referencias/huella_fase5.csv: Fase 6 no debe mover ningún byte de Fase 5. V22 y V23 (Fase 6, D5)
-# son los canarios de la proyección condicional: el condicional en un DGP conocido, la guarda y el mínimo de miembros.
-eval-sintetico:
-	Rscript src/evaluacion/verificar_motor_sintetico.R
-
-# Fase 4/5 — motor de evaluación sobre L3. La verificación sintética es prerrequisito y corre primero
-# para fallar barato. No implementar Fase 5 antes de que el motor de Fase 4 esté probado. LOCAL: exige
-# data/L3_master/, data/L1_staging/BCR_PIB_series_largo.csv (NSA para el ajuste por origen, F4-19) y
-# X-13ARIMA-SEATS. No corre en CI porque L3 no está ahí; X-13 sí corre en CI, y la orquestación con
-# X-13 se ejerce en CI con insumos sintéticos (V12; hallazgo I3 de la auditoría independiente de
-# Fase 4). Escribe data/L4_experiments/<exp_id>/, las filas de catalogos/07_experimentos.csv y
-# doc/metodologia/reportes_fase5/tabla_resultados_fase5.csv (la de Fase 4, F4-30, pasó a `make tabla-fase4`).
-# Fase 5: también tabla_resultados_fase5.csv y, desde la remediación I3 de su auditoría, tabla_pruebas_fase5.csv, tabla_estabilidad_fase5.csv y extracto_pronosticos_fase5.csv.
-# Fase 5 (F5-16, decisiones C-1 a C-8 de doc/metodologia/decisiones_fase5.md): el motor exige el corte
-# congelado y lee L1/L3 del directorio que armó `make master` con ese corte; sin CONJUNTO= se detiene.
-#   make master CONJUNTO=doc/metodologia/corte_fase5.csv SALIDA=data/conjuntos/corte_f5
-#   make eval   CONJUNTO=doc/metodologia/corte_fase5.csv SALIDA=data/conjuntos/corte_f5
-# Los exp_id F4_* están cerrados (C-8); por defecto corren todos los F5_* (preregistro cerrado en E1).
-# La tabla de Fase 4 ya no corre acá (C-8a, 2026-10-13): relee los directorios F4_BENCH_* del cierre, que el
-# motor no regenera, así que en una máquina limpia `make eval` no podía terminar. Va en `make tabla-fase4`.
-eval: eval-sintetico
-	Rscript src/evaluacion/motor_backtesting.R
-	Rscript src/evaluacion/tabla_resultados_fase5.R
-	Rscript src/evaluacion/tabla_pruebas_fase5.R
-
-# Fase 4 (cerrada) — reescribe doc/metodologia/reportes_fase4/tabla_resultados_fase4.csv desde los directorios
-# data/L4_experiments/F4_BENCH_* de la corrida de cierre. Solo en una máquina que los conserve; si falta uno,
-# se detiene (regla 7). Debe dejar el archivo versionado sin cambios (C-8a).
-tabla-fase4:
-	Rscript src/evaluacion/tabla_resultados_fase4.R
-
-# Fase 5 — el criterio de cierre con una sola orden (remediación M3 de la auditoría independiente de Fase 5): master y
-# eval con el corte congelado de F5-16. Es la secuencia de la corrida única (doc/evidencia_corrida_unica_fase5.txt) con
-# dos cambios posteriores que no tocan sus resultados: sin la tabla de Fase 4 (C-8a) y con tabla_pruebas_fase5.R (I3).
-# LOCAL: exige L0 materializada y X-13; tarda unas 6-7 horas y reescribe data/L4_experiments/ y las filas F5 de
-# catalogos/07_experimentos.csv. La reproducción bit a bit exige además la BLAS/LAPACK de la corrida (nota I4).
-# Con el árbol sucio, tabla_pruebas_fase5.R se detiene (exige manifiestos con «arbol: limpio») después de que el
-# motor ya reescribió L4 y 07: antes de correr, `git status --short` debe salir vacío.
-fase5:
-	$(MAKE) master CONJUNTO=doc/metodologia/corte_fase5.csv SALIDA=data/conjuntos/corte_f5
-	$(MAKE) eval CONJUNTO=doc/metodologia/corte_fase5.csv SALIDA=data/conjuntos/corte_f5
-
-# Fase 6 — proyección condicional (Ejercicio B; checklist de Fase 6, D7; protocolo_proyeccion.md §11). La orden única es
-# `make fase6`: master con el corte congelado de F6-04, la verificación sintética (V1-V23) y la proyección. LOCAL: exige
-# L0 materializada y X-13 (C-5). src/proyeccion/correr_fase6.R se detiene sin el preregistro de E1
-# (doc/metodologia/preregistro_fase6_2026-11-11.yaml, que escribe `make preregistro-fase6` y reemplaza al del 2026-11-04), si la guarda recalculada difiere de
-# la congelada o si el árbol no está limpio: antes de correr, `git status --short` debe salir vacío. Escribe
-# data/L4_experiments/F6_COMUN/ y F6_G1..G3/ con manifiesto y las filas F6_* de catalogos/07_experimentos.csv.
-# `make fase6-medicion-bvar` es la medición previa del BVAR (F6-13 d, ítem E2): solo las dos cifras de la ficha, sin
-# senderos; escribe data/L4_experiments/F6_MEDICION_BVAR/.
-FASE6_CORTE := CONJUNTO=doc/metodologia/corte_fase6.csv SALIDA=data/conjuntos/corte_f6
-proyeccion:
-	Rscript src/proyeccion/correr_fase6.R
-
-fase6:
-	$(MAKE) master $(FASE6_CORTE)
-	$(MAKE) eval-sintetico
-	$(MAKE) proyeccion $(FASE6_CORTE)
-
-fase6-medicion-bvar:
-	$(MAKE) master $(FASE6_CORTE)
-	$(MAKE) proyeccion-medicion $(FASE6_CORTE)
-
-proyeccion-medicion:
-	Rscript src/proyeccion/correr_fase6.R medicion
-
-preregistro-fase6:
-	$(MAKE) master $(FASE6_CORTE)
-	$(MAKE) preregistro-escribir $(FASE6_CORTE)
-
-preregistro-escribir:
-	Rscript scripts/armar_preregistro_fase6.R
-
-# Tablas del informe de Fase 6 (F2): copia las salidas de data/L4_experiments/F6_*/ a doc/metodologia/reportes_fase6/,
-# después de comprobar su sha256 contra reportes_fase6/sha256_salidas_fase6.csv. No corre modelos.
-tablas-fase6:
-	Rscript src/proyeccion/tablas_informe_fase6.R
-
-# Fase 7 — sitio de documentación.
-report:
-	@echo "Pendiente: src/reportes/ (Fase 7)"
-
 test:
 	Rscript -e 'testthat::test_dir("tests")'
 
@@ -213,5 +112,5 @@ audit:
 	Rscript scripts/auditoria_mecanica.R
 
 clean:
-	rm -rf data/L1_staging/* data/L2_validated/* data/L3_master/* data/L4_experiments/*
-	@echo "Capas L1-L4 limpiadas. L0_raw nunca se toca desde este objetivo."
+	rm -rf data/L1_staging/* data/L2_validated/* data/L3_master/*
+	@echo "Capas L1-L3 limpiadas. L0_raw nunca se toca desde este objetivo."

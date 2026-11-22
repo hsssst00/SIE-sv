@@ -44,41 +44,6 @@
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
       "Repository": "CRAN"
     },
-    "BVAR": {
-      "Package": "BVAR",
-      "Version": "1.0.5",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Hierarchical Bayesian Vector Autoregression",
-      "Date": "2024-02-13",
-      "Authors@R": "c(person(\"Nikolas\", \"Kuschnig\", role = c(\"aut\", \"cre\"), email = \"nikolas.kuschnig@wu.ac.at\", comment = c(ORCID = \"0000-0002-6642-2543\")), person(\"Lukas\", \"Vashold\", role = \"aut\", comment = c(ORCID = \"0000-0002-3562-3414\")), person(\"Nirai\", \"Tomass\", role = \"ctb\"), person(\"Michael\", \"McCracken\", role = \"dtc\"), person(\"Serena\", \"Ng\", role = \"dtc\"))",
-      "Author": "Nikolas Kuschnig [aut, cre] (<https://orcid.org/0000-0002-6642-2543>), Lukas Vashold [aut] (<https://orcid.org/0000-0002-3562-3414>), Nirai Tomass [ctb], Michael McCracken [dtc], Serena Ng [dtc]",
-      "Maintainer": "Nikolas Kuschnig <nikolas.kuschnig@wu.ac.at>",
-      "Description": "Estimation of hierarchical Bayesian vector autoregressive models following Kuschnig & Vashold (2021) <doi:10.18637/jss.v100.i14>. Implements hierarchical prior selection for conjugate priors in the fashion of Giannone, Lenza & Primiceri (2015) <doi:10.1162/REST_a_00483>. Functions to compute and identify impulse responses, calculate forecasts, forecast error variance decompositions and scenarios are available. Several methods to print, plot and summarise results facilitate analysis.",
-      "URL": "https://github.com/nk027/bvar",
-      "BugReports": "https://github.com/nk027/bvar/issues",
-      "Depends": [
-        "R (>= 3.3.0)"
-      ],
-      "Imports": [
-        "mvtnorm",
-        "stats",
-        "graphics",
-        "utils",
-        "grDevices"
-      ],
-      "Suggests": [
-        "coda",
-        "vars",
-        "tinytest"
-      ],
-      "License": "GPL-3 | file LICENSE",
-      "Encoding": "UTF-8",
-      "LazyData": "true",
-      "RoxygenNote": "7.3.1",
-      "NeedsCompilation": "no",
-      "Repository": "CRAN"
-    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.3.0",
@@ -1656,122 +1621,6 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
-    "fable": {
-      "Package": "fable",
-      "Version": "0.5.0",
-      "Source": "Repository",
-      "Title": "Forecasting Models for Tidy Time Series",
-      "Description": "Provides a collection of commonly used univariate and multivariate time series forecasting models including automatically selected exponential  smoothing (ETS) and autoregressive integrated moving average (ARIMA) models. These models work within the 'fable' framework provided by the 'fabletools' package, which provides the tools to evaluate, visualise, and combine models  in a workflow consistent with the tidyverse.",
-      "Authors@R": "c(person(given = \"Mitchell\", family = \"O'Hara-Wild\", email = \"mail@mitchelloharawild.com\", role = c(\"aut\", \"cre\")), person(given = \"Rob\", family = \"Hyndman\", role = \"aut\"), person(given = \"Earo\", family = \"Wang\", role = \"aut\"), person(given = \"Gabriel\", family = \"Caceres\", role = \"ctb\", comment = \"NNETAR implementation\"), person(given = \"Christoph\", family = \"Bergmeir\", role = \"ctb\", comment = c(ORCID = \"0000-0002-3665-9021\")), person(given = \"Tim-Gunnar\",  family = \"Hensel\",  role = \"ctb\"), person(given = \"Timothy\",  family = \"Hyndman\",  role = \"ctb\"))",
-      "License": "GPL-3",
-      "URL": "https://fable.tidyverts.org, https://github.com/tidyverts/fable",
-      "BugReports": "https://github.com/tidyverts/fable/issues",
-      "Depends": [
-        "R (>= 3.4.0)",
-        "fabletools (>= 0.3.0)"
-      ],
-      "Imports": [
-        "Rcpp (>= 0.11.0)",
-        "rlang (>= 0.4.6)",
-        "stats",
-        "dplyr (>= 1.0.0)",
-        "tsibble (>= 0.9.0)",
-        "tibble",
-        "tidyr",
-        "utils",
-        "distributional",
-        "cli"
-      ],
-      "Suggests": [
-        "covr",
-        "feasts",
-        "forecast",
-        "fracdiff",
-        "knitr",
-        "MTS",
-        "nnet",
-        "rmarkdown",
-        "spelling",
-        "testthat",
-        "tsibbledata (>= 0.2.0)",
-        "urca"
-      ],
-      "LinkingTo": [
-        "Rcpp (>= 0.11.0)"
-      ],
-      "VignetteBuilder": "knitr",
-      "ByteCompile": "true",
-      "Encoding": "UTF-8",
-      "Language": "en-GB",
-      "RoxygenNote": "7.3.3",
-      "NeedsCompilation": "yes",
-      "Author": "Mitchell O'Hara-Wild [aut, cre], Rob Hyndman [aut], Earo Wang [aut], Gabriel Caceres [ctb] (NNETAR implementation), Christoph Bergmeir [ctb] (ORCID: <https://orcid.org/0000-0002-3665-9021>), Tim-Gunnar Hensel [ctb], Timothy Hyndman [ctb]",
-      "Maintainer": "Mitchell O'Hara-Wild <mail@mitchelloharawild.com>",
-      "Repository": "CRAN"
-    },
-    "fabletools": {
-      "Package": "fabletools",
-      "Version": "0.8.0",
-      "Source": "Repository",
-      "Title": "Core Tools for Packages in the 'fable' Framework",
-      "Authors@R": "c(person(given = \"Mitchell\", family = \"O'Hara-Wild\", role = c(\"aut\", \"cre\"), email = \"mail@mitchelloharawild.com\", comment = c(ORCID = \"0000-0001-6729-7695\")), person(given = \"Rob\", family = \"Hyndman\", role = \"aut\"), person(given = \"Earo\", family = \"Wang\", role = \"aut\", comment = c(ORCID = \"0000-0001-6448-5260\")), person(given = \"Di\", family = \"Cook\", role = \"ctb\"), person(given = \"George\", family = \"Athanasopoulos\", role = \"ctb\"), person(given = \"David\", family = \"Holt\", role = \"ctb\"))",
-      "Description": "Provides tools, helpers and data structures for developing models and time series functions for 'fable' and extension packages. These tools support a consistent and tidy interface for time series modelling and analysis.",
-      "License": "GPL-3",
-      "URL": "https://fabletools.tidyverts.org/, https://github.com/tidyverts/fabletools",
-      "BugReports": "https://github.com/tidyverts/fabletools/issues",
-      "Depends": [
-        "R (>= 3.1.3)"
-      ],
-      "Imports": [
-        "tsibble (>= 0.9.0)",
-        "tibble (>= 1.4.1)",
-        "ggplot2 (>= 3.0.0)",
-        "tidyselect",
-        "rlang (>= 0.4.5)",
-        "stats",
-        "dplyr (>= 1.0.0)",
-        "tidyr (>= 1.1.0)",
-        "generics",
-        "R6",
-        "utils",
-        "vctrs (>= 0.2.2)",
-        "distributional (>= 0.3.1)",
-        "progressr",
-        "lifecycle",
-        "ggdist",
-        "scales",
-        "cli"
-      ],
-      "Suggests": [
-        "covr",
-        "crayon",
-        "fable (>= 0.2.0)",
-        "future",
-        "future.apply",
-        "knitr",
-        "pillar (>= 1.0.1)",
-        "feasts (>= 0.1.2)",
-        "rmarkdown",
-        "spelling",
-        "testthat",
-        "tsibbledata (>= 0.2.0)",
-        "lubridate",
-        "urca",
-        "mvtnorm",
-        "Matrix",
-        "ggtime"
-      ],
-      "VignetteBuilder": "knitr",
-      "RdMacros": "lifecycle",
-      "ByteCompile": "true",
-      "Encoding": "UTF-8",
-      "Language": "en-GB",
-      "Config/roxygen2/version": "8.0.0",
-      "NeedsCompilation": "no",
-      "Author": "Mitchell O'Hara-Wild [aut, cre] (ORCID: <https://orcid.org/0000-0001-6729-7695>), Rob Hyndman [aut], Earo Wang [aut] (ORCID: <https://orcid.org/0000-0001-6448-5260>), Di Cook [ctb], George Athanasopoulos [ctb], David Holt [ctb]",
-      "Maintainer": "Mitchell O'Hara-Wild <mail@mitchelloharawild.com>",
-      "Repository": "CRAN"
-    },
     "farver": {
       "Package": "farver",
       "Version": "2.1.2",
@@ -2234,50 +2083,6 @@
       "Package": "gitcreds",
       "Version": "0.1.2",
       "Source": "Repository",
-      "Repository": "CRAN"
-    },
-    "glmnet": {
-      "Package": "glmnet",
-      "Version": "5.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Lasso and Elastic-Net Regularized Generalized Linear Models",
-      "Date": "2026-04-27",
-      "Authors@R": "c(person(\"Jerome\", \"Friedman\", role=c(\"aut\")), person(\"Trevor\", \"Hastie\", role=c(\"aut\", \"cre\"), email = \"hastie@stanford.edu\"), person(\"Rob\", \"Tibshirani\", role=c(\"aut\")), person(\"Balasubramanian\", \"Narasimhan\", role=c(\"aut\")), person(\"Kenneth\",\"Tay\",role=c(\"aut\")), person(\"Noah\", \"Simon\", role=c(\"aut\")), person(\"Junyang\", \"Qian\", role=c(\"ctb\")), person(\"James\", \"Yang\", role=c(\"aut\")), person(\"Jonathan\",\"Taylor\", role=c(\"aut\")))",
-      "Depends": [
-        "R (>= 3.6.0)",
-        "Matrix (>= 1.0-6)"
-      ],
-      "Imports": [
-        "methods",
-        "utils",
-        "foreach",
-        "shape",
-        "survival",
-        "Rcpp"
-      ],
-      "Suggests": [
-        "knitr",
-        "lars",
-        "nnet",
-        "testthat",
-        "xfun",
-        "rmarkdown"
-      ],
-      "SystemRequirements": "C++17",
-      "Description": "Extremely efficient procedures for fitting the entire lasso or elastic-net regularization path for linear regression, logistic and multinomial regression models, Poisson regression, Cox model,  multiple-response Gaussian, and the grouped multinomial regression; see <doi:10.18637/jss.v033.i01> and <doi:10.18637/jss.v039.i05>. There are two new and important additions. The family argument can be a GLM family object, which opens the door to any programmed family (<doi:10.18637/jss.v106.i01>). This comes with a modest computational cost, so when the built-in families suffice, they should be used instead.  The other novelty is the relax option, which refits each of the active sets in the path unpenalized. The algorithm uses cyclical coordinate descent in a path-wise fashion, as described in the papers cited.",
-      "License": "GPL-2",
-      "VignetteBuilder": "knitr",
-      "Encoding": "UTF-8",
-      "URL": "https://glmnet.stanford.edu",
-      "RoxygenNote": "7.3.3",
-      "LinkingTo": [
-        "RcppEigen",
-        "Rcpp"
-      ],
-      "NeedsCompilation": "yes",
-      "Author": "Jerome Friedman [aut], Trevor Hastie [aut, cre], Rob Tibshirani [aut], Balasubramanian Narasimhan [aut], Kenneth Tay [aut], Noah Simon [aut], Junyang Qian [ctb], James Yang [aut], Jonathan Taylor [aut]",
-      "Maintainer": "Trevor Hastie <hastie@stanford.edu>",
       "Repository": "CRAN"
     },
     "globals": {
@@ -3039,47 +2844,6 @@
       "Maintainer": "Lionel Henry <lionel@posit.co>",
       "Repository": "CRAN"
     },
-    "lightgbm": {
-      "Package": "lightgbm",
-      "Version": "4.7.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Light Gradient Boosting Machine",
-      "Date": "2026-07-18",
-      "Authors@R": "c( person(\"Yu\", \"Shi\", email = \"yushi2@microsoft.com\", role = c(\"aut\")), person(\"Guolin\", \"Ke\", email = \"guolin.ke@outlook.com\", role = c(\"aut\")), person(\"Damien\", \"Soukhavong\", email = \"damien.soukhavong@skema.edu\", role = c(\"aut\")), person(\"James\", \"Lamb\", email=\"jaylamb20@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Qi\", \"Meng\", role = c(\"aut\")), person(\"Thomas\", \"Finley\", role = c(\"aut\")), person(\"Taifeng\", \"Wang\", role = c(\"aut\")), person(\"Wei\", \"Chen\", role = c(\"aut\")), person(\"Weidong\", \"Ma\", role = c(\"aut\")), person(\"Qiwei\", \"Ye\", role = c(\"aut\")), person(\"Tie-Yan\", \"Liu\", role = c(\"aut\")), person(\"Nikita\", \"Titov\", role = c(\"aut\")), person(\"Yachen\", \"Yan\", role = c(\"ctb\")), person(\"Microsoft Corporation\", role = c(\"cph\")), person(\"Dropbox, Inc.\", role = c(\"cph\")), person(\"Alberto\", \"Ferreira\", role = c(\"ctb\")), person(\"Daniel\", \"Lemire\", role = c(\"ctb\")), person(\"Victor\", \"Zverovich\", role = c(\"cph\")), person(\"IBM Corporation\", role = c(\"ctb\")), person(\"David\", \"Cortes\", role = c(\"aut\")), person(\"Michael\", \"Mayer\", role = c(\"ctb\")) )",
-      "Description": "Tree based algorithms can be improved by introducing boosting frameworks. 'LightGBM' is one such framework, based on Ke, Guolin et al. (2017) <https://proceedings.neurips.cc/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html>. This package offers an R interface to work with it. It is designed to be distributed and efficient with the following advantages: 1. Faster training speed and higher efficiency. 2. Lower memory usage. 3. Better accuracy. 4. Parallel learning supported. 5. Capable of handling large-scale data. In recognition of these advantages, 'LightGBM' has been widely-used in many winning solutions of machine learning competitions. Comparison experiments on public datasets suggest that 'LightGBM' can outperform existing boosting frameworks on both efficiency and accuracy, with significantly lower memory consumption. In addition, parallel experiments suggest that in certain circumstances, 'LightGBM' can achieve a linear speed-up in training time by using multiple machines.",
-      "Encoding": "UTF-8",
-      "License": "MIT + file LICENSE",
-      "URL": "https://github.com/lightgbm-org/LightGBM",
-      "BugReports": "https://github.com/lightgbm-org/LightGBM/issues",
-      "NeedsCompilation": "yes",
-      "Biarch": "true",
-      "VignetteBuilder": "knitr",
-      "Suggests": [
-        "knitr",
-        "markdown",
-        "RhpcBLASctl",
-        "testthat"
-      ],
-      "Depends": [
-        "R (>= 4.0)"
-      ],
-      "Imports": [
-        "R6 (>= 2.4.0)",
-        "data.table (>= 1.9.6)",
-        "graphics",
-        "jsonlite (>= 1.0)",
-        "Matrix (>= 1.1-0)",
-        "methods",
-        "parallel",
-        "utils"
-      ],
-      "SystemRequirements": "C++17",
-      "Config/roxygen2/version": "8.0.0",
-      "Author": "Yu Shi [aut], Guolin Ke [aut], Damien Soukhavong [aut], James Lamb [aut, cre], Qi Meng [aut], Thomas Finley [aut], Taifeng Wang [aut], Wei Chen [aut], Weidong Ma [aut], Qiwei Ye [aut], Tie-Yan Liu [aut], Nikita Titov [aut], Yachen Yan [ctb], Microsoft Corporation [cph], Dropbox, Inc. [cph], Alberto Ferreira [ctb], Daniel Lemire [ctb], Victor Zverovich [cph], IBM Corporation [ctb], David Cortes [aut], Michael Mayer [ctb]",
-      "Maintainer": "James Lamb <jaylamb20@gmail.com>",
-      "Repository": "CRAN"
-    },
     "listenv": {
       "Package": "listenv",
       "Version": "1.0.0",
@@ -3322,48 +3086,6 @@
       "NeedsCompilation": "yes",
       "Author": "Simon Wood [aut, cre]",
       "Maintainer": "Simon Wood <simon.wood@r-project.org>",
-      "Repository": "CRAN"
-    },
-    "midasr": {
-      "Package": "midasr",
-      "Version": "0.9",
-      "Source": "Repository",
-      "Title": "Mixed Data Sampling Regression",
-      "Description": "Methods and tools for mixed frequency time series data analysis. Allows estimation, model selection and forecasting for MIDAS regressions.",
-      "URL": "http://mpiktas.github.io/midasr/",
-      "Depends": [
-        "R (>= 2.11.0)",
-        "sandwich",
-        "optimx",
-        "quantreg"
-      ],
-      "Imports": [
-        "MASS",
-        "numDeriv",
-        "Matrix",
-        "forecast",
-        "zoo",
-        "stats",
-        "graphics",
-        "utils",
-        "Formula",
-        "texreg",
-        "methods"
-      ],
-      "License": "GPL-2 | MIT + file LICENCE",
-      "BugReports": "https://github.com/mpiktas/midasr/issues",
-      "Suggests": [
-        "testthat",
-        "lubridate",
-        "xts"
-      ],
-      "RoxygenNote": "7.3.2",
-      "Encoding": "UTF-8",
-      "Collate": "'deriv.R' 'imidasreg.R' 'lagspec.R' 'midas_nlpr.R' 'midas_r_methods.R' 'midas_nlpr_methods.R' 'midas_qr_methods.R' 'midas_sp.R' 'midas_sp_methods.R' 'midaslag.R' 'midasqr.R' 'midasr-package.R' 'midasreg.R' 'modsel.R' 'nonparametric.R' 'simulate.R' 'tests.R'",
-      "Authors@R": "c( person(given = \"Vaidotas\",  family = \"Zemlys-Balevičius\", email = \"zemlys@gmail.com\",  role = \"cre\"), person(given = \"Virmantas\",  family = \"Kvedaras\",  email = \"virmantas.kvedaras@ec.europa.eu\",  role = \"aut\"), person(given = \"Vaidotas\",  family= \"Zemlys-Balevičius\",  email = \"zemlys@gmail.com\",  role = \"aut\"))",
-      "NeedsCompilation": "no",
-      "Author": "Vaidotas Zemlys-Balevičius [cre], Virmantas Kvedaras [aut], Vaidotas Zemlys-Balevičius [aut]",
-      "Maintainer": "Vaidotas Zemlys-Balevičius <zemlys@gmail.com>",
       "Repository": "CRAN"
     },
     "mime": {
@@ -4272,40 +3994,6 @@
       "VignetteBuilder": "R.rsp",
       "Author": "Roger Koenker [cre, aut], Stephen Portnoy [ctb] (Contributions to Censored QR code), Pin Tian Ng [ctb] (Contributions to Sparse QR code), Blaise Melly [ctb] (Contributions to preprocessing code), Achim Zeileis [ctb] (Contributions to dynrq code essentially identical to his dynlm code), Philip Grosjean [ctb] (Contributions to nlrq code), Cleve Moler [ctb] (author of several linpack routines), Yousef Saad [ctb] (author of sparskit2), Victor Chernozhukov [ctb] (contributions to extreme value inference code), Ivan Fernandez-Val [ctb] (contributions to extreme value inference code), Martin Maechler [ctb] (tweaks (src/chlfct.f, 'tiny','Large'), <https://orcid.org/0000-0002-8685-9910>), Brian D Ripley [trl, ctb] (Initial (2001) R port from S (to my everlasting shame -- how could I have been so slow to adopt R!) and for numerous other suggestions and useful advice)"
     },
-    "ranger": {
-      "Package": "ranger",
-      "Version": "0.18.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "A Fast Implementation of Random Forests",
-      "Date": "2026-01-15",
-      "Authors@R": "c( person(\"Marvin N.\", \"Wright\", email = \"cran@wrig.de\", role = c(\"aut\", \"cre\")), person(\"Stefan\", \"Wager\", role = \"ctb\"), person(\"Philipp\", \"Probst\", role = \"ctb\"))",
-      "Description": "A fast implementation of Random Forests, particularly suited for high dimensional data. Ensembles of classification, regression, survival and probability prediction trees are supported. Data from genome-wide association studies can be analyzed efficiently. In addition to data frames, datasets of class 'gwaa.data' (R package 'GenABEL') and 'dgCMatrix' (R package 'Matrix')  can be directly analyzed.",
-      "License": "GPL-3",
-      "Imports": [
-        "Rcpp (>= 0.11.2)",
-        "Matrix"
-      ],
-      "LinkingTo": [
-        "Rcpp",
-        "RcppEigen"
-      ],
-      "Depends": [
-        "R (>= 3.1)"
-      ],
-      "Suggests": [
-        "survival",
-        "testthat"
-      ],
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.3",
-      "URL": "https://imbs-hl.github.io/ranger/, https://github.com/imbs-hl/ranger",
-      "BugReports": "https://github.com/imbs-hl/ranger/issues",
-      "NeedsCompilation": "yes",
-      "Author": "Marvin N. Wright [aut, cre], Stefan Wager [ctb], Philipp Probst [ctb]",
-      "Maintainer": "Marvin N. Wright <cran@wrig.de>",
-      "Repository": "CRAN"
-    },
     "rappdirs": {
       "Package": "rappdirs",
       "Version": "0.3.4",
@@ -4789,46 +4477,6 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut], Thomas Lin Pedersen [cre, aut] (<https://orcid.org/0000-0002-5147-4711>), Dana Seidel [aut], Posit Software, PBC [cph, fnd] (03wc8by49)",
       "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
-      "Repository": "CRAN"
-    },
-    "scoringRules": {
-      "Package": "scoringRules",
-      "Version": "1.1.3",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Scoring Rules for Parametric and Simulated Distribution Forecasts",
-      "Date": "2024-09-12",
-      "Authors@R": "c(person(given = c(\"Alexander\", \"I.\"), family = \"Jordan\", role = \"aut\", comment = c(ORCID = \"0000-0001-7423-1352\")),  person(given = \"Fabian\", family = \"Krueger\",  role = c(\"aut\", \"cre\"),  email = \"Fabian.Krueger83@gmail.com\", comment = c(ORCID = \"0000-0002-5112-9037\")), person(given = \"Sebastian\", family = \"Lerch\", role = \"aut\", comment = c(ORCID = \"0000-0002-3467-4375\")),  person(given = \"Sam\", family = \"Allen\", role = \"aut\", comment = c(ORCID = \"0000-0003-1971-8277\")), person(given = \"Maximiliane\", family = \"Graeter\", role = \"ctb\"))",
-      "Description": "Dictionary-like reference for computing scoring rules in a wide range of situations. Covers both parametric forecast distributions (such as mixtures of Gaussians) and distributions generated via simulation. Further  details can be found in the package vignettes <doi:10.18637/jss.v090.i12>,  <doi:10.18637/jss.v110.i08>.",
-      "URL": "https://github.com/FK83/scoringRules",
-      "License": "GPL (>= 2)",
-      "Imports": [
-        "Rcpp (>= 0.12.0)",
-        "methods",
-        "MASS",
-        "knitr"
-      ],
-      "Depends": [
-        "R (>= 3.00)"
-      ],
-      "Suggests": [
-        "gsl (>= 1.8-3)",
-        "hypergeo(>= 1.0)",
-        "rmarkdown",
-        "testthat",
-        "crch",
-        "ggplot2"
-      ],
-      "LinkingTo": [
-        "Rcpp",
-        "RcppArmadillo"
-      ],
-      "RoxygenNote": "7.3.2",
-      "VignetteBuilder": "knitr",
-      "Encoding": "UTF-8",
-      "NeedsCompilation": "yes",
-      "Author": "Alexander I. Jordan [aut] (<https://orcid.org/0000-0001-7423-1352>), Fabian Krueger [aut, cre] (<https://orcid.org/0000-0002-5112-9037>), Sebastian Lerch [aut] (<https://orcid.org/0000-0002-3467-4375>), Sam Allen [aut] (<https://orcid.org/0000-0003-1971-8277>), Maximiliane Graeter [ctb]",
-      "Maintainer": "Fabian Krueger <Fabian.Krueger83@gmail.com>",
       "Repository": "CRAN"
     },
     "seasonal": {
@@ -5494,59 +5142,6 @@
       "Maintainer": "Yihui Xie <xie@yihui.name>",
       "Repository": "CRAN"
     },
-    "tsDyn": {
-      "Package": "tsDyn",
-      "Version": "11.0.5.2",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Nonlinear Time Series Models with Regime Switching",
-      "Date": "2024-10-29",
-      "Authors@R": "c(person(\"Antonio Fabio\", \"Di Narzo\", role = \"aut\", comment =c(ORCID=\"0000-0002-4033-5038\")), person(\"Jose Luis\", \"Aznarte\", role = \"ctb\", comment =c(ORCID=\"0000-0002-1636-244X\"), email = \"jlaznarte@dia.uned.es\"), person(\"Matthieu\", \"Stigler\", role = c(\"aut\",\"cre\"), email=\"Matthieu.Stigler@gmail.com\", comment =c(ORCID=\"0000-0002-6802-4290\")))",
-      "Depends": [
-        "R (>= 3.5.0)"
-      ],
-      "Imports": [
-        "mnormt",
-        "mgcv",
-        "nnet",
-        "tseriesChaos",
-        "tseries",
-        "utils",
-        "vars",
-        "urca",
-        "forecast",
-        "MASS",
-        "Matrix",
-        "foreach",
-        "methods",
-        "generics"
-      ],
-      "Suggests": [
-        "sm",
-        "scatterplot3d",
-        "rgl",
-        "rugarch",
-        "broom",
-        "dplyr",
-        "stringr",
-        "purrr",
-        "tibble",
-        "tidyr",
-        "testthat (>= 3.0.0)"
-      ],
-      "Maintainer": "Matthieu Stigler <Matthieu.Stigler@gmail.com>",
-      "Description": "Implements nonlinear autoregressive (AR) time series models. For univariate series, a non-parametric approach is available through additive nonlinear AR. Parametric modeling and testing for regime switching dynamics is available when the transition is either direct (TAR: threshold AR) or smooth (STAR: smooth transition AR, LSTAR). For multivariate series, one can estimate a range of TVAR or threshold cointegration TVECM models with two or three regimes. Tests can be conducted for TVAR as well as for TVECM (Hansen and Seo 2002 and Seo 2006).",
-      "License": "GPL (>= 2)",
-      "URL": "https://github.com/MatthieuStigler/tsDyn/wiki",
-      "BugReports": "https://github.com/MatthieuStigler/tsDyn/issues",
-      "RoxygenNote": "7.3.2",
-      "LazyData": "true",
-      "Encoding": "UTF-8",
-      "Config/testthat/edition": "3",
-      "NeedsCompilation": "yes",
-      "Author": "Antonio Fabio Di Narzo [aut] (<https://orcid.org/0000-0002-4033-5038>), Jose Luis Aznarte [ctb] (<https://orcid.org/0000-0002-1636-244X>), Matthieu Stigler [aut, cre] (<https://orcid.org/0000-0002-6802-4290>)",
-      "Repository": "CRAN"
-    },
     "tseries": {
       "Package": "tseries",
       "Version": "0.10-62",
@@ -5595,63 +5190,6 @@
       "License": "GPL-2",
       "Repository": "CRAN",
       "NeedsCompilation": "yes"
-    },
-    "tsibble": {
-      "Package": "tsibble",
-      "Version": "1.2.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Tidy Temporal Data Frames and Tools",
-      "Authors@R": "c(person(given = \"Earo\", family = \"Wang\", role = c(\"aut\"), comment = c(ORCID = \"0000-0001-6448-5260\")), person(given = \"Di\", family = \"Cook\", role = c(\"aut\", \"ths\"), comment = c(ORCID = \"0000-0002-3813-7155\")), person(given = \"Rob\", family = \"Hyndman\", role = c(\"aut\", \"ths\"), comment = c(ORCID = \"0000-0002-2140-5352\")), person(given = \"Mitchell\", family = \"O'Hara-Wild\", role = c(\"aut\", \"cre\"), email = \"mail@mitchelloharawild.com\", comment = c(ORCID = \"0000-0001-6729-7695\")), person(given = \"Tyler\", family = \"Smith\", role = \"ctb\"), person(given = \"Wil\", family = \"Davis\", role = \"ctb\", email = \"william.davis@worthingtonindustries.com\"))",
-      "Description": "Provides a 'tbl_ts' class (the 'tsibble') for temporal data in an data- and model-oriented format. The 'tsibble' provides tools to easily manipulate and analyse temporal data, such as filling in time gaps and aggregating over calendar periods.",
-      "License": "GPL-3",
-      "URL": "https://tsibble.tidyverts.org, https://github.com/tidyverts/tsibble",
-      "BugReports": "https://github.com/tidyverts/tsibble/issues",
-      "Depends": [
-        "R (>= 3.2.0)"
-      ],
-      "Imports": [
-        "anytime (>= 0.3.1)",
-        "dplyr (>= 1.1.0)",
-        "generics",
-        "lifecycle",
-        "lubridate (>= 1.7.0)",
-        "methods",
-        "rlang (>= 1.0.0)",
-        "tibble (>= 3.0.0)",
-        "tidyselect (>= 1.0.0)",
-        "vctrs (>= 0.3.1)"
-      ],
-      "Suggests": [
-        "ggplot2 (>= 3.3.0)",
-        "hms",
-        "knitr",
-        "nanotime",
-        "nycflights13 (>= 1.0.0)",
-        "rmarkdown",
-        "scales (>= 1.1.0)",
-        "spelling",
-        "testthat (>= 3.0.0)",
-        "tidyr (>= 1.1.0)",
-        "timeDate"
-      ],
-      "VignetteBuilder": "knitr",
-      "ByteCompile": "true",
-      "Config/testthat/edition": "3",
-      "Encoding": "UTF-8",
-      "Language": "en-GB",
-      "LazyData": "true",
-      "RoxygenNote": "7.3.3",
-      "NeedsCompilation": "no",
-      "Author": "Earo Wang [aut] (ORCID: <https://orcid.org/0000-0001-6448-5260>), Di Cook [aut, ths] (ORCID: <https://orcid.org/0000-0002-3813-7155>), Rob Hyndman [aut, ths] (ORCID: <https://orcid.org/0000-0002-2140-5352>), Mitchell O'Hara-Wild [aut, cre] (ORCID: <https://orcid.org/0000-0001-6729-7695>), Tyler Smith [ctb], Wil Davis [ctb]",
-      "Maintainer": "Mitchell O'Hara-Wild <mail@mitchelloharawild.com>",
-      "Repository": "CRAN"
-    },
-    "urca": {
-      "Package": "urca",
-      "Version": "1.3-4",
-      "Source": "Repository",
-      "Repository": "CRAN"
     },
     "usethis": {
       "Package": "usethis",
@@ -5707,38 +5245,6 @@
       "BugReports": "https://github.com/s-u/uuid/issues",
       "NeedsCompilation": "yes",
       "Repository": "CRAN"
-    },
-    "vars": {
-      "Package": "vars",
-      "Version": "1.6-1",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "VAR Modelling",
-      "Date": "2024-03-20",
-      "Authors@R": "c(person(\"Bernhard\", \"Pfaff\", email = \"bernhard@pfaffikus.de\", role = c(\"aut\", \"cre\")), person(\"Matthieu\", \"Stigler\", role = \"ctb\"))",
-      "Depends": [
-        "R (>= 2.0.0)",
-        "MASS",
-        "strucchange",
-        "urca (>= 1.1-6)",
-        "lmtest (>= 0.9-26)",
-        "sandwich (>= 2.2-4)"
-      ],
-      "Imports": [
-        "methods"
-      ],
-      "LazyLoad": "yes",
-      "Description": "Estimation, lag selection, diagnostic testing, forecasting, causality analysis, forecast error variance decomposition and impulse response functions of VAR models and estimation of SVAR and SVEC models.",
-      "License": "GPL (>= 2)",
-      "URL": "https://www.pfaffikus.de",
-      "Author": "Bernhard Pfaff [aut, cre], Matthieu Stigler [ctb]",
-      "Maintainer": "Bernhard Pfaff <bernhard@pfaffikus.de>",
-      "LazyData": "true",
-      "Repository": "CRAN",
-      "Repository/R-Forge/Project": "vars",
-      "Repository/R-Forge/Revision": "99",
-      "Repository/R-Forge/DateTimeStamp": "2013-07-21 14:35:42",
-      "NeedsCompilation": "no"
     },
     "vctrs": {
       "Package": "vctrs",
@@ -6181,29 +5687,6 @@
       "NeedsCompilation": "yes",
       "Author": "Achim Zeileis [aut, cre] (ORCID: <https://orcid.org/0000-0003-0918-3766>), Gabor Grothendieck [aut], Jeffrey A. Ryan [aut], Joshua M. Ulrich [ctb], Felix Andrews [ctb]",
       "Maintainer": "Achim Zeileis <Achim.Zeileis@R-project.org>",
-      "Repository": "CRAN"
-    },
-    "MCS": {
-      "Package": "MCS",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Model Confidence Set Procedure",
-      "Date": "2026-03-19",
-      "Authors@R": "person(given = \"Leopoldo\", family = \"Catania\", role = c(\"aut\", \"cre\"), email = \"leopoldo.catania@econ.au.dk\", comment = \"ORCID: <https://orcid.org/0000-0002-0981-1921>\")",
-      "Maintainer": "Leopoldo Catania <leopoldo.catania@econ.au.dk>",
-      "Depends": [
-        "R(>= 3.0.1)"
-      ],
-      "Description": "Perform the Model Confidence Set procedure of Hansen et.al (2011).",
-      "License": "GPL-2",
-      "Encoding": "UTF-8",
-      "Imports": [
-        "methods"
-      ],
-      "RoxygenNote": "7.3.3",
-      "NeedsCompilation": "no",
-      "Author": "Leopoldo Catania [aut, cre] (ORCID: <https://orcid.org/0000-0002-0981-1921>)",
       "Repository": "CRAN"
     }
   }

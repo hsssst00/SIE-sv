@@ -84,7 +84,7 @@ pubs_stems <- stems("01_publicaciones")
 mets_stems <- stems("02_metodologias")
 
 csvs <- c("00_instituciones.csv", "03_series.csv", "04_transformaciones.csv",
-          "05_series_master.csv", "07_experimentos.csv",
+          "05_series_master.csv",
           "08_vintages.csv", "09_rupturas.csv")
 
 datos <- lapply(setNames(csvs, csvs), leer_csv)
@@ -108,9 +108,7 @@ h_fila("02_metodologias/",
 
 for (nm in csvs) {
   n    <- nrow(datos[[nm]])
-  nota <- if (nm == "07_experimentos.csv" && n == 0)
-            "0 filas — esperado hasta Fase 5" else ""
-  h_fila(nm, sprintf("%d filas de datos", n), nota)
+  h_fila(nm, sprintf("%d filas de datos", n), "")
 }
 
 # ── 3. Columnas vs datapackage.json ────────────────────────────────────────────
