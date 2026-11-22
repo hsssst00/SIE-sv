@@ -2,7 +2,7 @@
 # Muchos objetivos aún no tienen script real detrás — se implementan en la fase
 # correspondiente de la senda metodológica (§4), no antes.
 
-.PHONY: setup raw raw-rapido raw-calendario raw-api raw-plan raw-fisico materializar-l0 sincronizar-l0 clean master validate test audit trace
+.PHONY: setup raw raw-rapido raw-calendario raw-plan raw-fisico materializar-l0 sincronizar-l0 clean master validate test audit trace
 
 setup:
 	Rscript scripts/bootstrap_renv.R
@@ -31,11 +31,6 @@ raw-calendario:
 # Solo el disco. Sin red, sin navegador.
 raw-fisico:
 	Rscript scripts/verificar_l0_fisico.R
-
-# Solo las fuentes de API (FMI/FRED/BM). Barato y sin navegador — útil mientras se programa,
-# pero NO satisface el criterio de cierre de Fase 2, que exige la corrida completa.
-raw-api: raw-fisico
-	Rscript scripts/verificar_l0.R api
 
 # No pide nada a ninguna fuente: solo lista qué se verificaría y qué está excluido.
 raw-plan:
@@ -83,8 +78,6 @@ master: validate
 	Rscript src/validacion/validar_l2_predictores.R
 	Rscript src/transformacion/l3_pib_objetivo.R
 	Rscript src/transformacion/l3_predictores.R
-	Rscript src/transformacion/extraer_escenarios.R
-	Rscript src/transformacion/l3_escenarios.R
 
 # Validación de esquema de catálogos (columnas/tipos) e integridad referencial entre ellos.
 validate:

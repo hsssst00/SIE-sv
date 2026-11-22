@@ -11,13 +11,18 @@ misma L0.
 
 ## B. Retiro de pronósticos
 
-B1 (código de modelos; este PR) y B2 (escenarios y fuentes externas; pendiente de decidir qué pasa con sus filas
-en el registro de L0).
+B1 (código de modelos, PR #2) y B2 (escenarios y fuentes externas, PR #3).
 - [x] B1. Salen `src/modelos`, `src/evaluacion`, `src/proyeccion`, `src/analisis`, `src/analisis_posterior` y
   `src/reportes`, 34 pruebas y cinco scripts (`armar_corte_fase6`, `armar_preregistro_fase6`, `evidencia_insumos_fase4`,
   `referencia_paridad_bvar` y `verificar_corte_g6`).
-- [ ] B2. Sacar las transformaciones de escenarios (`extraer_escenarios.R`, `l3_escenarios*.R`) y la captura FRED, FMI y CBO
-  (SV0-05).
+- [x] B2. Salen las transformaciones de escenarios (`extraer_escenarios.R`, `l3_escenarios*.R` y su prueba), la captura
+  de FRED, FMI, BM y CBO (`fred.R`, `fmi.R`, `bm.R` y `cbo.R`), el alcance `api` de `verificar_l0.R` (`make raw-api`) y
+  `FRED_API_KEY` de `.Renviron.example`. **Las filas se borran del registro** por decisión de Harold (2026-11-22; nota en
+  ADR-011): 18 de L0 y 08_vintages, 22 publicaciones, 11 series, 11 series maestras, 9 transformaciones y 4 instituciones.
+  `httr2` y `tempdisagg` salen de `DESCRIPTION`.
+- [ ] Limpiar en `conjunto_lib.R` la lógica de la etapa de escenario (`publicaciones_de_escenario()` y
+  `etapa_escenario_activa()`). Sin series de rol `escenario` ya no se activa nunca; se hace en la Fase 1, al mover el
+  código a `siesv`.
 - [x] B1. Salen de `Makefile` los objetivos de exploración, evaluación, proyección y fases 5 y 6. El mecanismo
   `CONJUNTO=`/`SALIDA=` de `make master` **se queda**: construye L1–L3 desde un conjunto de *vintages* declarado y sirve
   al servicio de datos (SV0-03). Detalle delegado al agente; se puede reabrir.

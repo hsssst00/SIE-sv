@@ -86,6 +86,10 @@ identificador que usará el motor de evaluación; `rol` distingue `target_primar
 `target_robustness` / `predictor`. `linaje_l0` documenta de qué archivo(s) de `data/L0_raw/`
 desciende la serie, vía `transf_id` → `04_transformaciones.csv` → `series_insumo`.
 
+**Nota de SIE-sv (2026-11-22, ADR-011, bloque B2).** En SIE-sv no quedan series de rol `escenario` ni `referencia`, ni sus
+transformaciones T012, T013 y T014: salieron con FRED, FMI, BM y CBO. El vocabulario se conserva en `datapackage.json`, y la
+nota siguiente es histórica.
+
 **Nota (2026-10-19, Fase 6, F6-18).** `rol` admite además `escenario` (y `intermediate`, ya en el
 esquema): variables exógenas de la proyección condicional, fuera de la matriz de predictores de Fase 5.
 Son la historia trimestral del PIB y del IPC de EE. UU. y del petróleo en USD, y las series
