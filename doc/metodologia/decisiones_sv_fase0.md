@@ -26,3 +26,8 @@ a este repositorio se renumeran SV0-01..SV0-09. El origen y el alcance están en
 - **CI sin caché:** la primera corrida de SIE-sv falló en `renv::restore()` porque V8 no encuentra `libnode.so.109`.
   Se agrega `libnode-dev` a las dependencias de sistema de `ci.yml`. El mismo defecto está latente en
   `SIE-el-salvador`: aparecería allí si su caché de Actions vence.
+- **Dónde se captura en la transición (Harold, 2026-11-22):** en `SIE-el-salvador`, hasta que cierre su Fase 7.
+  SIE-sv importa las filas de las publicaciones que tiene en su catálogo. Regla de implementación (delegada al agente;
+  se puede reabrir): una fila pasa si su `publicacion_id` tiene ficha en `catalogos/01_publicaciones/` de SIE-sv. Así
+  entran también las 8 publicaciones registradas sin L3, para que su historial de *vintages* quede completo. El script
+  es `scripts/importar_registro_l0.R`, con su lógica en `src/adquisicion/importar_registro_lib.R`.
