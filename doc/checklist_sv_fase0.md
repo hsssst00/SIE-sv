@@ -28,7 +28,8 @@ B1 (código de modelos, PR #2) y B2 (escenarios y fuentes externas, PR #3).
   al servicio de datos (SV0-03). Detalle delegado al agente; se puede reabrir.
 - [x] B1. CI: sale el paso `verificar_motor_sintetico.R`.
 - [x] B1. `DESCRIPTION`, `bootstrap_renv.R` y `renv.lock`: salen los 13 paquetes de modelos (nota en ADR-009).
-- [ ] `renv::snapshot()` para podar las dependencias transitivas que quedaron sin uso.
+- [x] `renv::snapshot()` (Harold, en su PC, sobre `a08ebf1`): salen 50 dependencias transitivas huérfanas y quedan 125
+  paquetes, sin altas ni cambios de versión. Además completa los campos de 26 registros que estaban incompletos.
 - [x] B1. Salen los catálogos `06_modelos` (58 YAML) y `07_experimentos.csv`, de `datapackage.json`, de
   `catalogos/README.md` y del conteo de `auditoria_mecanica.R`.
 
