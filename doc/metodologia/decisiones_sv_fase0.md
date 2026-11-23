@@ -36,3 +36,22 @@ a este repositorio se renumeran SV0-01..SV0-09. El origen y el alcance están en
   `hsssst00/SIE-sv-L0`. Detalles fijados por el agente (delegada al agente; se puede reabrir): en `02_metodologias` se
   conservan las predecesoras por `predecesor_id`, para no romper la cadena; en `09_rupturas` se recortan
   `series_afectadas` en lugar de borrar las rupturas mixtas; el nombre del almacén es `SIE-sv-L0`.
+
+## Adopción de los detalles de los bloques A y C2 (2026-11-23, Harold; auditoría independiente de la Fase 0 de SIE-sv, hallazgo I1)
+
+La sección anterior reúne ocho puntos bajo «delegada al agente». Seis son de la apertura (bloque A): nombre del
+repositorio y del paquete, momento de la copia, copia sin tags, visibilidad, fases de la senda y `libnode-dev` en el
+CI. Uno es de C2: predecesoras en `02_metodologias`, recorte de `series_afectadas` en seis rupturas y nombre del
+almacén. Solo la regla de importación es del bloque C. La delegación de la Fase 0 se registró en `CLAUDE.md` en el
+PR #5 (`723a443`), nombraba los bloques B y C, y ya se había usado en los PR #1 a #3. Harold adopta los ocho
+tal como están. Los adoptados dejan de ser decisiones delegadas. La senda se adopta aparte (`doc/senda_sie_sv.md`,
+«Adopción»).
+
+**Nota (2026-11-23, auditoría independiente de la Fase 0 de SIE-sv, hallazgo I1).** El primer párrafo cita «las
+fichas F8-01..F8-09 de `SIE-el-salvador`». Esas fichas no se versionaron en ningún repositorio: Harold las
+vio en el chat. La tabla de arriba es el único registro de las decisiones; las opciones que no se eligieron no
+constan.
+
+**Nota de fechas (2026-11-23, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M1).** «Decisiones de Harold
+del 2026-11-22»: el commit que las registra, `aa8089f`, es del 2026-11-21 22:53 -0600 (2026-11-22 04:53 UTC). La fecha
+del texto es la UTC. La fecha verificable es la del commit.

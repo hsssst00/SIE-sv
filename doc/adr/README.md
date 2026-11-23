@@ -95,3 +95,23 @@ la regla 4 rige sin excepciones.
 **Tag: `v0.1.0-fase0` (propuesto)**, sobre el commit que ya contiene este registro, nunca antes. Antes de crear el tag
 hay que confirmar que el CI de ese commit queda en verde. En el mismo commit, `CITATION.cff` pasa a la versión 0.1.0 con
 fecha 2026-11-22. La revisión independiente en `doc/auditorias/` y el tag quedan a cargo de Harold.
+
+### Nota de corrección (2026-11-23) — auditoría independiente de la Fase 0 de SIE-sv, hallazgo I1
+
+La viñeta «Decisiones» dice que la sección «Detalles fijados por el agente» de `decisiones_sv_fase0.md` guarda los
+detalles de ejecución de los bloques B y C. No es así: de sus ocho puntos, seis son del bloque A, uno de C2 y uno de
+C. Los rótulos de B y C están en `doc/checklist_sv_fase0.md`. La delegación se registró en `CLAUDE.md` en el PR #5
+y ya se había usado en los PR #1 a #3. El texto de arriba se conserva sin editar.
+
+### Adopción del criterio y de los detalles delegados (2026-11-23) — auditoría independiente de la Fase 0 de SIE-sv, hallazgo I1
+
+Harold adopta la senda v0.1 (`doc/senda_sie_sv.md`, «Adopción», v0.2) y los detalles de los bloques A y C2
+(`doc/metodologia/decisiones_sv_fase0.md`, sección del 2026-11-23). El criterio que este registro declara SATISFECHO deja de
+ser una propuesta del agente que se puede reabrir.
+
+### Nota de fechas (2026-11-23) — auditoría independiente de la Fase 0 de SIE-sv, hallazgo M1
+
+`7cbca83` es del 2026-11-21 21:59:43 -0600; `aa8089f` y `d172a53`, del 2026-11-21 a las 22:53 y 22:59 -0600. ADR-011,
+el registro de decisiones, el comentario de `libnode-dev` en `ci.yml` y la cabecera de
+`doc/historico/cierres_SIE-el-salvador.md` los fechan el 2026-11-22, que es la fecha UTC. La fecha verificable es la
+del commit. El texto de arriba se conserva sin editar.

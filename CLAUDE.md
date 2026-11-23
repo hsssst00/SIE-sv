@@ -34,6 +34,11 @@ para cuáles de los heredados siguen vigentes.
    `doc/historico/CLAUDE_SIE-el-salvador.md`. La delegación de la Fase 0 de SIE-sv (2026-11-22: el agente ejecutó los
    bloques B y C; detalles rotulados «delegada al agente; se puede reabrir») terminó con su cierre, el 2026-11-22. Desde
    ahí la regla 4 rige sin excepciones.
+
+   **Bloques nuevos (2026-11-23, auditoría independiente de la Fase 0 de SIE-sv, hallazgo I1).** Una delegación
+   cubre solo los bloques o fichas que nombra al registrarse. Un bloque que se agrega después al checklist (como C2
+   en la Fase 0) queda fuera hasta que se registre aquí. Lo que haga falta fijar antes de registrar una delegación
+   se pregunta.
 5. **El stack es R, cerrado (ADR-009).** No introduzcas Python u otro lenguaje salvo que exista un ADR posterior que lo autorice explícitamente.
 6. **Todo script de descarga (`src/adquisicion/`) debe fallar de forma visible, no silenciosa**, ante cambios de estructura de la fuente — conforme al principio de inmutabilidad de L0.
 7. **La validación falla, no advierte** (§3.5 de la senda metodológica heredada, `doc/historico/senda_metodologica.md`). Un catálogo que no cumple su esquema detiene el pipeline.
