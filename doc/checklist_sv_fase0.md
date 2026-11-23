@@ -7,7 +7,7 @@ misma L0.
 ## A. Apertura
 - [x] Repositorio `hsssst00/SIE-sv` creado; `main` = `SIE-el-salvador@7cbca83`, sin tags.
 - [x] ADR-011, senda de SIE-sv y registro de decisiones SV0-01..SV0-09 (este PR).
-- [ ] Harold fusiona el PR de apertura.
+- [x] Harold fusiona el PR de apertura (#1, 2026-11-22).
 
 ## B. Retiro de pronósticos
 
@@ -62,12 +62,13 @@ B1 (código de modelos, PR #2) y B2 (escenarios y fuentes externas, PR #3).
   verificados contra el manifiesto. `.Renviron.example`, el manual, README y CLAUDE.md apuntan a él.
 - [x] `importar_registro_l0()` también copia los archivos desde el almacén de origen (sha256 verificado); después,
   `make sincronizar-l0` los sube al almacén de SIE-sv.
-- [ ] Harold clona `hsssst00/SIE-sv-L0` y cambia `SIE_L0_STORE` en su `.Renviron` de SIE-sv.
+- [x] Harold clona `hsssst00/SIE-sv-L0` y cambia `SIE_L0_STORE` en su `.Renviron` de SIE-sv (2026-11-22; `make
+  materializar-l0` → 79/79 PASS).
 
 ## D. Verificación
-- [ ] `make master` en SIE-sv sobre la misma L0: los sha256 de los CSV de las familias de la v1 coinciden con los de
-  `SIE-el-salvador`.
-- [ ] CI en verde.
+- [x] `make master` en SIE-sv sobre la misma L0: los sha256 de los CSV de las familias de la v1 coinciden con los de
+  `SIE-el-salvador` (2026-11-22, 19/19; procedimiento y sha256 en `doc/evidencia_verificacion_sv_fase0.md`).
+- [x] CI en verde: `main` en `405b1a4`, run 45083384498 (`success`).
 
 ## E. Cierre
 - [ ] «Cierre de Fase 0 de SIE-sv» en el índice de ADR, revisión independiente y tag (nombre a decidir).
