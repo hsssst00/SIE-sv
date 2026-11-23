@@ -41,3 +41,57 @@ Los cierres de las Fases 0 a 6 de `SIE-el-salvador`, con sus sprints y remediaci
 [`doc/historico/cierres_SIE-el-salvador.md`](../historico/cierres_SIE-el-salvador.md). Sus tags (`v0.1.0-fase0` a
 `v0.9.1-fase6`) existen solo en ese repositorio. Desde el 2026-11-22, en este índice se registran solo los cierres de
 SIE-sv, con encabezado «## Cierre de Fase N de SIE-sv (AAAA-MM-DD)». `tests/test-adr-indice.R` cuenta solo esos.
+
+## Cierre de Fase 0 de SIE-sv (2026-11-22)
+
+**Criterio de cierre de la Fase 0 de SIE-sv (`doc/senda_sie_sv.md`): SATISFECHO.** «SIE-sv no tiene código de
+pronósticos y el CI está en verde. `make master` reconstruye la L3 vigente y cada CSV de las familias de la v1 tiene el
+mismo sha256 que en `SIE-el-salvador` sobre la misma L0». Lecturas, decididas por Harold el 2026-11-22: «la L3 vigente»
+es lo que `make master` sin `CONJUNTO` escribe en `data/L3_master/`; «las familias de la v1» son las de SV0-02, que dan
+19 CSV (18 series y `PIB_SA_PROPIO_Q_outliers.csv`); «sobre la misma L0» quiere decir los mismos archivos, por sha256,
+de los vintages que usó esa L3 (36 vintages de 12 publicaciones), pasados a `SIE-el-salvador` como conjunto declarado.
+
+**Evidencia.**
+
+- **Sin código de pronósticos:** PR #2 (B1, `6825482`) y PR #3 (B2, `a08ebf1`). `src/` contiene solo `adquisicion/`,
+  `transformacion/` y `validacion/`. El `Makefile` ya no tiene objetivos de exploración, evaluación, proyección ni de
+  las Fases 5 y 6. `DESCRIPTION` y `renv.lock` no tienen los 13 paquetes de modelos; el `renv.lock` del PR #4
+  (`2d80137`) tiene 125 paquetes. Buscar `pronostic|forecast|bvar|arimax` en `src/`, `scripts/`, `Makefile`,
+  `DESCRIPTION` y `.github/` da solo un comentario de `scripts/bootstrap_renv.R`, que registra la salida de esos
+  paquetes.
+- **L3 (bloque D):** `doc/evidencia_verificacion_sv_fase0.md` (PR #8, `af35530`). En la PC `D:\harold` (R 4.6.1), el
+  2026-11-22, SIE-sv `405b1a4` corrió `make master` sin `CONJUNTO` y `SIE-el-salvador` `7cbca83` corrió `make master`
+  con `CONJUNTO=data/conjuntos/bloque_d.csv`. Los 19 CSV tienen el mismo sha256, tanto el de los bytes como el calculado
+  sin CR. La L0 de SIE-sv salió de su almacén propio `hsssst00/SIE-sv-L0` (`23a5ca3`; 79/79 PASS en
+  `verificar_l0_fisico.R`).
+- **Separación (checklist A a C2):**
+  - PR #1 (`fccea38`): apertura, ADR-011, senda y SV0-01..SV0-09.
+  - PR #5 (`b66df79`): historia heredada en `doc/historico/`.
+  - PR #6 (`b8bbcbf`): manual e importador del registro de L0.
+  - PR #7 (`405b1a4`): ADR-012, catálogo de 20 publicaciones y almacén propio.
+- **Decisiones:** SV0-01..SV0-09 en `doc/metodologia/decisiones_sv_fase0.md`, de Harold. Los detalles de ejecución de
+  los bloques B y C están rotulados «delegada al agente; se puede reabrir». Están en la sección «Detalles fijados por el
+  agente» de ese archivo y en `doc/checklist_sv_fase0.md` (el mecanismo `CONJUNTO=`/`SALIDA=`, B1, y el reparto de
+  documentos, C).
+- **CI:** run [#29](https://github.com/hsssst00/SIE-sv/actions/runs/45099077983) en verde sobre `af35530`, el último
+  commit de `main` antes de este registro.
+
+**Lo que queda abierto y NO bloquea este cierre** (declarado, no silenciado):
+
+- **`conjunto_lib.R`** conserva la lógica de la etapa de escenario (`publicaciones_de_escenario()` y
+  `etapa_escenario_activa()`). Sin series de rol `escenario` ya no se activa nunca. Se limpia en la Fase 1.
+- **Captura en la transición:** mientras `SIE-el-salvador` no cierre su Fase 7, se captura allá y SIE-sv importa las
+  filas de sus 20 publicaciones (manual, sección 7.3). SIE-sv todavía no capturó nada por su cuenta.
+- **Reproducción por terceros:** la L0 es privada (ADR-008), así que un tercero no puede rehacer la comparación del
+  bloque D. La referencia publicada (SV0-06) es de la Fase 3.
+- **Plataforma:** la comparación se hizo en una sola máquina con Windows. La evidencia trae el sha256 sin CR para
+  comparar con otras plataformas, pero que la L3 sale igual en Linux no está probado.
+- **ADR-008** sigue «Parcial»; es un estado heredado y no cambia con este cierre.
+- **`SIE-el-salvador`:** el PR #116 (retiro de AP-2) sigue abierto allá y no toca nada de lo que verifica este cierre.
+
+**Delegación.** La delegación del 2026-11-22 (bloques B y C; `CLAUDE.md`, regla 4) termina con este cierre. Desde aquí
+la regla 4 rige sin excepciones.
+
+**Tag: `v0.1.0-fase0` (propuesto)**, sobre el commit que ya contiene este registro, nunca antes. Antes de crear el tag
+hay que confirmar que el CI de ese commit queda en verde. En el mismo commit, `CITATION.cff` pasa a la versión 0.1.0 con
+fecha 2026-11-22. La revisión independiente en `doc/auditorias/` y el tag quedan a cargo de Harold.

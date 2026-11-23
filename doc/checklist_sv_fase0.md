@@ -71,4 +71,5 @@ B1 (código de modelos, PR #2) y B2 (escenarios y fuentes externas, PR #3).
 - [x] CI en verde: `main` en `405b1a4`, run 45083384498 (`success`).
 
 ## E. Cierre
-- [ ] «Cierre de Fase 0 de SIE-sv» en el índice de ADR, revisión independiente y tag (nombre a decidir).
+- [x] «Cierre de Fase 0 de SIE-sv» en el índice de ADR, propagado a README, CLAUDE.md y CITATION.cff (0.1.0).
+- [ ] Revisión independiente en `doc/auditorias/` y tag `v0.1.0-fase0` (Harold).
