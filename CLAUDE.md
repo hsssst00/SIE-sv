@@ -12,11 +12,11 @@ modelos y las proyecciones quedaron en `hsssst00/SIE-el-salvador`, del que este 
 
 ## Estado del proyecto
 
-Fase 0 de SIE-sv abierta el 2026-11-22 (separación): senda en `doc/senda_sie_sv.md`, decisiones en
-`doc/metodologia/decisiones_sv_fase0.md` y tablero en `doc/checklist_sv_fase0.md`. Las Fases 0 a 7 de
-`SIE-el-salvador` son historia heredada (`doc/historico/`, con sus cierres en
-`doc/historico/cierres_SIE-el-salvador.md`). Ver `doc/adr/README.md` para el estado de cada ADR y ADR-011 para cuáles de
-los heredados siguen vigentes.
+Fase 0 de SIE-sv cerrada el 2026-11-22 (separación; tag `v0.1.0-fase0`). La Fase 1 (núcleo `siesv`) todavía no se abre.
+Senda en `doc/senda_sie_sv.md`, decisiones en `doc/metodologia/decisiones_sv_fase0.md` y tablero en
+`doc/checklist_sv_fase0.md`. Las Fases 0 a 7 de `SIE-el-salvador` son historia heredada (`doc/historico/`, con sus
+cierres en `doc/historico/cierres_SIE-el-salvador.md`). Ver `doc/adr/README.md` para el estado de cada ADR y ADR-011
+para cuáles de los heredados siguen vigentes.
 
 **Antes de escribir código de captura o transformación, lee los ADR vigentes en `doc/adr/`.** Son la especificación.
 
@@ -31,10 +31,9 @@ los heredados siguen vigentes.
    que cubre. Nunca cubre las lecturas de un criterio de cierre, los cambios posteriores a un congelamiento, los
    desvíos de un ADR cerrado ni las fichas que Harold no haya visto redactadas: esas decisiones se preguntan siempre.
    Las delegaciones de las Fases 5 a 7 de `SIE-el-salvador` terminaron y están en
-   `doc/historico/CLAUDE_SIE-el-salvador.md`. **Delegación vigente en la Fase 0 de SIE-sv (2026-11-22):** Harold pidió
-   en el chat que el agente ejecute la separación (bloques B y C de `doc/checklist_sv_fase0.md`). Los detalles que fija
-   el agente se rotulan «delegada al agente; se puede reabrir». No cubre la fusión de PR, que hace Harold, ni el
-   cierre de la fase.
+   `doc/historico/CLAUDE_SIE-el-salvador.md`. La delegación de la Fase 0 de SIE-sv (2026-11-22: el agente ejecutó los
+   bloques B y C; detalles rotulados «delegada al agente; se puede reabrir») terminó con su cierre, el 2026-11-22. Desde
+   ahí la regla 4 rige sin excepciones.
 5. **El stack es R, cerrado (ADR-009).** No introduzcas Python u otro lenguaje salvo que exista un ADR posterior que lo autorice explícitamente.
 6. **Todo script de descarga (`src/adquisicion/`) debe fallar de forma visible, no silenciosa**, ante cambios de estructura de la fuente — conforme al principio de inmutabilidad de L0.
 7. **La validación falla, no advierte** (§3.5 de la senda metodológica heredada, `doc/historico/senda_metodologica.md`). Un catálogo que no cumple su esquema detiene el pipeline.

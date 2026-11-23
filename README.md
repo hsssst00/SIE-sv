@@ -10,10 +10,11 @@ sistema de proyección del PIB trimestral y conserva sus modelos, su DOI y sus t
 
 ## Estado
 
-**Fase 0 de SIE-sv abierta el 2026-11-22** (separación). Senda en [`doc/senda_sie_sv.md`](doc/senda_sie_sv.md),
-decisiones en [`doc/metodologia/decisiones_sv_fase0.md`](doc/metodologia/decisiones_sv_fase0.md) y tablero en
-[`doc/checklist_sv_fase0.md`](doc/checklist_sv_fase0.md). El paquete `siesv` todavía no existe: se construye en la
-Fase 1 (núcleo) y la Fase 2 (cliente).
+**Fase 0 de SIE-sv cerrada el 2026-11-22** (separación; tag `v0.1.0-fase0`). La Fase 1 (núcleo `siesv`) todavía no se
+abre. Senda en [`doc/senda_sie_sv.md`](doc/senda_sie_sv.md), decisiones en
+[`doc/metodologia/decisiones_sv_fase0.md`](doc/metodologia/decisiones_sv_fase0.md) y tablero de la Fase 0 en
+[`doc/checklist_sv_fase0.md`](doc/checklist_sv_fase0.md). El paquete `siesv` todavía no existe: se construye en la Fase
+1 (núcleo) y la Fase 2 (cliente).
 
 ## Qué contiene
 
