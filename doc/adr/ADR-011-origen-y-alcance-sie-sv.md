@@ -65,3 +65,9 @@ la `referencia` del WEO), 9 transformaciones de `04_transformaciones.csv` y 4 in
 Es una excepción explícita a la inmutabilidad del registro de L0 de ADR-007. Ningún archivo crudo se pierde: siguen en el
 almacén privado de L0, que comparte con `SIE-el-salvador`, y en el historial de git. Como el almacén no cambia,
 `materializar-l0` y `sincronizar-l0` avisan (no fallan) de 18 archivos sin fila en el manifiesto. Ese aviso es esperado.
+
+## Nota de fechas (2026-11-23, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M1)
+
+«Fecha: 2026-11-22» y «en el commit `7cbca83` (2026-11-22)» son fechas UTC. En la hora del proyecto (-0600), `7cbca83`
+es del 2026-11-21 21:59:43, y este ADR se registró el 2026-11-21 a las 22:53 (`aa8089f`). La fecha verificable es la
+del commit.
