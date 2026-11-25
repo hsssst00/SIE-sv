@@ -180,3 +180,13 @@ test_that("es_unidad_indice reconoce las unidades de indice del catalogo y recha
   expect_false(any(es_unidad_indice(c("dólares corrientes", "GWh"))))
   expect_false(es_unidad_indice(NA_character_))
 })
+
+test_that("exigir_locale_utf8 pasa en UTF-8 y se detiene con un mensaje de locale fuera de UTF-8", {
+  expect_true(exigir_locale_utf8("prueba"))
+  skip_on_os("windows")
+  viejo <- Sys.getlocale("LC_CTYPE")
+  on.exit(Sys.setlocale("LC_CTYPE", viejo), add = TRUE)
+  skip_if(identical(suppressWarnings(Sys.setlocale("LC_CTYPE", "C")), ""), "no se pudo fijar LC_CTYPE = C")
+  expect_error(exigir_locale_utf8("prueba"), "locale UTF-8")
+  expect_error(es_unidad_indice("GWh"), "locale UTF-8")
+})
