@@ -21,7 +21,7 @@ paquetes <- c(
   "here",         # rutas relativas al proyecto
   "testthat",     # pruebas
   # --- Fase 2, agregados despues de ADR-009 conforme fueron haciendo falta -------------
-  "xml2",         # lectura del XML interno de un .xlsx en verificar_fuente_celda.R
+  "xml2",         # declarado en ADR-009; hoy ningun script lo usa (auditoria de la Fase 0 de SIE-sv, M5)
   "chromote",     # navegador headless para el portal del BCR — ADR-009 2026-08-20
   # Agregados el 2026-08-28 (hallazgo M1 de la auditoria de Fase 2): los tres se usan en
   # codigo commiteado y ninguno estaba declarado. digest venia funcionando como dependencia
@@ -37,19 +37,18 @@ paquetes <- c(
   # ut_demanda_serie.R, calendario_bcr_extraer.R) sin estar declarados aqui ni en DESCRIPTION,
   # aunque ya estaban en renv.lock como dependencia transitiva.
   "dplyr",        # validate_catalogs.R, ut_demanda_serie.R
-  "stringr",      # calendario_bcr_extraer.R
-  # Agregados el 2026-09-29 (remediacion de la auditoria independiente de Fase 4). Mismo patron:
-  # `paquetes` es la lista de la que sale el lockfile, no DESCRIPTION, y estos tres faltaban aqui.
-  # SIE-sv (2026-11-22, ADR-011): fabletools y MCS salieron con el codigo de pronosticos; queda yaml.
-  "yaml"          # Import desde 0c1fd00 (F4-12, nota de ADR-009): motor_backtesting.R, test-catalogo-modelos.R.
-                  # Hoy sobrevive como transitiva de pointblank/knitr/rmarkdown; no se deja a esa suerte.
+  "stringr"       # calendario_bcr_extraer.R
+  # SIE-sv: fabletools y MCS salieron con el codigo de pronosticos (2026-11-22, ADR-011), y yaml el 2026-11-25
+  # (auditoria independiente de la Fase 0 de SIE-sv, M5): sus unicos usuarios eran motor_backtesting.R,
+  # correr_fase6.R, tablas_informe_fase6.R y test-catalogo-modelos.R. Sigue en renv.lock como dependencia de
+  # htmlwidgets y usethis.
 )
 
 install.packages(paquetes)
 
 # snapshot.type por defecto es "implicit": solo registra paquetes
 # referenciados via library()/::/require() en el codigo del proyecto. Como
-# estos 16 paquetes se fijan por ADR-009 antes de que exista codigo que los
+# estos paquetes se fijan por ADR-009 antes de que exista codigo que los
 # use (Fase 0-4), hay que nombrarlos explicitamente para que queden en el
 # lockfile. Se agrega "renv" a la lista porque snapshot(packages = ...)
 # restringe el snapshot a lo indicado y deja de incluirlo automaticamente.

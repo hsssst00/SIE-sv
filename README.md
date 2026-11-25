@@ -10,7 +10,7 @@ sistema de proyección del PIB trimestral y conserva sus modelos, su DOI y sus t
 
 ## Estado
 
-**Fase 0 de SIE-sv cerrada el 2026-11-22** (separación; tag `v0.1.0-fase0`). La Fase 1 (núcleo `siesv`) todavía no se
+**Fase 0 de SIE-sv cerrada el 2026-11-22** (separación; tag `v0.1.0-fase0` propuesto). La Fase 1 (núcleo `siesv`) todavía no se
 abre. Senda en [`doc/senda_sie_sv.md`](doc/senda_sie_sv.md), decisiones en
 [`doc/metodologia/decisiones_sv_fase0.md`](doc/metodologia/decisiones_sv_fase0.md) y tablero de la Fase 0 en
 [`doc/checklist_sv_fase0.md`](doc/checklist_sv_fase0.md). El paquete `siesv` todavía no existe: se construye en la Fase
@@ -52,7 +52,7 @@ justamente eso es lo que va a resolver el cliente `siesv`, que descarga de las f
 ## Documentación
 
 - [`doc/adr/`](doc/adr/): decisiones de arquitectura. [ADR-011](doc/adr/ADR-011-origen-y-alcance-sie-sv.md) dice cuáles de las heredadas siguen vigentes.
-- [`doc/manual_actualizacion.md`](doc/manual_actualizacion.md): actualización de L0 a L3. Es un borrador heredado de la Fase 7 de `SIE-el-salvador`.
+- [`doc/manual_actualizacion.md`](doc/manual_actualizacion.md): actualización de L0 a L3. Es un borrador de la Fase 0 de SIE-sv, reescrito desde el de la Fase 7 de `SIE-el-salvador`.
 - [`doc/historico/`](doc/historico/): historia de `SIE-el-salvador`, con decisiones, auditorías, evidencias y la senda original.
 - `CLAUDE.md`: reglas no negociables del pipeline. `CONTRIBUTING.md`: flujo de trabajo.
 

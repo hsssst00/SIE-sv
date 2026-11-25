@@ -2,7 +2,7 @@
 
 Proyecto: SIE-sv — servicio de estadísticas macroeconómicas de El Salvador (derivado de `SIE-el-salvador`, ADR-011)
 
-Cada decisión fundacional (D1–D8, senda metodológica §2) se registra como un ADR independiente, más D9 (stack tecnológico) y D10 (transformaciones L3 de la matriz de predictores), adiciones propias del proyecto no enumeradas en §2 — ver ADR-009 y ADR-010. Formato: contexto, alternativas consideradas, decisión, consecuencias. Un ADR se enmienda, no se reescribe, cuando una decisión posterior lo afecta.
+Cada decisión fundacional (D1–D8, senda metodológica §2) se registra como un ADR independiente, más D9 (stack tecnológico) y D10 (transformaciones L3 de la matriz de predictores), adiciones propias del proyecto no enumeradas en §2 — ver ADR-009 y ADR-010. ADR-011 y ADR-012 son propios de SIE-sv. La «senda metodológica» que cita este párrafo es la heredada (`doc/historico/senda_metodologica.md`). Formato: contexto, alternativas consideradas, decisión, consecuencias. Un ADR se enmienda, no se reescribe, cuando una decisión posterior lo afecta.
 
 | ADR | Decisión | Estado |
 |---|---|---|
@@ -13,7 +13,7 @@ Cada decisión fundacional (D1–D8, senda metodológica §2) se registra como u
 | [005](./ADR-005-soporte-catalogos.md) | Soporte tecnológico de los catálogos | Cerrado |
 | [006](./ADR-006-vocabulario-metadatos.md) | Vocabulario de metadatos | Cerrado |
 | [007](./ADR-007-politica-vintages.md) | Política de versiones de publicación (vintages) | Cerrado |
-| [008](./ADR-008-licencias.md) | Licencias y condiciones de redistribución | Parcial — BCR (corte 2026-10-12 vencido sin pronunciamiento: default conservador), FMI, FRED, Banco Mundial y BID resueltos; CBO resuelta por dominio público (2026-10-17); ISSS, MH, ONEC/DIGESTYC, SECMCA y UT resueltos por decisión de no perseguir esclarecimiento; política de L0 por fuente (2026-10-14); CEPAL (corte 2026-10-16 vencido sin pronunciamiento: default conservador; obras derivadas sin resolver, condición para admitir cualquier serie de CEPAL) |
+| [008](./ADR-008-licencias.md) | Licencias y condiciones de redistribución | Cerrado — en SIE-sv no queda ningún tramo abierto (nota del 2026-11-25). La condición de CEPAL sobre obras derivadas aplica si una serie de CEPAL se propone para SIE-sv. Estado por fuente en las enmiendas. |
 | [009](./ADR-009-stack-tecnologico.md) | Stack tecnológico | Cerrado |
 | [010](./ADR-010-transformaciones-l3-predictores.md) | Método de transformación L3 de la matriz de predictores (desagregación temporal, deflactación, outliers, ajuste estacional) | Cerrado |
 | [011](./ADR-011-origen-y-alcance-sie-sv.md) | Origen y alcance de SIE-sv (repositorio nuevo, sin pronósticos; cliente `siesv`) | Cerrado |
@@ -24,7 +24,7 @@ Cada decisión fundacional (D1–D8, senda metodológica §2) se registra como u
 > desactualizado. Se verifica con un `grep`; en Fase 3 corresponde un `test_that()` que
 > lo compruebe automáticamente.
 
-**Estado general:** nueve de diez ADR cerrados. Solo ADR-008 queda parcial. Su alcance pendiente se redujo en tres tandas. El 2026-08-12: los tramos FMI y FRED quedaron resueltos con el default conservador, y el tramo Banco Mundial quedó relevado con decisión aplazada. El 2026-08-17: el tramo ISSS quedó resuelto por decisión de no perseguir esclarecimiento —no por relevamiento pendiente—, se abrió el tramo CEPAL con consulta enviada y fecha de corte 2026-10-16, y se registró el tramo BID, enganchado al mismo disparador que el del Banco Mundial. El 2026-08-18: los tramos MH, ONEC/DIGESTYC y SECMCA quedaron resueltos por decisión de no perseguir esclarecimiento, mismo patrón que ISSS. La decisión entre una política única de L0 y una por fuente, aplazada hasta el corte del BCR (2026-10-12), se tomó el 2026-10-14: política por fuente. El 2026-10-17 se registró el tramo CBO (Fase 6), resuelto por dominio público; el estado vigente por fuente es la línea **Estado:** de ADR-008. El corte de CEPAL (2026-10-16) venció sin pronunciamiento, y se registró el 2026-10-19 (default conservador; queda abierta la condición sobre obras derivadas).
+**Estado general (SIE-sv, 2026-11-25):** doce de doce ADR cerrados; ADR-008 se cerró para SIE-sv el 2026-11-25 (enmienda en el propio ADR). **Historia heredada de `SIE-el-salvador`:** nueve de diez ADR cerrados. Solo ADR-008 quedaba parcial. Su alcance pendiente se redujo en tres tandas. El 2026-08-12: los tramos FMI y FRED quedaron resueltos con el default conservador, y el tramo Banco Mundial quedó relevado con decisión aplazada. El 2026-08-17: el tramo ISSS quedó resuelto por decisión de no perseguir esclarecimiento —no por relevamiento pendiente—, se abrió el tramo CEPAL con consulta enviada y fecha de corte 2026-10-16, y se registró el tramo BID, enganchado al mismo disparador que el del Banco Mundial. El 2026-08-18: los tramos MH, ONEC/DIGESTYC y SECMCA quedaron resueltos por decisión de no perseguir esclarecimiento, mismo patrón que ISSS. La decisión entre una política única de L0 y una por fuente, aplazada hasta el corte del BCR (2026-10-12), se tomó el 2026-10-14: política por fuente. El 2026-10-17 se registró el tramo CBO (Fase 6), resuelto por dominio público; el estado vigente por fuente es la línea **Estado:** de ADR-008. El corte de CEPAL (2026-10-16) venció sin pronunciamiento, y se registró el 2026-10-19 (default conservador; queda abierta la condición sobre obras derivadas).
 
 ADR-007 y ADR-009 permanecen cerrados y llevan, desde el 2026-08-12, notas de seguimiento con disparador explícito: clientes de API externa en ADR-009 (se decide antes del primer *script* de `src/adquisicion/` que consuma una API), y alcance de *vintages* de predictores externos en ADR-007 (fuera del núcleo mínimo viable).
 
@@ -34,6 +34,12 @@ referencia del ejercicio retrospectivo en ADR-001, con referencia cruzada en ADR
 seguimiento del ajuste estacional del objetivo dentro de cada origen en ADR-004, con referencia
 cruzada en ADR-001; dependencias del motor de evaluación en ADR-009; y unidad de modelación de
 las predictoras en ADR-010. Los diez siguen con el mismo estado.
+
+**Nota de SIE-sv (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M2).** Los tres párrafos
+anteriores son la historia de `SIE-el-salvador` hasta el 2026-11-19. En SIE-sv, FMI, FRED, Banco Mundial y CBO
+salieron en el bloque B2 (ADR-011), y MH, SECMCA, ISSS, CEPAL y BID con ADR-012. SIE-sv no consume ninguna API
+(ADR-012): el disparador de ADR-009 sobre clientes de API externa no tiene objeto mientras ADR-012 rija. «Los diez»
+son ADR-001 a ADR-010; ADR-011 y ADR-012 se agregaron el 2026-11-22.
 
 ## Historia heredada de SIE-el-salvador
 
@@ -115,3 +121,7 @@ ser una propuesta del agente que se puede reabrir.
 el registro de decisiones, el comentario de `libnode-dev` en `ci.yml` y la cabecera de
 `doc/historico/cierres_SIE-el-salvador.md` los fechan el 2026-11-22, que es la fecha UTC. La fecha verificable es la
 del commit. El texto de arriba se conserva sin editar.
+
+### ADR-008 (2026-11-25) — auditoría independiente de la Fase 0 de SIE-sv, hallazgo M2
+
+«Lo que queda abierto» dice que ADR-008 sigue «Parcial». Desde el 2026-11-25 está cerrado para SIE-sv (nota en el propio ADR). El texto de arriba se conserva sin editar.

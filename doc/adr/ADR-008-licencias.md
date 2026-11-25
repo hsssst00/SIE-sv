@@ -1,6 +1,6 @@
 # ADR-008: Licencias y condiciones de redistribución
 
-**Estado:** Parcial — BCR (corte 2026-10-12 vencido sin pronunciamiento: default conservador), FMI, FRED, Banco Mundial y BID resueltos; CBO resuelta por dominio público (2026-10-17); ISSS, MH, ONEC/DIGESTYC, SECMCA y UT resueltos por decisión de no perseguir esclarecimiento; política de L0 por fuente (2026-10-14); CEPAL (corte 2026-10-16 vencido sin pronunciamiento: default conservador; obras derivadas sin resolver, condición para admitir cualquier serie de CEPAL)
+**Estado:** Cerrado — en SIE-sv no queda ningún tramo abierto (nota del 2026-11-25). La condición de CEPAL sobre obras derivadas aplica si una serie de CEPAL se propone para SIE-sv. Estado por fuente en las enmiendas.
 **Fecha:** 2026-08-06
 **Relacionado con:** ADR-005 (principio de reproducibilidad), ADR-003 (fuente verificada)
 
@@ -382,3 +382,17 @@ Louis.» Además lleva el enlace a esos términos.
 declarar en los términos propios que el usuario acepta los de FRED) suponen una aplicación que terceros usan. El
 repositorio no lo es; el enlace ya queda en el `README.md`. La revisión serie por serie de la marca de derechos
 reservados no cambia: GDPC1 y CPIAUCSL son series de BEA y BLS. No cambia el estado del ADR.
+
+## Nota de SIE-sv (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgos M2 y M4)
+
+**Cierre en SIE-sv (decisión de Harold, 2026-11-25).** La enmienda del 2026-10-19 dice que este ADR sigue «Parcial»
+solo por la condición de CEPAL sobre obras derivadas. CEPAL salió del catálogo de SIE-sv con ADR-012 (2026-11-22),
+junto con MH, SECMCA, ISSS y BID; FMI, FRED, Banco Mundial y CBO salieron antes, en el bloque B2. En SIE-sv no queda
+ningún tramo abierto. Si una serie de CEPAL se propone, la condición sobre obras derivadas se resuelve antes de
+admitirla, como fijó la enmienda del 2026-10-19.
+
+**Aviso de FRED.** La nota del 2026-10-23 dice que el `README.md` lleva el aviso de no-aval de FRED. El `README.md` de
+SIE-sv no lo lleva, porque SIE-sv ya no usa FRED. Si FRED volviera, el aviso vuelve con él.
+
+**Código que salió.** Este ADR cita `src/adquisicion/fred.R` y `01_publicaciones/CEPAL.CEPALSTAT.yaml`. En SIE-sv no
+existen; siguen en `SIE-el-salvador`.

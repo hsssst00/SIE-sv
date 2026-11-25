@@ -92,3 +92,6 @@ nombre histórico de la serie predecesora, pero la publicación mensual activa q
 BCR efectivamente anuncia en ese calendario es la serie vigente. Detalle completo en
 las notas de ambos YAML (`catalogos/01_publicaciones/BCR.SPNF_SERIE_1994_2025.yaml` y
 `BCR.SPNF_VIGENTE.yaml`).
+
+*Nota (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M4):* `BCR.SPNF_SERIE_1994_2025.yaml`
+salió del catálogo con ADR-012; la publicación está en `doc/pendientes_fuentes.md` y su ficha, en `SIE-el-salvador`.
