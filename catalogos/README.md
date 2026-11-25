@@ -24,6 +24,13 @@ Una publicación es una tabla o serie identificable en la fuente (ej. `BCR.IVAE.
 `cobertura_temporal`, `condiciones_uso` (ADR-008 — pendiente para fuentes distintas de BCR),
 `notas`.
 
+**Nota de SIE-sv (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgos M3 y M4).** Desde ADR-012
+quedan 20 fichas. Algunas nombran en `notas` una publicación predecesora que salió del catálogo (por ejemplo,
+`BCR.IPP` cita `BCR.IPRI.BASE_1990`): esas publicaciones están en `doc/pendientes_fuentes.md`, y sus fichas completas,
+en `SIE-el-salvador`. El campo `condiciones_uso` conserva el texto de agosto de 2026: las 18 fichas del BCR dicen «En
+gestión» con corte el 2026-10-12, y la de UT, «No verificado». El estado vigente por fuente es la línea **Estado:** de
+ADR-008: el corte del BCR venció sin pronunciamiento (default conservador) y UT quedó resuelta el 2026-09-16.
+
 ## `02_metodologias/` (directorio de YAML, uno por marco metodológico)
 
 Un marco metodológico con vigencia temporal (ej. `SCN2008`). Campos (ver `_plantilla.yaml`):
@@ -79,12 +86,22 @@ crecimiento o nivel anual del WEO y desvío del escenario). `series_insumo` es u
 `fn(insumo(s), etiqueta)`. `reversible` documenta si `valor_producto` puede reconstruir
 `valor_insumo` exactamente (ver `notas` de cada fila para el porqué).
 
+**Nota de SIE-sv (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M4).** `l3_escenarios.R` y
+`extraer_escenarios.R` ya no existen (bloque B2). Las 11 filas que quedan tienen `script_path`
+`src/transformacion/l3_pib_objetivo.R` (T001 y T002) o `src/transformacion/l3_predictores.R` (T003 a T011).
+
 ## `05_series_master.csv`
 
 Una fila por serie que entra a la matriz de modelado (Fase 4+). `series_master_id` es el
 identificador que usará el motor de evaluación; `rol` distingue `target_primary` /
 `target_robustness` / `predictor`. `linaje_l0` documenta de qué archivo(s) de `data/L0_raw/`
 desciende la serie, vía `transf_id` → `04_transformaciones.csv` → `series_insumo`.
+
+**Nota de SIE-sv (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M3).** «Matriz de modelado» y
+«motor de evaluación» describen el uso que tenía `SIE-el-salvador`. En SIE-sv, las 19 filas son las 18 series de L3 de
+la v1 (SV0-02) y un insumo intermedio (`PIB.NSA.CONCAT.Q`); los roles conservan sus nombres. La nota de B2 de abajo
+vale para las dos notas que le siguen (F6-18 y F6-10): las dos son históricas, y «Hoy es una» se refiere a
+`SIE-el-salvador` antes de la separación.
 
 **Nota de SIE-sv (2026-11-22, ADR-011, bloque B2).** En SIE-sv no quedan series de rol `escenario` ni `referencia`, ni sus
 transformaciones T012, T013 y T014: salieron con FRED, FMI, BM y CBO. El vocabulario se conserva en `datapackage.json`, y la

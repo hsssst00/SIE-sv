@@ -317,3 +317,7 @@ podarlo a mano no es seguro. El resto de este ADR no cambia.
 **Bloque B2 (2026-11-22).** También salen de `DESCRIPTION` y de `bootstrap_renv.R` `httr2` (solo lo usaban los clientes de
 FMI, FRED, BM y CBO) y `tempdisagg` (solo lo usaban los senderos de escenario). `tempdisagg` sale además de `renv.lock`. `httr2`
 se queda en `renv.lock`, porque `gh` (que llega por `polite` y `usethis`) lo importa.
+
+**Código que salió (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M4).** Las menciones de
+`src/analisis/`, `src/evaluacion/`, `eval_lib.R` y `catalogos/06_modelos` en las notas de arriba son historia: ese
+código y ese catálogo salieron en el bloque B1 y siguen en `SIE-el-salvador`.

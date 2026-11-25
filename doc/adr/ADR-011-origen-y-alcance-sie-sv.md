@@ -71,3 +71,9 @@ almacén privado de L0, que comparte con `SIE-el-salvador`, y en el historial de
 «Fecha: 2026-11-22» y «en el commit `7cbca83` (2026-11-22)» son fechas UTC. En la hora del proyecto (-0600), `7cbca83`
 es del 2026-11-21 21:59:43, y este ADR se registró el 2026-11-21 a las 22:53 (`aa8089f`). La fecha verificable es la
 del commit.
+
+## Nota (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M6)
+
+La tabla «Herencia» dice que los ADR históricos no se editan. El PR #5 (`723a443`) cambió en ADR-002, que esa tabla
+declara histórico, tres rutas a documentos movidos a `doc/historico/`, y una en ADR-004. Fueron solo rutas; el
+contenido no cambió. Desde esta nota, una ruta que cambie en un ADR histórico se registra aquí.

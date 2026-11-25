@@ -12,7 +12,7 @@ modelos y las proyecciones quedaron en `hsssst00/SIE-el-salvador`, del que este 
 
 ## Estado del proyecto
 
-Fase 0 de SIE-sv cerrada el 2026-11-22 (separación; tag `v0.1.0-fase0`). La Fase 1 (núcleo `siesv`) todavía no se abre.
+Fase 0 de SIE-sv cerrada el 2026-11-22 (separación; tag `v0.1.0-fase0` propuesto). La Fase 1 (núcleo `siesv`) todavía no se abre.
 Senda en `doc/senda_sie_sv.md`, decisiones en `doc/metodologia/decisiones_sv_fase0.md` y tablero en
 `doc/checklist_sv_fase0.md`. Las Fases 0 a 7 de `SIE-el-salvador` son historia heredada (`doc/historico/`, con sus
 cierres en `doc/historico/cierres_SIE-el-salvador.md`). Ver `doc/adr/README.md` para el estado de cada ADR y ADR-011
@@ -56,6 +56,9 @@ para cuáles de los heredados siguen vigentes.
    relevante bajo esta regla. Decisión de Harold, 2026-08-20.
 
 ## Consideraciones sobre fuentes de datos
+
+> **Nota (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M3).** MH salió del catálogo con
+> ADR-012. Lo que sigue queda como antecedente para cuando se evalúe una fuente de `doc/pendientes_fuentes.md`.
 
 - **Ministerio de Hacienda (MH): sin repositorio sistemático.** A diferencia del BCR (URLs `/serie/` individuales por publicación, mismo patrón estructural), el Portal de Transparencia Fiscal (PTF) expone múltiples tablas estáticas como widgets independientes dentro de una misma página HTML (ej. `PTF2-Ingresos.html`), cada una con su propia fecha de "Actualizado" y sin API ni endpoint por serie. Confirmado empíricamente (2026-08-11): 4 tablas en esa página con fechas de actualización entre sep-2019 y jun-2026. Trata cada tabla de Hacienda como un artefacto aislado que requiere verificación individual — la vigencia de una tabla en esa página NO implica la vigencia de otra. Consecuencia de diseño ya aplicada: BCR es la fuente primaria sobre Hacienda para series con equivalente (ver notas cruzadas en `01_publicaciones` y en `00_instituciones.csv`, entrada MH).
 

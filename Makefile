@@ -1,6 +1,5 @@
 # Orquestación del pipeline. Ver CLAUDE.md antes de añadir objetivos nuevos.
-# Muchos objetivos aún no tienen script real detrás — se implementan en la fase
-# correspondiente de la senda metodológica (§4), no antes.
+# Cada objetivo tiene su orden detrás. Los de pronósticos salieron en la Fase 0 de SIE-sv (ADR-011).
 
 .PHONY: setup raw raw-rapido raw-calendario raw-plan raw-fisico materializar-l0 sincronizar-l0 clean master validate test audit trace
 

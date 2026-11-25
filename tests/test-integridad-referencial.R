@@ -18,7 +18,7 @@
 #
 # Lee sólo texto (CSV + 3 escalares de YAML por regex), sin los .xlsx. Cuando se
 # escribió, `yaml` era transitiva y no estaba declarada en DESCRIPTION; desde Fase 4
-# está en Imports (F4-12, nota de ADR-009) y la usa tests/test-catalogo-modelos.R.
+# estuvo en Imports (F4-12) para tests/test-catalogo-modelos.R, que salió en la Fase 0 de SIE-sv (B1).
 # Este bloque sigue con regex porque lee 3 claves escalares planas y no cambia de
 # comportamiento; pasarlo a yaml::read_yaml() es un cambio aparte.
 

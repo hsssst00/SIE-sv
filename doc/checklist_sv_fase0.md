@@ -42,12 +42,20 @@ B1 (código de modelos, PR #2) y B2 (escenarios y fuentes externas, PR #3).
   lugar: `doc/adr/`, `doc/auditorias/` (para las de SIE-sv), bitácoras, calendarios, `entorno_windows.md`,
   `captura_bcr_livewire_hallazgo.md`, `manual_actualizacion.md` y `metodologia/empalme_cuentas_nacionales.md`.
   Delegada al agente; se puede reabrir.
+  **Nota (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M6):** los 90 blobs son idénticos a
+  los de `7cbca83`; git registra 89 renombres al 100 % y una copia (`doc/historico/auditorias/README.md`, cuyo
+  original se reescribió en su lugar). `README_SIE-el-salvador.md` y `CLAUDE_SIE-el-salvador.md` son las versiones del
+  PR #1 (`aa8089f`), no las de `7cbca83`: el `README` perdió su título original («Sistema de Información Estadística y
+  modelos de proyección del PIB trimestral de El Salvador») y los dos llevan un aviso que dice «Fase 0 de SIE-sv
+  abierta». El contenido de `7cbca83` está en el historial de git. Los archivos de `doc/historico/` no se editan.
 - [x] `tests/test-adr-indice.R` cuenta solo «## Cierre de Fase N de SIE-sv». Sin cierres, exige «Fase 0 de SIE-sv
   abierta» en README y CLAUDE.md y una versión 0.0.x en `CITATION.cff`. El tag de cierre acepta `vX.Y.Z-faseN` o
   `vX.Y.Z-sv-faseN`.
 - [x] Se reescriben `README.md`, `CLAUDE.md` (reglas 1–9 intactas, más la excepción B2 en la regla 1 y la delegación
   vigente en la regla 4), `CITATION.cff` (título y resumen nuevos, versión 0.0.0, repositorio SIE-sv) y
   `CONTRIBUTING.md`.
+  **Nota (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M7):** la regla 3 también cambió, de
+  `L1`–`L4` a `L1`–`L3`, y la regla 7 cambió la ruta de la senda heredada.
 - [x] Se reescribe `doc/manual_actualizacion.md` para SIE-sv. Incorpora los defectos del ensayo 2026-T2 (consola o
   terminal en cada comando, `SIE_L0_STORE`, captura D3 en dos llamadas, mensajes de `renv`) y la regla de transición:
   mientras `SIE-el-salvador` no cierre su Fase 7, se captura allá y SIE-sv importa las filas que le sirven con

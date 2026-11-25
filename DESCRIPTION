@@ -16,5 +16,4 @@ Imports:
     here,
     testthat,
     dplyr,
-    stringr,
-    yaml
+    stringr

@@ -569,3 +569,13 @@ de captura, la consola no aceptó la respuesta a la segunda pregunta. La lectura
 la pide la persona, nombrándola. `capturar_d3()` rechaza un plan que no sea del día, una publicación que no cumpla D3
 y el reintento de una captura que ya falló.
 
+## Nota de SIE-sv (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgos M2 y M4)
+
+**Excepción B2.** El 2026-11-22, Harold decidió borrar del registro de SIE-sv las 18 filas de FRED, FMI, BM y CBO del
+manifiesto y de `08_vintages.csv`. Es una excepción explícita a la inmutabilidad del registro de L0 que fija este ADR.
+Está registrada en ADR-011 (nota del 2026-11-22) y en la regla 1 de `CLAUDE.md`. Los archivos siguen en el almacén de
+`SIE-el-salvador` y en el historial de git.
+
+**Código que salió.** Este ADR cita `catalogos/01_publicaciones/FMI.QNEA.yaml`, `FRED.INDICADORES_MENSUALES_EEUU.yaml`,
+`eval_lib.R` y `tests/test-evaluacion.R`. En SIE-sv no existen: salieron en los bloques B1 y B2 de la Fase 0 y siguen
+en `SIE-el-salvador`. Las notas que los citan se conservan sin editar.

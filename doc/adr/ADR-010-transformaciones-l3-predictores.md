@@ -251,3 +251,10 @@ estacionariedad ya no alimenta ninguna decisión aguas abajo, la pregunta de si 
 los outliers declarados se cierra por alcance: su sensibilidad a las dummies de 2020 ya está
 publicada (41 de 64 estadísticos ADF se vuelven menos negativos y cambian 7 veredictos), y
 `estacionariedad.R` no se modifica.
+
+## Nota de SIE-sv (2026-11-25, auditoría independiente de la Fase 0 de SIE-sv, hallazgo M4)
+
+ADR-011 declara vigente este ADR para las familias de la v1. Lo que aquí se refiere a las pruebas de estacionariedad y
+HEGY (`src/analisis/estacionariedad.R`, `estacionariedad_reglas.R`, `hegy.R` y `hegy_reglas.R`) es historia: ese
+código salió de SIE-sv en el bloque B1 de la Fase 0 y sigue en `SIE-el-salvador`. Lo demás sigue vigente según
+ADR-011.
