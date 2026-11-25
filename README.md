@@ -40,6 +40,7 @@ exportaciones FOB, índice de precios de importación (IPM), índice de precios 
 En la consola de R, con el proyecto abierto:
 
 ```r
+# En Linux o macOS, la sesión tiene que correr con locale UTF-8 (LANG=C.UTF-8). En Windows, R 4.6.1 ya lo usa.
 renv::restore()                     # paquetes fijados en renv.lock
 system("make materializar-l0")      # L0 desde el almacén privado hsssst00/SIE-sv-L0 (SIE_L0_STORE en .Renviron)
 system("make master")               # L0 -> L1 -> L2 -> L3

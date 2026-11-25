@@ -83,7 +83,21 @@ agregar_trimestral_suma <- function(mensual, etiqueta) {
 #' tipo de cambio real" -- todas empiezan por "índice", a diferencia de las unidades de nivel
 #' o flujo ("dólares corrientes", "GWh"). Se acepta la forma sin tilde por robustez de captura.
 es_unidad_indice <- function(unit_measure) {
+  exigir_locale_utf8("es_unidad_indice()")
   !is.na(unit_measure) & grepl("^[[:space:]]*[íi]ndice", unit_measure, ignore.case = TRUE)
+}
+
+#' Se detiene si la sesion de R no corre con locale UTF-8. Con un locale de un byte (POSIX/C), la
+#' expresion de es_unidad_indice() es invalida y los literales con tilde de catalogos y mensajes no
+#' se comparan bien. Sin esta guarda, `make master` fallaba a mitad de L3 con un mensaje que culpaba
+#' al catalogo (auditoria independiente de la Fase 0 de SIE-sv, hallazgo M8). Pura salvo leer el locale.
+exigir_locale_utf8 <- function(donde) {
+  if (!isTRUE(l10n_info()[["UTF-8"]])) {
+    stop("FALLO VISIBLE [locale]: ", donde, " necesita una sesion de R con locale UTF-8; esta corre con LC_CTYPE = '",
+         Sys.getlocale("LC_CTYPE"), "'. En Linux o macOS, exportar LANG=C.UTF-8 antes de correr. ",
+         "No es un problema del catalogo.", call. = FALSE)
+  }
+  invisible(TRUE)
 }
 
 #' Exige por catalogo que el SEGUNDO insumo de una deflactacion sea el indice de precios.

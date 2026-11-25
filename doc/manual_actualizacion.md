@@ -42,6 +42,7 @@ y el manual no dice qué hacer, detente y anótalo en tu bitácora (anexo C). Es
 | Windows: Rtools (trae GNU Make) | Correr los objetivos del `Makefile` | `system("make --version")` |
 | Google Chrome o Chromium | `chromote` abre el portal del BCR, que arma las tablas en el navegador | Chrome abre normalmente |
 | Acceso al almacén privado de L0 de SIE-sv (`hsssst00/SIE-sv-L0`, ADR-012) | Reconstruir L3. Los archivos crudos no están en el repo (ADR-008) | Sección 3 |
+| Locale UTF-8 | Las tildes de catálogos y mensajes, y la regla que reconoce los índices. Sin él, `make master` se detiene al empezar | `l10n_info()` debe decir `UTF-8` `TRUE` |
 
 X-13ARIMA-SEATS no se instala aparte: lo trae el paquete `x13binary` de `renv.lock`. SIE-sv no necesita ninguna clave
 de API.

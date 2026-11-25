@@ -10,6 +10,9 @@ jobs:
     env:
       DEBIAN_FRONTEND: noninteractive
       NEEDRESTART_MODE: a
+      # Locale UTF-8 explícito (auditoría independiente de la Fase 0 de SIE-sv, hallazgo M8): con POSIX, la expresión
+      # de es_unidad_indice() es inválida y las pruebas con tildes fallan. Los runners lo traen, pero no se deja a esa suerte.
+      LANG: C.UTF-8
     steps:
       - uses: actions/checkout@v4
 

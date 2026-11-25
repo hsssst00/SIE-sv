@@ -112,6 +112,9 @@ test_that("construir_pib_oficial falla de forma visible ante un hueco", {
 
 test_that("ajustar_estacional_propio produce una serie SA completa y declara un outlier inyectado", {
   x13_disponible <- tryCatch({
+    # Semilla fija: con una serie al azar, X-13 falla en ~1 de cada 8 semillas y la prueba se saltaba sola
+    # (auditoria independiente de la Fase 0 de SIE-sv, adenda).
+    set.seed(42)
     invisible(seasonal::seas(ts(rnorm(40, 100, 1), start = c(2000, 1), frequency = 4)))
     TRUE
   }, error = function(e) FALSE)
@@ -143,6 +146,9 @@ test_that("ajustar_estacional_propio produce una serie SA completa y declara un 
 
 test_that("ajustar_estacional_propio falla de forma visible si los outliers no calzan con lo declarado", {
   x13_disponible <- tryCatch({
+    # Semilla fija: con una serie al azar, X-13 falla en ~1 de cada 8 semillas y la prueba se saltaba sola
+    # (auditoria independiente de la Fase 0 de SIE-sv, adenda).
+    set.seed(42)
     invisible(seasonal::seas(ts(rnorm(40, 100, 1), start = c(2000, 1), frequency = 4)))
     TRUE
   }, error = function(e) FALSE)

@@ -11,6 +11,10 @@
 # que prueba tests/test-conjunto.R. Falla con stop() (regla 7 de CLAUDE.md).
 
 source(here::here("src", "transformacion", "conjunto_lib.R"))
+source(here::here("src", "transformacion", "l3_predictores_reglas.R"))
+
+# Primero el locale: sin UTF-8, L3 se detendria a mitad de camino (hallazgo M8 de la auditoria de la Fase 0).
+exigir_locale_utf8("make master")
 
 if (!nzchar(Sys.getenv("SIE_CONJUNTO", "")) && !nzchar(Sys.getenv("SIE_SALIDA", ""))) {
   cat("Sin conjunto de vintages declarado: make master usa el vintage vigente (sin cambios).\n")
